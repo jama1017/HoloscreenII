@@ -1,15 +1,21 @@
 // Import packages
 var Leap = require('leapjs');
 var WebSocket = require('ws');
-
+var gWebsocketConnect;
 // Latest frame from leap motion
 var latestFrame = null;
 
 // Start server loop
-var wss = new WebSocket.Server({ port: 8080 });
+var wss = new WebSocket.Server({ port: 9999 });
 
 wss.on('connection', function connection(ws) {
     //ws.send(frame.fingers[0].joint_position[3]);
+    gWebsocketConnect  = ws;
+
+    ws.on('message', function incoming(message) {
+         console.log('received: %s', message);
+    });
+
 });
 
 console.log("Server setup");
@@ -46,6 +52,9 @@ Leap.loop(function(frame) {
                 handstring += "#n#";
         }
         console.log(handstring);
+        if(gWebsocketConnect){
+            gWebsocketConnect.send(handstring);
+        }
     }
 });
 
