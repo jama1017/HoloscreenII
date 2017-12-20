@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Hand_model.unity
+  isLoaded: 1
+  isActive: 1
