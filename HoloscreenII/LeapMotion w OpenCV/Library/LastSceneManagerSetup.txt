@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Hand tester_withProjectionMatrix_PlusDIYinteraction_demo12.06.unity
+  isLoaded: 1
+  isActive: 1
