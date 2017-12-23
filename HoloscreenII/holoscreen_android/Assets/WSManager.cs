@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
+using System.Linq;
+using System.Collections.Generic;
 
 
 public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
@@ -11,6 +13,8 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	private WebSocketUnity webSocket;
 	public string websocketServer = "127.0.0.1";
 	public string websocketPort = "9999";
+	public GameObject hand_l,hand_r;
+
 //	public Vector2 faceTrackingScreenDims = new Vector2 (480, 320);
 //	private float eyeDistance = -1.0f;
 //	private float eyeScale = -1.0f;
@@ -24,7 +28,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		Debug.Log ("aaaaa");
 	}
 
 
@@ -64,7 +68,24 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	// This event happens when the websocket received a message
 	public void OnWebSocketUnityReceiveMessage (string message)
 	{
-		Debug.Log("Received from server : " + message);
+		//Debug.Log("Received from server : " + message);
+		var hand_list = message.Split (new string[] { "#OneMore#" }, System.StringSplitOptions.None);
+		//var List = message.Split (new char[] {',', ':', ';'});
+
+		for (int hand_i = 0; hand_i < hand_list.Length; hand_i++) {
+			var hand_info = hand_list[hand_i].Split (new char[] {',', ':', ';'});
+			int i = 0;
+			GameObject cur_hand = hand_l;
+			while (i<hand_info.Length){
+				if (hand_info [i++].Contains ("hand_type")) {
+					Debug.Log (hand_info [i]);
+					if (hand_info [i++].Contains ("right"))
+						cur_hand = hand_r;
+				}			
+			}
+			//if (cur_hand != null)
+			cur_hand.transform.position.Set(cur_hand.transform.position.x+0.1f, cur_hand.transform.position.y, cur_hand.transform.position.z);
+		}
 //		GameObject.Find("NotificationText").GetComponent<TextMesh>().text = "Received from server : " + message;
 //
 //		// Get string
