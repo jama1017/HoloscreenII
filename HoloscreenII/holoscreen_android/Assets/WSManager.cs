@@ -13,7 +13,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	private WebSocketUnity webSocket;
 	public string websocketServer = "127.0.0.1";
 	public string websocketPort = "9999";
-	public GameObject hand_l,hand_r;
+	public string handinfo_l, handinfo_r = "";
 
 //	public Vector2 faceTrackingScreenDims = new Vector2 (480, 320);
 //	private float eyeDistance = -1.0f;
@@ -50,6 +50,14 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 
 	// These callbacks come from WebSocketUnityDelegate
 	// You will need them to manage websocket events
+	public string getHandInfoLeft(){
+		Debug.Log("Hand_l" );
+		return handinfo_l;	
+	}
+	public string getHandInfoRight(){
+		Debug.Log("Hand_r" );
+		return handinfo_r;	
+	}
 
 	// This event happens when the websocket is opened
 	public void OnWebSocketUnityOpen (string sender)
@@ -68,24 +76,22 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	// This event happens when the websocket received a message
 	public void OnWebSocketUnityReceiveMessage (string message)
 	{
-		//Debug.Log("Received from server : " + message);
+		//Debug.Log("Received from server : " );
 		var hand_list = message.Split (new string[] { "#OneMore#" }, System.StringSplitOptions.None);
 		//var List = message.Split (new char[] {',', ':', ';'});
-
+		handinfo_l = "";
+		handinfo_r = "";
 		for (int hand_i = 0; hand_i < hand_list.Length; hand_i++) {
 			var hand_info = hand_list[hand_i].Split (new char[] {',', ':', ';'});
-			int i = 0;
-			GameObject cur_hand = hand_l;
-			while (i<hand_info.Length){
-				if (hand_info [i++].Contains ("hand_type")) {
-					Debug.Log (hand_info [i]);
-					if (hand_info [i++].Contains ("right"))
-						cur_hand = hand_r;
-				}			
-			}
-			//if (cur_hand != null)
-			cur_hand.transform.position.Set(cur_hand.transform.position.x+0.1f, cur_hand.transform.position.y, cur_hand.transform.position.z);
+			if (hand_info [0].Contains ("hand_type")) {
+				//Debug.Log (hand_info [i]);
+				if (hand_info [1].Contains ("left"))
+					handinfo_l = hand_list [hand_i]; 
+				else
+					handinfo_r = hand_list [hand_i];
+			}				
 		}
+
 //		GameObject.Find("NotificationText").GetComponent<TextMesh>().text = "Received from server : " + message;
 //
 //		// Get string

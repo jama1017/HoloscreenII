@@ -1,5 +1,4 @@
 sceneSetups:
-- path: C:/Users/harry/OneDrive - Brown University/Research@Brown/LeapMotion w OpenCV/Assets/Hand
-    tester_withProjectionMatrix_PlusDIYinteraction_demo12.06.unity
+- path: Assets/Hand_model.unity
   isLoaded: 1
   isActive: 1

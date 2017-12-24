@@ -1,5 +1,6 @@
 // Import packages
 var Leap = require('leapjs');
+Leap.Controller.optimizeHMD = true;
 var WebSocket = require('ws');
 var gWebsocketConnect;
 // Latest frame from leap motion
@@ -36,6 +37,7 @@ Leap.loop(function(frame) {
             handstring += "palm_pos: " + hand.palmPosition.toString() + "; ";
             handstring += "palm_vel: " + hand.palmVelocity.toString() + "; ";
             handstring += "palm_norm: " + hand.palmNormal.toString() + "; ";
+            handstring += "palm_dir: " + hand.direction.toString() + "; ";
             for (var i=0; i<5; i++){
                 /* 
                 0 = THUMB
