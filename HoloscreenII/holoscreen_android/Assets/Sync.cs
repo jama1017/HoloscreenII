@@ -14,13 +14,13 @@ public class Sync : MonoBehaviour {
 		string msg = "";
 		if (this.name.Contains("_l"))
 			msg = ws.getHandInfoLeft ();
-		else
+		else if (this.name.Contains("_r"))
 			msg = ws.getHandInfoRight ();
 		//Debug.Log (msg);
 		if (msg.Equals("")) 
 			this.gameObject.SetActive (false);
 		//else
-		//	this.gameObject.SetActive (true);
+		//	this.gameObject.Set;
 		
 		//Debug.Log (msg);
 		var hand_info = msg.Split (new char[] {',', ':', ';'});
@@ -30,30 +30,19 @@ public class Sync : MonoBehaviour {
 			string type = hand_info[i++];
 			if (type.Contains ("palm")) {
 				GameObject palm = this.transform.GetChild (5).gameObject;
-				//Vector3 palm_norm = new Vector3();
 				if (type.Contains ("pos")) {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
-					//Debug.Log (hand_info [i]);
 					palm_pos = palm_pos * 0.001f;
-					//Debug.Log (palm_pos);
 					palm.transform.position = palm_pos;
 				} else if (type.Contains ("vel")){
 					i += 3;
-					//Debug.Log (hand_info [i]);
 				}else if(type.Contains ("norm")){
 					palm_norm = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
-					//Quaternion palm_rot = Quaternion.LookRotation (palm_norm);
 					Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);
 					palm.transform.rotation = palm_rot_byNorm;
-					//Debug.Log (type);
 				}else{
 					Vector3 palm_dir = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
-					//Quaternion palm_rot1 = Quaternion.FromToRotation (Vector3.forward, palm_norm);
-					//Quaternion palm_rot1 = Quaternion.FromToRotation (palm.transform.forward, palm_norm);
 					Quaternion palm_rot_byDir = Quaternion.FromToRotation (palm.transform.up,palm_dir);
-					//Debug.Log (palm_norm);
-					//Debug.Log (palm.transform.up);
-					//Quaternion palm_rot2 = Quaternion.FromToRotation (Vector3.forward,palm_norm);
 					palm.transform.rotation = palm_rot_byDir*palm.transform.rotation;
 
 				}

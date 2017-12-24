@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class hand_enable : MonoBehaviour {
 	public WSManager ws;
+	public GameObject hand_l, hand_r;
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
+		hand_l = GameObject.Find ("Hand_l").gameObject;
+		hand_r = GameObject.Find ("Hand_r").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -14,14 +17,15 @@ public class hand_enable : MonoBehaviour {
 		string msg = "";
 		msg = ws.getHandInfoLeft ();
 		if (!msg.Equals ("") ) {
-			if (GameObject.Find ("Hand_l").gameObject.activeInHierarchy)
-				GameObject.Find ("Hand_l").gameObject.SetActive (true);
+			//if (GameObject.Find ("Hand_l").gameObject.activeInHierarchy)
+			hand_l.SetActive (true);
 		}
 			
 		msg = ws.getHandInfoRight ();
+		//Debug.Log (msg);
 		if (!msg.Equals ("")) {
-			if (GameObject.Find ("Hand_r").gameObject.activeInHierarchy)
-				GameObject.Find ("Hand_r").gameObject.SetActive (true);
+			//if (GameObject.Find ("Hand_r").gameObject.activeInHierarchy)
+			hand_r.SetActive (true);
 		}
 	}
 }

@@ -28,7 +28,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("aaaaa");
+		//Debug.Log ("aaaaa");
 	}
 
 
@@ -51,11 +51,11 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	// These callbacks come from WebSocketUnityDelegate
 	// You will need them to manage websocket events
 	public string getHandInfoLeft(){
-		Debug.Log("Hand_l" );
+		//Debug.Log("Hand_l" );
 		return handinfo_l;	
 	}
 	public string getHandInfoRight(){
-		Debug.Log("Hand_r" );
+		//Debug.Log("Hand_r" );
 		return handinfo_r;	
 	}
 
@@ -79,18 +79,20 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		//Debug.Log("Received from server : " );
 		var hand_list = message.Split (new string[] { "#OneMore#" }, System.StringSplitOptions.None);
 		//var List = message.Split (new char[] {',', ':', ';'});
-		handinfo_l = "";
-		handinfo_r = "";
+		string handinfo_l_temp = "";
+		string handinfo_r_temp = "";
 		for (int hand_i = 0; hand_i < hand_list.Length; hand_i++) {
 			var hand_info = hand_list[hand_i].Split (new char[] {',', ':', ';'});
 			if (hand_info [0].Contains ("hand_type")) {
 				//Debug.Log (hand_info [i]);
 				if (hand_info [1].Contains ("left"))
-					handinfo_l = hand_list [hand_i]; 
+					handinfo_l_temp = hand_list [hand_i]; 
 				else
-					handinfo_r = hand_list [hand_i];
+					handinfo_r_temp = hand_list [hand_i];
 			}				
 		}
+		handinfo_l = handinfo_l_temp;
+		handinfo_r = handinfo_r_temp;
 
 //		GameObject.Find("NotificationText").GetComponent<TextMesh>().text = "Received from server : " + message;
 //

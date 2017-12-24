@@ -59,6 +59,12 @@ Leap.loop(function(frame) {
             gWebsocketConnect.send(handstring);
         }
     }
+    else{
+        if(gWebsocketConnect){
+            //console.log(handstring);
+            gWebsocketConnect.send("");
+        }
+    }
 });
 
 console.log("Leap setup");
