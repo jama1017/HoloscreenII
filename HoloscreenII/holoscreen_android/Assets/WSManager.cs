@@ -13,7 +13,8 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	private WebSocketUnity webSocket;
 	public string websocketServer = "127.0.0.1";
 	public string websocketPort = "9999";
-	public string handinfo_l, handinfo_r = "";
+	private string handinfo_l = "";
+	private string handinfo_r = "";
 
 //	public Vector2 faceTrackingScreenDims = new Vector2 (480, 320);
 //	private float eyeDistance = -1.0f;

@@ -8,6 +8,7 @@ public class hand_enable : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
+
 		hand_l = GameObject.Find ("Hand_l").gameObject;
 		hand_r = GameObject.Find ("Hand_r").gameObject;
 	}
