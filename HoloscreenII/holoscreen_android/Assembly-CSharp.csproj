@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\InteractionScript.cs" />
      <Compile Include="Assets\Sync.cs" />
      <Compile Include="Assets\WSManager.cs" />
      <Compile Include="Assets\WebSocketUnity\Platforms\WebSocketUnityAndroid.cs" />
