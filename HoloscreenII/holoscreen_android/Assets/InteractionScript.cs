@@ -28,7 +28,6 @@ public class InteractionScript : MonoBehaviour {
 	bool grabbed = false;
 
 	private int sizeOfSpeedQ = 10; 
-	private int ct = 0;
 	private Queue<Vector3> speedList = new Queue<Vector3>();
 	private float colliderReenableTime = 1.5f;
 	private float add;
@@ -153,7 +152,6 @@ public class InteractionScript : MonoBehaviour {
 			initial_v = palm_l.GetComponent<Rigidbody> ().velocity;
 			speedList.Dequeue ();
 			speedList.Enqueue (initial_v);
-			Debug.Log ("left hand grabbed!!!");
 			grabbed = true;
 			restoreColliderTimer = Time.time;
 			this.GetComponent<Rigidbody> ().isKinematic = true;
@@ -178,9 +176,6 @@ public class InteractionScript : MonoBehaviour {
 			*/
 		} 
 		else if (grabbed == true && dist_thumb_index_l > 0.075f) {
-			Debug.Log (" grabbed, ready to throw" + dist_thumb_index_l);
-			ct++;
-		
 			grabbed = false;
 			this.transform.parent = null;
 			this.GetComponent<Rigidbody> ().isKinematic = false;
