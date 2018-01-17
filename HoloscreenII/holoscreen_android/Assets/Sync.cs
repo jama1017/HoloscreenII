@@ -85,6 +85,7 @@ public class Sync : MonoBehaviour {
 				if (type.Contains ("pos")) {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					palm_pos = palm_pos * 0.001f;
+					palm_pos [1] += 0.2f;
 					l_palm.transform.position = palm_pos;
 				} else if (type.Contains ("vel")){
 					i += 3;
@@ -96,7 +97,6 @@ public class Sync : MonoBehaviour {
 					Vector3 palm_dir = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					Quaternion palm_rot_byDir = Quaternion.FromToRotation (l_palm.transform.up,palm_dir);
 					l_palm.transform.rotation = palm_rot_byDir*l_palm.transform.rotation;
-
 				}
 					
 			}else if(type.Contains ("finger")){
@@ -113,10 +113,11 @@ public class Sync : MonoBehaviour {
 						if (vec3_type.Contains ("pos")) {
 							Vector3 bone_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 							bone_pos = bone_pos * 0.001f;
+							bone_pos[1] += 0.2f;
 							bone.transform.position = bone_pos;
 						} else {
 							//Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);
-							Vector3 finger_dir = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
+							Vector3 finger_dir = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), float.Parse (hand_info [i++]));
 							Quaternion palm_rot_byDir = Quaternion.FromToRotation (Vector3.up, finger_dir);
 							bone.transform.rotation = palm_rot_byDir;
 						}
@@ -127,6 +128,8 @@ public class Sync : MonoBehaviour {
 		}
 	}
 
+	/* Bone Mapping functions, do not modify 
+	   unless you are sure what it is */
 	GameObject getBoneFromFinger(int fingerIndex, int bone){
 		GameObject b = l_finger0_bone0;
 		switch (fingerIndex) {

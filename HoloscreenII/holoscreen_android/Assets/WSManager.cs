@@ -94,38 +94,6 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		}
 		handinfo_l = handinfo_l_temp;
 		handinfo_r = handinfo_r_temp;
-
-//		GameObject.Find("NotificationText").GetComponent<TextMesh>().text = "Received from server : " + message;
-//
-//		// Get string
-//		string[] pointsStr = message.Split(',');
-//		Vector2[] points = new Vector2[3];
-//
-//		// Convert to points
-//		for (int i = 0; i < pointsStr.Length; i += 2) {
-//			float x = float.Parse (pointsStr [i], CultureInfo.InvariantCulture.NumberFormat);
-//			float y = float.Parse (pointsStr [i+1], CultureInfo.InvariantCulture.NumberFormat);
-//			points [i / 2] = new Vector2 (x / faceTrackingScreenDims.x, y / faceTrackingScreenDims.y) - new Vector2(0.5f, 0.5f);
-//		}
-//
-//		// Get distance between eyes
-//		float d = (points [1] - points [0]).magnitude;
-//		float scale = 0.0622f / d;
-//		Vector2 centroid = (points [0] + points [1] + points [2]) / 3.0f;
-//
-//		// TODO: initially set the below based on user a standard distance away from the camera
-//		// TODO: solve for translation of points from default using projection matrix
-//		// TODO: rotation based on this
-//
-//		// Update parameters / camera
-//		if (eyeDistance < 0) {
-//			eyeDistance = d;
-//			eyeScale = scale;
-//			eyeCentroid = centroid;
-//		} else {
-//			transform.localPosition = new Vector3(centroid.x - eyeCentroid.x, centroid.y - eyeCentroid.y, 0) * 0.1f;
-//		}
-
 	}
 
 	// This event happens when the websocket received data (on mobile : ios and android)
