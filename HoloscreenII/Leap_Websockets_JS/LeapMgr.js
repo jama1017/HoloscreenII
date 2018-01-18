@@ -92,7 +92,7 @@ if(!isPlayBack){
                     handstring += "finger_type: " + finger.type + "; ";
                     for (var bone_i=1; bone_i<4; bone_i++){
                         handstring += "finger_" + bone_i.toString() + "_pos: " + swapYZ(finger.bones[bone_i].center()).toString() + "; ";
-                        handstring += "finger_" + bone_i.toString() + "_dir: " + swapYZ(finger.bones[bone_i].direction()).toString() + "; ";
+                        handstring += "finger_" + bone_i.toString() + "_dir: " + swapXY(finger.bones[bone_i].direction()).toString() + "; ";
                     }
                 }
             }
@@ -115,6 +115,14 @@ function swapYZ(t){
     var tmp = t[2];
     t[2] = -t[1];
     t[1] = -tmp;
+    return t;
+}
+
+function swapXY(t){
+    t[0] = t[0];
+    var tmp = t[2];
+    t[2] = -t[1];
+    t[1] = tmp;
     return t;
 }
 /*

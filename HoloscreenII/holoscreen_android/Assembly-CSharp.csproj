@@ -56,6 +56,8 @@
      <Compile Include="Assets\WebSocketUnity\Platforms\WebSocketUnityiOS.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnity.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
+     <Compile Include="Assets\camControl.cs" />
+     <Compile Include="Assets\cameraProjectionRemap.cs" />
      <Compile Include="Assets\drawLine.cs" />
      <Compile Include="Assets\hand_enable.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />

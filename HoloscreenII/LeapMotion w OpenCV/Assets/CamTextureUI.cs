@@ -12,7 +12,7 @@ public class CamTextureUI : MonoBehaviour {
 		devices = WebCamTexture.devices;
 
 		WebCamTexture webcamTexture = new WebCamTexture();
-		webcamTexture.deviceName = devices[1].name;
+		webcamTexture.deviceName = devices[0].name;
 		rawimage.texture = webcamTexture;
 		rawimage.material.mainTexture = webcamTexture;
 		webcamTexture.Play();
