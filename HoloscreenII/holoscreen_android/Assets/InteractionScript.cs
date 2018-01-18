@@ -149,8 +149,7 @@ public class InteractionScript : MonoBehaviour {
 				c.bounds.Intersects (ringfinger_l_2.GetComponent<Collider> ().bounds))) {
 
 			//Record current velocity and delete the oldest velocity
-			this.transform.parent = grabHolder.transform;
-		
+			this.transform.SetParent(grabHolder.transform);
 			Vector3 initial_v = new Vector3 ();
 			initial_v = palm_l.GetComponent<Rigidbody> ().velocity;
 			speedList.Dequeue ();
