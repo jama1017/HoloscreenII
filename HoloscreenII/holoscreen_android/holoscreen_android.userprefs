@@ -1,6 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\drawLine.cs">
+    <Files>
+      <File FileName="Assets\Sync.cs" Line="7" Column="2" />
+      <File FileName="Assets\InteractionScript.cs" Line="186" Column="38" />
+      <File FileName="Assets\drawLine.cs" Line="30" Column="44" />
+      <File FileName="Assets\DataManager.cs" Line="34" Column="24" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

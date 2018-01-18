@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sync : MonoBehaviour {
-	public WSManager ws;
+	private WSManager ws;
+	private DataManager dataManager;
 	private GameObject l_palm;
 
 	private GameObject l_finger0;
@@ -36,6 +37,7 @@ public class Sync : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
+		dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
 		l_palm = this.transform.GetChild (5).gameObject;
 		l_finger0 = this.transform.GetChild (0).gameObject;
 		l_finger0_bone0 = l_finger0.transform.GetChild (0).gameObject;
@@ -87,6 +89,7 @@ public class Sync : MonoBehaviour {
 					palm_pos = palm_pos * 0.001f;
 					palm_pos [1] += 0.2f;
 					l_palm.transform.position = palm_pos;
+					dataManager.setLeftHandPosition (palm_pos);
 				} else if (type.Contains ("vel")){
 					i += 3;
 				}else if(type.Contains ("norm")){

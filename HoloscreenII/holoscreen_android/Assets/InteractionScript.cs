@@ -24,6 +24,8 @@ public class InteractionScript : MonoBehaviour {
 	private GameObject thumb_r_2, indexfinger_r_2, middlefinger_r_2, ringfinger_r_2;
 
 	private GameObject grabHolder;
+	private DataManager dataManager;
+
 	//Boolean var to record current grab motion
 	bool grabbed = false;
 
@@ -37,6 +39,7 @@ public class InteractionScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//0.21 finger to palm
+		dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
 
 		for (int i=0; i < sizeOfSpeedQ; i++)
 			speedList.Enqueue(new Vector3(0,0,0));
@@ -155,6 +158,7 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = true;
 			restoreColliderTimer = Time.time;
 			this.GetComponent<Rigidbody> ().isKinematic = true;
+			dataManager.setLeftHandGrab (true);
 
 		} else if (dist_thumb_index_r < 0.060 && (curve_indexfinger_r>15) &&
 			(c.bounds.Intersects (thumb_r_2.GetComponent<Collider> ().bounds) || c.bounds.Contains (thumb_r_2.transform.position)) &&
@@ -179,6 +183,7 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = false;
 			this.transform.parent = null;
 			this.GetComponent<Rigidbody> ().isKinematic = false;
+			dataManager.setLeftHandGrab (false);
 		/*	int num_speed = speedList.Count;
 			Vector3 average = new Vector3 (0, 0, 0);
 			for (int i = 0; i < sizeOfSpeedQ; i++) {
@@ -249,7 +254,8 @@ public class InteractionScript : MonoBehaviour {
 			Color cur_color =  new Vector4 (0f, 0f, 0f, 0f);
 			this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
 		}
-		;
+
+		//drawLineToHand ();
 
 	}
 
@@ -265,5 +271,13 @@ public class InteractionScript : MonoBehaviour {
 		for (int i=0; i<2; i++)
 			finger.transform.GetChild (i).GetComponent<Collider>().isTrigger = false;
 		return;
+	}
+
+	private void OnDrawGizmosSelected () {
+		if(hand_l != null) {
+			// Draws a blue line from this transform to the target
+			Gizmos.color = Color.blue;
+			Gizmos.DrawLine (transform.position, hand_l.transform.position);
+		}
 	}
 }

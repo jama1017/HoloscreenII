@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DataManager.cs" />
      <Compile Include="Assets\InteractionScript.cs" />
      <Compile Include="Assets\Sync.cs" />
      <Compile Include="Assets\WSManager.cs" />
@@ -55,6 +56,7 @@
      <Compile Include="Assets\WebSocketUnity\Platforms\WebSocketUnityiOS.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnity.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
+     <Compile Include="Assets\drawLine.cs" />
      <Compile Include="Assets\hand_enable.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
      <None Include="Assets\WebSocketUnity\README-Unity4.X.txt" />
