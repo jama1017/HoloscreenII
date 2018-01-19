@@ -14,7 +14,7 @@ public class InteractionScript : MonoBehaviour {
 	 * 5 - palm for another hand
 	 * 6- forearm
 	 */
-	public GameObject hand_l,hand_r;
+	private GameObject hand_l,hand_r;
 
 	//Left hand finger declare
 	private GameObject thumb_l, indexfinger_l, middlefinger_l, ringfinger_l, palm_l;
@@ -40,6 +40,8 @@ public class InteractionScript : MonoBehaviour {
 	void Start () {
 		//0.21 finger to palm
 		dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
+		hand_l = GameObject.Find ("Hand_l").gameObject;
+		hand_r = GameObject.Find ("Hand_r").gameObject;
 
 		for (int i=0; i < sizeOfSpeedQ; i++)
 			speedList.Enqueue(new Vector3(0,0,0));

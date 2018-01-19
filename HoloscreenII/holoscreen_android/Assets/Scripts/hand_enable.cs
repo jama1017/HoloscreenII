@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class hand_enable : MonoBehaviour {
-	public WSManager ws;
-	public GameObject hand_l, hand_r;
+	private WSManager ws;
+	private GameObject hand_l;
+	private GameObject hand_r;
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
