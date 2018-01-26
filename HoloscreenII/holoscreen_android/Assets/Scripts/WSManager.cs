@@ -11,7 +11,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 
 	// Web Socket for Unity
 	private WebSocketUnity webSocket;
-	public string websocketServer = "127.0.0.1";
+	public string websocketServer = "138.16.115.85";
 	public string websocketPort = "9999";
 	private string handinfo_l = "";
 	private string handinfo_r = "";

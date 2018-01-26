@@ -97,7 +97,7 @@ if(!isPlayBack){
                 }
             }
             if(gWebsocketConnect){
-               // console.log(handstring);
+              //  console.log(handstring);
                 gWebsocketConnect.send(handstring);
             }
         }
