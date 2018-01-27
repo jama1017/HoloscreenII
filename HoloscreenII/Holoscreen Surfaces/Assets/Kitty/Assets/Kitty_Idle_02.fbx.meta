@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: b72a6ae755ef74f0987b28d6de13a6b4
+timeCreated: 1451257868
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: head_END
+    100002: head_JNT
+    100004: //RootNode
+    100006: leftAnkle_JNT
+    100008: leftEar_END
+    100010: leftEar_JNT
+    100012: leftElbow_JNT
+    100014: leftHip_JNT
+    100016: leftKnee_JNT
+    100018: leftPaw_END
+    100020: leftPaw_JNT
+    100022: leftPelvis_JNT
+    100024: leftScapula_JNT
+    100026: leftShoulder_JNT
+    100028: leftToe_END
+    100030: leftToe_JNT
+    100032: leftWrist_JNT
+    100034: MESH_kitty
+    100036: neck_JNT
+    100038: pelvis_JNT
+    100040: ribs_JNT
+    100042: rightAnkle_JNT
+    100044: rightEar_END
+    100046: rightEar_JNT
+    100048: rightElbow_JNT
+    100050: rightHip_JNT
+    100052: rightKnee_JNT
+    100054: rightPaw_END
+    100056: rightPaw_JNT
+    100058: rightPelvis_JNT
+    100060: rightScapula_JNT
+    100062: rightShoulder_JNT
+    100064: rightToe_END
+    100066: rightToe_JNT
+    100068: rightWrist_JNT
+    100070: spine_JNT
+    100072: tailA_JNT
+    100074: tailB_JNT
+    100076: tailC_JNT
+    400000: head_END
+    400002: head_JNT
+    400004: //RootNode
+    400006: leftAnkle_JNT
+    400008: leftEar_END
+    400010: leftEar_JNT
+    400012: leftElbow_JNT
+    400014: leftHip_JNT
+    400016: leftKnee_JNT
+    400018: leftPaw_END
+    400020: leftPaw_JNT
+    400022: leftPelvis_JNT
+    400024: leftScapula_JNT
+    400026: leftShoulder_JNT
+    400028: leftToe_END
+    400030: leftToe_JNT
+    400032: leftWrist_JNT
+    400034: MESH_kitty
+    400036: neck_JNT
+    400038: pelvis_JNT
+    400040: ribs_JNT
+    400042: rightAnkle_JNT
+    400044: rightEar_END
+    400046: rightEar_JNT
+    400048: rightElbow_JNT
+    400050: rightHip_JNT
+    400052: rightKnee_JNT
+    400054: rightPaw_END
+    400056: rightPaw_JNT
+    400058: rightPelvis_JNT
+    400060: rightScapula_JNT
+    400062: rightShoulder_JNT
+    400064: rightToe_END
+    400066: rightToe_JNT
+    400068: rightWrist_JNT
+    400070: spine_JNT
+    400072: tailA_JNT
+    400074: tailB_JNT
+    400076: tailC_JNT
+    4300000: MESH_kitty
+    7400000: Idle_02
+    9500000: //RootNode
+    13700000: MESH_kitty
+  materials:
+    importMaterials: 0
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle_02
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MESH_kitty
+        weight: 1
+      - path: pelvis_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT/leftHip_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT/leftHip_JNT/leftKnee_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT/leftHip_JNT/leftKnee_JNT/leftAnkle_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT/leftHip_JNT/leftKnee_JNT/leftAnkle_JNT/leftToe_JNT
+        weight: 1
+      - path: pelvis_JNT/leftPelvis_JNT/leftHip_JNT/leftKnee_JNT/leftAnkle_JNT/leftToe_JNT/leftToe_END
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT/rightHip_JNT
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT/rightHip_JNT/rightKnee_JNT
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT/rightHip_JNT/rightKnee_JNT/rightAnkle_JNT
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT/rightHip_JNT/rightKnee_JNT/rightAnkle_JNT/rightToe_JNT
+        weight: 1
+      - path: pelvis_JNT/rightPelvis_JNT/rightHip_JNT/rightKnee_JNT/rightAnkle_JNT/rightToe_JNT/rightToe_END
+        weight: 1
+      - path: pelvis_JNT/spine_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT/leftShoulder_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT/leftShoulder_JNT/leftElbow_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT/leftShoulder_JNT/leftElbow_JNT/leftWrist_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT/leftShoulder_JNT/leftElbow_JNT/leftWrist_JNT/leftPaw_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/leftScapula_JNT/leftShoulder_JNT/leftElbow_JNT/leftWrist_JNT/leftPaw_JNT/leftPaw_END
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT/head_END
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT/leftEar_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT/leftEar_JNT/leftEar_END
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT/rightEar_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/neck_JNT/head_JNT/rightEar_JNT/rightEar_END
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT/rightShoulder_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT/rightShoulder_JNT/rightElbow_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT/rightShoulder_JNT/rightElbow_JNT/rightWrist_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT/rightShoulder_JNT/rightElbow_JNT/rightWrist_JNT/rightPaw_JNT
+        weight: 1
+      - path: pelvis_JNT/spine_JNT/ribs_JNT/rightScapula_JNT/rightShoulder_JNT/rightElbow_JNT/rightWrist_JNT/rightPaw_JNT/rightPaw_END
+        weight: 1
+      - path: pelvis_JNT/tailA_JNT
+        weight: 1
+      - path: pelvis_JNT/tailA_JNT/tailB_JNT
+        weight: 1
+      - path: pelvis_JNT/tailA_JNT/tailB_JNT/tailC_JNT
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
