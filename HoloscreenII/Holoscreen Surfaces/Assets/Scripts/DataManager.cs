@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour {
 
 	private Vector3 hand_l_position;
 	private bool hand_l_isgrab;
+
 	// Use this for initialization
 	void Start () {
 		hand_l_position = new Vector3 (0, 0, 0);	
