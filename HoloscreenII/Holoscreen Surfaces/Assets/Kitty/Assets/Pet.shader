@@ -1,4 +1,4 @@
-﻿Shader "Custom/Pet" {
+﻿is Shader "Custom/Pet" {
 	Properties {
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_BumpMap ("Normal", 2D) = "bump" {}
