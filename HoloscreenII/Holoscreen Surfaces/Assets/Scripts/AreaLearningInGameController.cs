@@ -640,7 +640,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 			if (m_currentMarkType == 1) {
 				canPlace = false;
 			}
-		} else if (m_currentMarkType == 1) {
+		} else if (m_currentMarkType >= 1) {
 			placePos = planeCenter;
 
 			if (Vector3.Dot(plane.normal, new Vector3 (0, 1, 0)) < 0.3f) {
@@ -648,7 +648,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 
 			}
 		} else {
-			placePos = planeCenter + plane.normal * 0.2f;
+			placePos = planeCenter;
+			if (Vector3.Dot(plane.normal, new Vector3 (0, 1, 0)) < 0.3f) {
+				canPlace = false;
+			}
 		}
 
 		// Return if can't place object at that position

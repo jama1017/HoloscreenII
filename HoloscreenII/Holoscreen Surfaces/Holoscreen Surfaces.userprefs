@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Sync.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AreaLearningInGameController.cs">
     <Files>
       <File FileName="Assets\Shaders\ZTestBlur.shader" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AreaLearningInGameController.cs" Line="580" Column="21" />
+      <File FileName="Assets\Scripts\AreaLearningInGameController.cs" Line="643" Column="33" />
       <File FileName="Assets\TangoSDK\Examples\AreaLearning\Scripts\AreaDescriptionPicker.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WSManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\FaceTrackingController.cs" Line="1" Column="1" />
@@ -12,7 +12,7 @@
       <File FileName="Assets\Scripts\Sync.cs" Line="140" Column="118" />
       <File FileName="Assets\Scripts\InteractionScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Kitty\Assets\Pet.shader" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DataManager.cs" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\DataManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
