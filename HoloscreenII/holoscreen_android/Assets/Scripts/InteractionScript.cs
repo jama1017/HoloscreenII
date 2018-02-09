@@ -315,7 +315,8 @@ public class InteractionScript : MonoBehaviour {
 		}
 	}
 
-	private void addForce(GameObject obj){
+	private void addForce(GameObject obj){ 
+		/* Add force */
 		Collider c = obj.GetComponent<Collider>();
 		if (c.bounds.Intersects (palm_l.GetComponent<Collider> ().bounds)) {
 			Vector3 average = new Vector3 (0, 0, 0);
