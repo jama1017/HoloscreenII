@@ -64,10 +64,11 @@ if(!isPlayBack){
     // Start leap motion loop
 
 
-    Leap.loop({optimizeHMD: true},function(frame) {
+    Leap.loop({optimizeHMD: true, enableGestures: true},function(frame) {
         latestFrame = frame;
         handstring = "";
         if (frame.hands.length>0){
+            /* Hand position, velocity, orientation packed into package */
             for (var hand_i=0; hand_i<2; hand_i++){
                 if (hand_i+1 > frame.hands.length)
                     break;
@@ -96,6 +97,22 @@ if(!isPlayBack){
                     }
                 }
             }
+            /* Gesture packed into package (if any) */
+            if (frame.gestures.length > 0) {
+                handstring += "#GestureDetected#";
+                frame.gestures.forEach(function(gesture){
+                    switch (gesture.type){
+                        case "keyTap":
+                            handstring += "KeyTap";
+                            break;
+                        case "screenTap":
+                            handstring += "ScreenTap";
+                            break;
+                    }
+                });
+            }
+
+            /* Package sent */
             if(gWebsocketConnect){
               //  console.log(handstring);
                 gWebsocketConnect.send(handstring);

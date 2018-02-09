@@ -31,6 +31,11 @@ public class InteractionScript : MonoBehaviour {
 
 	private int sizeOfSpeedQ = 5; 
 	private Queue<Vector3> speedList = new Queue<Vector3>();
+
+	private int sizeOfPosQ = 6; 
+	private Queue<Vector3> posList_l = new Queue<Vector3>();
+	private Queue<Vector3> posList_r = new Queue<Vector3>();
+
 	private float colliderReenableTime = 1.5f;
 	private float add;
 	static float restoreColliderTimer;
@@ -70,6 +75,10 @@ public class InteractionScript : MonoBehaviour {
 
 		grabHolder = palm_l.transform.GetChild (0).gameObject;
 
+		for (int i = 0; i < sizeOfPosQ; i++) {
+			posList_l.Enqueue(new Vector3(0,0,0));
+			posList_r.Enqueue(new Vector3(0,0,0));
+		}
 		prePos = new Vector3 (0, 0, 0);
 	}
 
@@ -226,6 +235,15 @@ public class InteractionScript : MonoBehaviour {
 			}
 		}
 
+		/* Add force if necessary */
+		/*
+		posList_l.Enqueue(new Vector3(0,0,0) = palm_l.transform.position);
+		posList_r.Enqueue(new Vector3(0,0,0) = palm_r.transform.position);
+		posList_l.Dequeue ();
+		posList_r.Dequeue ();
+		addForce(this);
+		*/
+
 		//Hover feature 1
 		/*
 		float dist_obj_palm_l = Vector3.Distance(this.transform.position, palm_l.transform.position);
@@ -295,5 +313,33 @@ public class InteractionScript : MonoBehaviour {
 			Gizmos.color = Color.blue;
 			Gizmos.DrawLine (transform.position, hand_l.transform.position);
 		}
+	}
+
+	private void addForce(GameObject obj){
+		Collider c = obj.GetComponent<Collider>();
+		if (c.bounds.Intersects (palm_l.GetComponent<Collider> ().bounds)) {
+			Vector3 average = new Vector3 (0, 0, 0);
+			Vector3 last_pos = posList_l.Dequeue ();
+			posList_l.Enqueue (new Vector3 (0, 0, 0));
+			for (int i = 0; i < sizeOfSpeedQ; i++) {
+				average += posList_l.Dequeue () - last_pos;
+				posList_l.Enqueue (new Vector3 (0, 0, 0));
+			}
+			average = average / posList_l.Count;
+			obj.GetComponent<Rigidbody> ().AddForce (average*2f);
+		}
+
+		if (c.bounds.Intersects (palm_r.GetComponent<Collider> ().bounds)) {
+			Vector3 average = new Vector3 (0, 0, 0);
+			Vector3 last_pos = posList_r.Dequeue ();
+			posList_r.Enqueue (new Vector3 (0, 0, 0));
+			for (int i = 0; i < sizeOfSpeedQ; i++) {
+				average += posList_r.Dequeue () - last_pos;
+				posList_r.Enqueue (new Vector3 (0, 0, 0));
+			}
+			average = average / posList_r.Count;
+			obj.GetComponent<Rigidbody> ().AddForce (average*2f);
+		}
+
 	}
 }

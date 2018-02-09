@@ -15,6 +15,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	public string websocketPort = "9999";
 	private string handinfo_l = "";
 	private string handinfo_r = "";
+	private string gestureinfo = "";
 
 //	public Vector2 faceTrackingScreenDims = new Vector2 (480, 320);
 //	private float eyeDistance = -1.0f;
@@ -60,6 +61,11 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		return handinfo_r;	
 	}
 
+	public string getGestureInfoRight(){
+		//Debug.Log("gestureinfo" );
+		return gestureinfo;	
+	}
+
 	// This event happens when the websocket is opened
 	public void OnWebSocketUnityOpen (string sender)
 	{
@@ -79,6 +85,9 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	{
 		//Debug.Log("Received from server : " );
 		var hand_list = message.Split (new string[] { "#OneMore#" }, System.StringSplitOptions.None);
+		var gesture_list = message.Split (new string[] { "#GestureDetected#" }, System.StringSplitOptions.None);
+
+		/* Assign partial message to left/hand variable */
 		//var List = message.Split (new char[] {',', ':', ';'});
 		string handinfo_l_temp = "";
 		string handinfo_r_temp = "";
@@ -94,6 +103,11 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		}
 		handinfo_l = handinfo_l_temp;
 		handinfo_r = handinfo_r_temp;
+
+		/* Find if there are gestures detected */
+		if (gesture_list.Length > 1) {
+			gestureinfo = gesture_list [1];
+		}
 	}
 
 	// This event happens when the websocket received data (on mobile : ios and android)
