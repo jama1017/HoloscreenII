@@ -41,6 +41,10 @@ public class InteractionScript : MonoBehaviour {
 	static float restoreColliderTimer;
 		
 	private Vector3 prePos;
+
+	//Temp method for pose pointing gesture (delete)
+	private float dist_thumb_index_r_initial;
+
 	// Use this for initialization
 	void Start () {
 		//0.21 finger to palm
@@ -79,6 +83,7 @@ public class InteractionScript : MonoBehaviour {
 			posList_l.Enqueue(new Vector3(0,0,0));
 			posList_r.Enqueue(new Vector3(0,0,0));
 		}
+
 		prePos = new Vector3 (0, 0, 0);
 	}
 
@@ -315,6 +320,11 @@ public class InteractionScript : MonoBehaviour {
 		}
 	}
 
+
+	/* 	Add force function 
+	*	Input: GameObject obj
+	*	Output: None
+	*/
 	private void addForce(GameObject obj){ 
 		/* Add force */
 		Collider c = obj.GetComponent<Collider>();
@@ -343,4 +353,5 @@ public class InteractionScript : MonoBehaviour {
 		}
 
 	}
+
 }
