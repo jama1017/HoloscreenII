@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PaintFeature : MonoBehaviour {
 
-	//Left hand finger declare
+	//hand objects declared
 	private GameObject palm, indexfinger;
 
 	//Painter feature global variables
@@ -22,11 +22,14 @@ public class PaintFeature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log (indexfinger.transform.position);
+		//Debug.Log (indexfinger.transform.localPosition);
+		//Debug.Log (palm.transform.localPosition);
 		//Paint feature
 		if (checkPosePointing()){
 			if (!isPainting) {
 				isPainting = true;
+				ink.numCornerVertices = 5;
+				ink.numCapVertices = 5;
 			} else {
 				Vector3 newPoint = new Vector3 ();
 				newPoint = indexfinger.transform.position;
@@ -46,8 +49,8 @@ public class PaintFeature : MonoBehaviour {
 	*/
 	private bool checkPosePointing(){
 		float dist_thumb_index_current = Vector3.Distance(indexfinger.transform.position, palm.transform.position);
-		//Debug.Log (dist_thumb_index_initial+ "" + dist_thumb_index_current);
-		if (dist_thumb_index_current > (dist_thumb_index_initial - 0.021f))
+		//Debug.Log (dist_thumb_index_initial+ "   " + dist_thumb_index_current);
+		if (dist_thumb_index_current > (dist_thumb_index_initial - 0.023f))
 			return true;
 
 		return false;
