@@ -24,8 +24,10 @@ public class PaintFeature : MonoBehaviour {
 	void Update () {
 		//Debug.Log (indexfinger.transform.localPosition);
 		//Debug.Log (palm.transform.localPosition);
+		GestureControl gesture = this.GetComponent<GestureControl> ();
+
 		//Paint feature
-		if (checkPosePointing()){
+		if (gesture.Pose) {
 			if (!isPainting) {
 				isPainting = true;
 				ink.numCornerVertices = 5;
@@ -34,11 +36,17 @@ public class PaintFeature : MonoBehaviour {
 				Vector3 newPoint = new Vector3 ();
 				newPoint = indexfinger.transform.position;
 				ink.positionCount++;
-				ink.SetPosition (ink.positionCount-1, newPoint);
+				ink.SetPosition (ink.positionCount - 1, newPoint);
 			}
-		}else{
+		}else if (isPainting){
 			isPainting = false;
+			ink = Instantiate (ink);
 			ink.positionCount = 0;
+			//ink.SetPosition (0, new Vector3(0,0,0));
+		}else{
+			
+			//isPainting = false;
+			//ink.positionCount = 0;
 			//ink.SetPosition (0, new Vector3(0,0,0));
 		}
 	}
