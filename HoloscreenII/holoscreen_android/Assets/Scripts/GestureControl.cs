@@ -7,6 +7,8 @@ public class GestureControl : MonoBehaviour {
 	private GameObject palm, indexfinger, indexfinger_bone1, indexfinger_bone2;
 	public bool Pose = false;
 
+
+
 	// Use this for initialization
 	void Start () {
 		indexfinger = this.transform.GetChild (1).gameObject;
@@ -22,7 +24,7 @@ public class GestureControl : MonoBehaviour {
 		else
 			Pose = false;
 
-		handDataGenerator ();
+		//handDataGenerator ();
 	}
 
 	private bool checkPosePointing(){
@@ -56,12 +58,19 @@ public class GestureControl : MonoBehaviour {
 		palm_plane_up = palm.transform.up;
 		palm_plane_right = palm.transform.right;
 
+		string temp = "";
 		for (int i = 0; i < 5; i++) {
 			Vector3 vec_palm_bone2 = this.transform.GetChild (i).GetChild (2).position - palm.transform.position;
-			vec_bone2 [i].x = Vector3.ProjectOnPlane(vec_palm_bone2, palm_plane_right).magnitude;
-			vec_bone2 [i].y = Vector3.ProjectOnPlane(vec_palm_bone2, palm_plane_norm).magnitude;
-			vec_bone2 [i].z = Vector3.ProjectOnPlane(vec_palm_bone2, palm_plane_up).magnitude;
+			vec_bone2 [i].x = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_right).magnitude;
+			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
+			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
+			temp += vec_bone2 [i].x.ToString ("F6") + "," + vec_bone2 [i].y.ToString ("F6") + "," + vec_bone2 [i].z.ToString ("F6") ;
+			if (i < 4)
+				temp += ",";
+			else
+				temp += "\n";
 		}
+		//System.IO.File.AppendAllText("handData.txt", temp);
 		//Debug.Log (vec_bone2[0].ToString("F3"));
 		//Debug.Log (vec_bone2[4].ToString("F3"));
 	}

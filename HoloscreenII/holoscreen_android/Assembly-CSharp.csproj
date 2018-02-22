@@ -65,6 +65,7 @@
      <Compile Include="Assets\WebSocketUnity\WebSocketUnity.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
+     <None Include="Assets\Scripts\handData.txt.txt" />
      <None Include="Assets\WebSocketUnity\README-Unity4.X.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -88,7 +89,7 @@
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>C:/Users/harry/Documents/github/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/harry/Documents/GitHub/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GestureControl.cs">
     <Files>
-      <File FileName="Assets\Scripts\InteractionScript.cs" Line="358" Column="1" />
-      <File FileName="Assets\Scripts\GestureControl.cs" Line="56" Column="37" />
-      <File FileName="Assets\Scripts\PaintFeature.cs" Line="45" Column="6" />
+      <File FileName="Assets\Scripts\InteractionScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GestureControl.cs" Line="27" Column="5" />
+      <File FileName="Assets\Scripts\PaintFeature.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
