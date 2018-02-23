@@ -38,7 +38,7 @@ public class PaintFeature : MonoBehaviour {
 				ink.positionCount++;
 				ink.SetPosition (ink.positionCount - 1, newPoint);
 			}
-		}else if (isPainting){
+			/*}else if (isPainting){
 			isPainting = false;
 			ink = Instantiate (ink);
 			ink.positionCount = 0;
@@ -48,6 +48,10 @@ public class PaintFeature : MonoBehaviour {
 			//isPainting = false;
 			//ink.positionCount = 0;
 			//ink.SetPosition (0, new Vector3(0,0,0));
+		}*/
+		}else{
+			isPainting = false;
+			ink.positionCount = 0;
 		}
 	}
 

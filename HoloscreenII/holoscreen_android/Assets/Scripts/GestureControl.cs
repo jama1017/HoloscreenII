@@ -24,7 +24,7 @@ public class GestureControl : MonoBehaviour {
 		else
 			Pose = false;
 
-		//handDataGenerator ();
+		handDataGenerator ();
 	}
 
 	private bool checkPosePointing(){
@@ -70,7 +70,7 @@ public class GestureControl : MonoBehaviour {
 			else
 				temp += "\n";
 		}
-		//System.IO.File.AppendAllText("handData.txt", temp);
+		System.IO.File.AppendAllText("handData.txt", temp);
 		//Debug.Log (vec_bone2[0].ToString("F3"));
 		//Debug.Log (vec_bone2[4].ToString("F3"));
 	}
