@@ -5,10 +5,14 @@ import numpy as np
 fname = "handData_G"
 for i in range(3):
     cur_fname = fname + str(i) + '.txt'
-    npData = np.zeros(shape=(1,15))
+    npData = None
     with open(cur_fname) as f:
-        readData = f.read()                                                                                                                 
-        readData.replace('\n',',')
+        readData = f.read()        
+        print(type(readData))                                                                                                         
+        readData = readData.replace("\n",",")
         #readData = ','.join(readData)
-        print (readData )
+        npData = np.fromstring(readData, dtype=np.float,sep=',')
+        npData = np.reshape(npData, (15,-1))
+        npData = npData.astype(np.float)
+        print(npData)
         #temp = np.asarray(np.float,dtype=np.float32)
