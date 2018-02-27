@@ -87,6 +87,8 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     /// A reference to TangoApplication instance.
     /// </summary>
     private TangoApplication m_tangoApplication;
+	private TangoDynamicMesh m_dynamicMesh;
+	private GameObject m_staticMesh;
 
     /// <summary>
     /// The UUID of the selected Area Description.
@@ -140,10 +142,39 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
         m_guiController.enabled = true;
         m_gameControlPanel.SetActive(true);
 
-		// Enable hand interactions
-		//m_leftHand.SetActive(true);
-		//m_rightHand.SetActive(true);
+		// HOLOSCREEN
+		if (isNewAreaDescription) {
+			// Enable mesh construction / interactions
+			m_tangoApplication.Set3DReconstructionEnabled (true);
+			m_dynamicMesh = FindObjectOfType<TangoDynamicMesh> ();
+			m_dynamicMesh.m_canUpdate = true;
+			m_dynamicMesh.GetComponent<MeshCollider> ().enabled = true;
+		} else {
+			// Enable mesh construction / interactions
+			m_tangoApplication.Set3DReconstructionEnabled (true);
+			m_dynamicMesh = FindObjectOfType<TangoDynamicMesh> ();
+			m_dynamicMesh.m_canUpdate = true;
+			m_dynamicMesh.GetComponent<MeshCollider> ().enabled = true;
+		}
+		// HOLOSCREEN
     }
+
+	//HOLOSCREEN
+	public void DeleteDescription() {
+		if (string.IsNullOrEmpty(m_curAreaDescriptionUUID))
+		{
+			AndroidHelper.ShowAndroidToastMessage("Please choose an Area Description.");
+			return;
+		}
+
+		// Delete selected description
+		AreaDescription areaDescription = AreaDescription.ForUUID(m_curAreaDescriptionUUID);
+		areaDescription.Delete();
+
+		// Refresh UI
+		_PopulateList();
+	}
+	//HOLOSCREEN
 
     /// <summary>
     /// Internal callback when a permissions event happens.

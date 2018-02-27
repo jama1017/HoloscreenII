@@ -136,6 +136,8 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
     /// A reference to TangoApplication instance.
     /// </summary>
     private TangoApplication m_tangoApplication;
+	private TangoDynamicMesh m_dynamicMesh;
+	private GameObject m_staticMesh;
 
     private Thread m_saveThread;
 
@@ -153,6 +155,9 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
         {
             m_tangoApplication.Register(this);
         }
+
+		m_dynamicMesh = FindObjectOfType<TangoDynamicMesh>();
+		m_staticMesh = GameObject.Find ("StaticMesh");
     }
 
     /// <summary>
@@ -205,6 +210,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
             {
                 // do nothing, the button will handle it
             }
+			/*
             else if (Physics.Raycast(cam.ScreenPointToRay(t.position), out hitInfo))
             {
                 // Found a marker, select it (so long as it isn't disappearing)!
@@ -214,6 +220,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                     m_selectedMarker = tapped.GetComponent<ARMarker>();
                 }
             }
+            */
             else
             {
                 // Place a new point at that location, clear selection
@@ -481,8 +488,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                     AreaDescription.Metadata metadata = m_curAreaDescription.GetMetadata();
                     metadata.m_name = name;
                     m_curAreaDescription.SaveMetadata(metadata);
-                });
+	            });
                 m_saveThread.Start();
+
+				m_dynamicMesh.m_canUpdate = false;
             }
             else
             {
@@ -630,16 +639,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 		Vector3 forward;
 		bool canPlace = true;
 
-		// Get current prefab name
-		string currentName = m_markPrefabs[m_currentMarkType].gameObject.name;
-
+		// Get placement position
 		if (!m_pointCloud.FindPlane (cam, touchPosition, out planeCenter, out plane)) {
 			cam = Camera.main;
 			placePos = cam.transform.position + cam.transform.forward;
-
-			if (m_currentMarkType == 1) {
-				canPlace = false;
-			}
 		} else if (m_currentMarkType >= 1) {
 			placePos = planeCenter;
 
@@ -649,8 +652,9 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 			}
 		} else {
 			placePos = planeCenter;
+
 			if (Vector3.Dot(plane.normal, new Vector3 (0, 1, 0)) < 0.3f) {
-				canPlace = false;
+				placePos = placePos + plane.normal;
 			}
 		}
 
@@ -692,23 +696,25 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 			if (kb.done && !kb.wasCanceled) {
 				newMarkObject.GetComponent<TextMesh> ().text = kb.text;
 			}
+		} else {
+			newMarkObject.GetComponent<Rigidbody> ().isKinematic = false;
 		}
 
 		// Add ARMarker script, and save marker
-        ARMarker markerScript = newMarkObject.GetComponent<ARMarker>();
+        //ARMarker markerScript = newMarkObject.GetComponent<ARMarker>();
 
-        markerScript.m_type = m_currentMarkType;
-        markerScript.m_timestamp = (float)m_poseController.LastPoseTimestamp;
+        //markerScript.m_type = m_currentMarkType;
+        //markerScript.m_timestamp = (float)m_poseController.LastPoseTimestamp;
 
-        Matrix4x4 uwTDevice = Matrix4x4.TRS(m_poseController.transform.position,
-                                            m_poseController.transform.rotation,
-                                            Vector3.one);
-        Matrix4x4 uwTMarker = Matrix4x4.TRS(newMarkObject.transform.position,
-                                            newMarkObject.transform.rotation,
-                                            Vector3.one);
-        markerScript.m_deviceTMarker = Matrix4x4.Inverse(uwTDevice) * uwTMarker;
+        //Matrix4x4 uwTDevice = Matrix4x4.TRS(m_poseController.transform.position,
+        //                                    m_poseController.transform.rotation,
+        //                                    Vector3.one);
+        //Matrix4x4 uwTMarker = Matrix4x4.TRS(newMarkObject.transform.position,
+        //                                    newMarkObject.transform.rotation,
+        //                                    Vector3.one);
+        //markerScript.m_deviceTMarker = Matrix4x4.Inverse(uwTDevice) * uwTMarker;
 
-        m_markerList.Add(newMarkObject);
+        //m_markerList.Add(newMarkObject);
 
 		// Set selected marker to null
         m_selectedMarker = null;

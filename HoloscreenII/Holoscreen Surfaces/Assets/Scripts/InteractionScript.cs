@@ -38,8 +38,11 @@ public class InteractionScript : MonoBehaviour {
 	private Vector3 prePos;
 	// Use this for initialization
 	void Start () {
+		Debug.Log ("Script started");
+
 		//0.21 finger to palm
 		dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
+
 		hand_l = GameObject.Find ("Hand_l").gameObject;
 		hand_r = GameObject.Find ("Hand_r").gameObject;
 
@@ -86,7 +89,8 @@ public class InteractionScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		Debug.Log ("Script updated");
+
 		//Bounce prevetion mechinism
 		this.GetComponent<Rigidbody> ().velocity = new Vector3(Math.Min(this.GetComponent<Rigidbody> ().velocity.x, 1f),Math.Min(this.GetComponent<Rigidbody> ().velocity.y, 1f),Math.Min(this.GetComponent<Rigidbody> ().velocity.z, 1f));
 		this.GetComponent<Rigidbody> ().velocity = new Vector3(Math.Max(this.GetComponent<Rigidbody> ().velocity.x, -1f),Math.Max(this.GetComponent<Rigidbody> ().velocity.y, -1f),Math.Max(this.GetComponent<Rigidbody> ().velocity.z, -1f));

@@ -34,6 +34,8 @@ using UnityEngine.Rendering;
 /// </summary>
 public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
 {
+	public bool m_canUpdate = true;
+
     /// <summary>
     /// If set, debugging info is displayed.
     /// </summary>
@@ -217,7 +219,9 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
         m_meshCollider = GetComponent<MeshCollider>();
         if (m_meshCollider != null)
         {
-            m_meshCollider.enabled = false;
+			// HOLOSCREEN
+            m_meshCollider.enabled = true;
+			// HOLOSCREEN
         }
 
         if (m_enableSelectiveMeshing)
@@ -242,6 +246,12 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
     /// </summary>
     public void Update()
     {
+		// HOLOSCREEN
+		if (!m_canUpdate) {
+			return;
+		}
+		// HOLOSCREEN
+
         List<Tango3DReconstruction.GridIndex> needsResize = new List<Tango3DReconstruction.GridIndex>();
 
         int it;
@@ -340,6 +350,10 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
     /// </summary>
     public void Clear()
     {
+		if (!m_canUpdate) {
+			return;
+		}
+
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
@@ -582,6 +596,13 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
     /// <param name="needsResize">List to which indices needing a future resize will be added.</param>
     private void _UpdateMeshAtGridIndex(Tango3DReconstruction.GridIndex gridIndex, List<Tango3DReconstruction.GridIndex> needsResize)
     {
+		// HOLOSCREEN
+		Vector3 gridPos = new Vector3 (gridIndex.x, gridIndex.z, gridIndex.y) * m_tangoApplication.ReconstructionMeshResolution * 16;
+		if ((gridPos - Camera.main.transform.position).magnitude < 0.5) {
+			return;
+		}
+		// HOLOSCREEN
+
         TangoSingleDynamicMesh dynamicMesh;
         bool createNewMeshSegment = !m_meshes.TryGetValue(gridIndex, out dynamicMesh);
         if (createNewMeshSegment)
@@ -648,6 +669,9 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
                 meshCollider.isTrigger = m_meshCollider.isTrigger;
                 meshCollider.sharedMaterial = m_meshCollider.sharedMaterial;
                 meshCollider.sharedMesh = dynamicMesh.m_mesh;
+				// HOLOSCREEN
+				meshCollider.enabled = true;
+				// HOLOSCREEN
                 dynamicMesh.m_meshCollider = meshCollider;
             }
             
@@ -713,6 +737,14 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
             dynamicMesh.m_needsToGrow = true;
             needsResize.Add(gridIndex);
         }
+
+		// HOLOSCREEN
+		/*
+		if ((dynamicMesh.transform.position - Camera.main.transform.position).magnitude < 0.5) {
+			return;
+		}
+		*/
+		// HOLOSCREEN
         
         // Make any leftover triangles degenerate.
         for (int triangleIt = numTriangles * 3; triangleIt < dynamicMesh.m_triangles.Length; ++triangleIt)
@@ -746,6 +778,10 @@ public class TangoDynamicMesh : MonoBehaviour, ITango3DReconstruction
             // Force the mesh collider to update too.
             dynamicMesh.m_meshCollider.sharedMesh = null;
             dynamicMesh.m_meshCollider.sharedMesh = dynamicMesh.m_mesh;
+
+			// HOLOSCREEN
+			dynamicMesh.m_meshCollider.enabled = true;
+			// HOLOSCREEN
         }
 
         if (createNewMeshSegment)
