@@ -34,7 +34,7 @@ public class InteractionScript : MonoBehaviour {
 	private float colliderReenableTime = 1.5f;
 	private float add;
 	static float restoreColliderTimer;
-		
+
 	private Vector3 prePos;
 	// Use this for initialization
 	void Start () {
@@ -81,8 +81,8 @@ public class InteractionScript : MonoBehaviour {
 		Vector3 tmp = this.transform.position - prePos;
 		prePos = this.transform.position;
 		if ((Math.Abs (tmp [0]) < thredValue) &&
-		   (Math.Abs (tmp [1]) < thredValue) &&
-		   (Math.Abs (tmp [2]) < thredValue))
+			(Math.Abs (tmp [1]) < thredValue) &&
+			(Math.Abs (tmp [2]) < thredValue))
 			return true;
 		return false;
 	}
@@ -168,8 +168,8 @@ public class InteractionScript : MonoBehaviour {
 		} else if (dist_thumb_index_r < 0.060 && (curve_indexfinger_r>15) &&
 			(c.bounds.Intersects (thumb_r_2.GetComponent<Collider> ().bounds) || c.bounds.Contains (thumb_r_2.transform.position)) &&
 			((c.bounds.Intersects (indexfinger_r_2.GetComponent<Collider> ().bounds) ||
-					c.bounds.Intersects (middlefinger_r_2.GetComponent<Collider> ().bounds) ||
-					c.bounds.Intersects (ringfinger_r_2.GetComponent<Collider> ().bounds)))) {
+				c.bounds.Intersects (middlefinger_r_2.GetComponent<Collider> ().bounds) ||
+				c.bounds.Intersects (ringfinger_r_2.GetComponent<Collider> ().bounds)))) {
 			/*this.GetComponent<Rigidbody> ().isKinematic = true;
 			this.transform.parent = palm_r.transform;
 			Vector3 initial_v = new Vector3 ();
@@ -189,7 +189,7 @@ public class InteractionScript : MonoBehaviour {
 			this.transform.parent = null;
 			this.GetComponent<Rigidbody> ().isKinematic = false;
 			dataManager.setLeftHandGrab (false);
-		/*	int num_speed = speedList.Count;
+			/*	int num_speed = speedList.Count;
 			Vector3 average = new Vector3 (0, 0, 0);
 			for (int i = 0; i < sizeOfSpeedQ; i++) {
 				average += speedList.Dequeue ();

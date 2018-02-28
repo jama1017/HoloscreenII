@@ -106,7 +106,7 @@ public class Sync : MonoBehaviour {
 					//l_palm.transform.localRotation = palm_rot_byDir * l_palm.transform.localRotation;
 					l_palm.transform.localRotation = Quaternion.LookRotation(palm_norm, palm_dir);
 				}
-					
+
 			} else if (type.Contains ("finger")) {
 				//Debug.Log (hand_info [i]);
 				int finger_i = int.Parse (hand_info [i++]);
@@ -149,15 +149,15 @@ public class Sync : MonoBehaviour {
 		/* finger 0 */
 		case 0:
 			switch (bone) {
-				case 0:
-					b = l_finger0_bone0;
-					break;
-				case 1:
-					b = l_finger0_bone1;
-					break;
-				case 2:
-					b = l_finger0_bone2;
-					break;
+			case 0:
+				b = l_finger0_bone0;
+				break;
+			case 1:
+				b = l_finger0_bone1;
+				break;
+			case 2:
+				b = l_finger0_bone2;
+				break;
 			}
 			break;
 
@@ -176,7 +176,7 @@ public class Sync : MonoBehaviour {
 			}
 			break;
 
-		/* finger 0 */
+			/* finger 0 */
 		case 2:
 			switch (bone) {
 			case 0:
@@ -221,7 +221,7 @@ public class Sync : MonoBehaviour {
 			}
 			break;
 
-		/* default */
+			/* default */
 		default:
 			b = l_finger0_bone0;
 			break;

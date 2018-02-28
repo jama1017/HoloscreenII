@@ -64,7 +64,7 @@ if(!isPlayBack){
     // Start leap motion loop
 
 
-    Leap.loop({optimizeHMD: true},function(frame) {
+    Leap.loop({optimizeHMD: true, enableGestures: true},function(frame) {
         latestFrame = frame;
         handstring = "";
         if (frame.hands.length>0){
@@ -96,6 +96,21 @@ if(!isPlayBack){
                     }
                 }
             }
+             /* Gesture packed into package (if any) */
+            if (frame.gestures.length > 0) {
+                handstring += "#GestureDetected#";
+                frame.gestures.forEach(function(gesture){
+                    switch (gesture.type){
+                        case "keyTap":
+                            handstring += "KeyTap";
+                            break;
+                        case "screenTap":
+                            handstring += "ScreenTap";
+                            break;
+                    }
+                });
+            }
+
             if(gWebsocketConnect){
               //  console.log(handstring);
                 gWebsocketConnect.send(handstring);
