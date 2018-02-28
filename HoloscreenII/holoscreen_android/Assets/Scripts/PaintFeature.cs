@@ -22,8 +22,6 @@ public class PaintFeature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log (indexfinger.transform.localPosition);
-		//Debug.Log (palm.transform.localPosition);
 		GestureControl gesture = this.GetComponent<GestureControl> ();
 
 		//Paint feature
@@ -61,7 +59,6 @@ public class PaintFeature : MonoBehaviour {
 	*/
 	private bool checkPosePointing(){
 		float dist_thumb_index_current = Vector3.Distance(indexfinger.transform.position, palm.transform.position);
-		//Debug.Log (dist_thumb_index_initial+ "   " + dist_thumb_index_current);
 		if (dist_thumb_index_current > (dist_thumb_index_initial - 0.023f))
 			return true;
 

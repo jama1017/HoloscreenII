@@ -35,10 +35,7 @@ public class GestureControl : MonoBehaviour {
 
 		vec_bone1 = indexfinger_bone1.transform.position - palm.transform.position;
 		vec_bone2 = indexfinger_bone2.transform.position - palm.transform.position;
-		//temp = indexfinger_bone1.transform.position - palm.transform.position;
 		proj_bone1.y = Vector3.ProjectOnPlane(vec_bone1, palm_plane_norm).magnitude;
-		//Debug.Log ("dist_bone1: " + temp.magnitude.ToString("F3"));
-		//Debug.Log ("proj_bone1: " + proj_bone1.magnitude.ToString("F3"));
 		proj_bone2.x = Vector3.ProjectOnPlane(vec_bone2, palm_plane_right).magnitude;
 		proj_bone2.y = Vector3.ProjectOnPlane(vec_bone2, palm_plane_norm).magnitude;
 		proj_bone2.z = Vector3.ProjectOnPlane(vec_bone2, palm_plane_up).magnitude;
@@ -71,7 +68,5 @@ public class GestureControl : MonoBehaviour {
 				temp += "\n";
 		}
 		System.IO.File.AppendAllText("handData.txt", temp);
-		//Debug.Log (vec_bone2[0].ToString("F3"));
-		//Debug.Log (vec_bone2[4].ToString("F3"));
 	}
 }
