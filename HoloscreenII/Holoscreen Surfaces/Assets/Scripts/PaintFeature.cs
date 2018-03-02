@@ -11,6 +11,7 @@ public class PaintFeature : MonoBehaviour {
 	private LineRenderer ink;
 	private bool isPainting = false;
 	private float dist_thumb_index_initial;
+	private bool canPaint = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,10 @@ public class PaintFeature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!canPaint) {
+			return;
+		}
+
 		GestureControl gesture = this.GetComponent<GestureControl> ();
 
 		//Paint feature
@@ -47,6 +52,10 @@ public class PaintFeature : MonoBehaviour {
 			isPainting = false;
 			ink.positionCount = 0;
 		}*/
+	}
+
+	public void setCanPaint(bool cp) {
+		canPaint = cp;
 	}
 
 	/*	Check pose pointing
