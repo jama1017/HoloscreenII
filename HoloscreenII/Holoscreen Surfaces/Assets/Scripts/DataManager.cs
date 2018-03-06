@@ -27,6 +27,10 @@ public class DataManager : MonoBehaviour {
 		hand_l_isgrab = t;
 	}
 
+	public bool checkLeftHandGrab(){
+		return hand_l_isgrab;
+	}
+
 	public Vector3 getLeftHandPosition (){
 		return hand_l_position;
 	}

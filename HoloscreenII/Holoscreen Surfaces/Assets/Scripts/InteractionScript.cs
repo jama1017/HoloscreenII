@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -112,6 +112,7 @@ public class InteractionScript : MonoBehaviour {
 
 		//Debug.Log (curve_indexfinger_r);
 		//New
+		/*
 		if (c.bounds.Intersects (thumb_l_2.GetComponent<Collider> ().bounds)) {
 			for (int i = 0; i < 3; i++) {
 				thumb_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = true;
@@ -151,6 +152,7 @@ public class InteractionScript : MonoBehaviour {
 				ringfinger_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 			}
 		}
+		*/
 		//New
 
 
@@ -177,6 +179,7 @@ public class InteractionScript : MonoBehaviour {
 			palm_l.GetComponent<Rigidbody> ().detectCollisions = false;
 			palm_l.GetComponent<Rigidbody> ().isKinematic = true;
 
+
 			Debug.Log ("Disabled");
 			for (int i = 0; i < 3; i++) {
 				thumb_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = true;
@@ -200,19 +203,19 @@ public class InteractionScript : MonoBehaviour {
 			((c.bounds.Intersects (indexfinger_r_2.GetComponent<Collider> ().bounds) ||
 				c.bounds.Intersects (middlefinger_r_2.GetComponent<Collider> ().bounds) ||
 				c.bounds.Intersects (ringfinger_r_2.GetComponent<Collider> ().bounds)))) {*/
-			/*this.GetComponent<Rigidbody> ().isKinematic = true;
-			this.transform.parent = palm_r.transform;
-			Vector3 initial_v = new Vector3 ();
-			initial_v = palm_r.GetComponent<Rigidbody> ().velocity;
-			speedList.Dequeue ();
-			speedList.Enqueue (initial_v);
-			grabbed = true;
-			for (int i = 0; i < 2; i++) {
-				palm_l.GetComponent<Collider> ().isTrigger = true;
-				palm_r.GetComponent<Collider> ().isTrigger = true;
-			}
-			restoreColliderTimer = Time.time;
-			*/
+		/*this.GetComponent<Rigidbody> ().isKinematic = true;
+		this.transform.parent = palm_r.transform;
+		Vector3 initial_v = new Vector3 ();
+		initial_v = palm_r.GetComponent<Rigidbody> ().velocity;
+		speedList.Dequeue ();
+		speedList.Enqueue (initial_v);
+		grabbed = true;
+		for (int i = 0; i < 2; i++) {
+			palm_l.GetComponent<Collider> ().isTrigger = true;
+			palm_r.GetComponent<Collider> ().isTrigger = true;
+		}
+		restoreColliderTimer = Time.time;
+		*/
 		//} 
 		else if (grabbed && dist_thumb_index_l > 0.075f) {
 			grabbed = false;
@@ -260,6 +263,7 @@ public class InteractionScript : MonoBehaviour {
 					//middlefinger_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 
 					//New
+					/*
 					palm_l.GetComponent<Collider> ().isTrigger = false;
 					palm_l.GetComponent<Rigidbody> ().detectCollisions = true;
 					palm_l.GetComponent<Rigidbody> ().isKinematic = false;
@@ -285,6 +289,7 @@ public class InteractionScript : MonoBehaviour {
 					//thumb_r.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 					//middlefinger_r.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 					palm_r.GetComponent<Collider> ().isTrigger = false;
+					*/
 				}
 			}
 		}
