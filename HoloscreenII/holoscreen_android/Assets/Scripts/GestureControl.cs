@@ -13,9 +13,13 @@ public class GestureControl : MonoBehaviour {
 
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
+	SVM svm_model;
 	int gesture_num = 3;
 	int mat_n = 15;
 
+
+	//Gesture dictionary
+	Dictionary<string, string[]> gesture_dict = new Dictionary<string, string[]>();
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +38,7 @@ public class GestureControl : MonoBehaviour {
 			Pose = true;
 		else
 			Pose = false;
-
+		poseDetectorMLtesting ();
 		//handDataGenerator ();
 	}
 
@@ -65,16 +69,21 @@ public class GestureControl : MonoBehaviour {
 	*	Summary: 1. Process text file to OpenCV mat 2.train the model and store in disk
 	*/
 	private void poseDetectorMLtrainning(){
+		//Gesture dicitonary establishes
+		gesture_dict.Add("0", new[] {"paint"});
+		gesture_dict.Add("1", new[] {"pinch"});
+		gesture_dict.Add("2", new[] {"palm"});
+
 		//Data process
 		string data_fname_basic = "Assets/Data/handData_G";
 		Mat all_data = new Mat();
 		Mat all_label = new Mat ();
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < gesture_num; i++) {
 			string data_fname = data_fname_basic + i.ToString () + ".txt";
 			Debug.Log (data_fname);
 			int mat_m = File.ReadAllLines (data_fname).Length;
 			Mat cur_data = Mat.zeros(mat_m,mat_n,CvType.CV_32F);
-			Mat cur_label = Mat.ones(mat_m, 1, CvType.CV_32F);
+			Mat cur_label = Mat.ones(mat_m, 1, CvType.CV_32S);
 			/* assign labels for cur_label */
 			Core.multiply(cur_label,new Scalar((double)(i)),cur_label);
 
@@ -95,33 +104,75 @@ public class GestureControl : MonoBehaviour {
 
 		Debug.Log("----------");
 
-		//
+		//logistic reg model starts
 
 		logis_reg_model = OpenCVForUnity.LogisticRegression.create ();
 		logis_reg_model.setLearningRate (0.0001);
 		logis_reg_model.setRegularization(OpenCVForUnity.LogisticRegression.REG_L2);
 		logis_reg_model.setIterations (100);
 		logis_reg_model.setTrainMethod (OpenCVForUnity.LogisticRegression.BATCH);
-		logis_reg_model.setMiniBatchSize (8);
+		//logis_reg_model.setMiniBatchSize (8);
 
 		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label);
-		Debug.Log("Train success: " + logis_reg_model.train(all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label));
-		Debug.Log("Train error: " + logis_reg_model.calcError(data_lable,true,all_label));
+		//Debug.Log("Train success: " + logis_reg_model.train(all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label));
+		//Debug.Log("Train error: " + logis_reg_model.calcError(data_lable,true,all_label));
+		//logistic reg model ends
+
+		//svm starts
+		int idx = 2000;
+		Mat res = Mat.ones(1,1,CvType.CV_32S);
+		svm_model = OpenCVForUnity.SVM.create();
+		Debug.Log ("SVM train success : " + svm_model.train (data_lable));
+		//svm_model.predict (all_data.row (idx), res, 0);
+		//Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
+		//Debug.Log("SVM predicted: " + res.get (0, 0) [0]);
+		//Debug.Log("SVM trainning error: " + svm_model.calcError (data_lable,true,all_label));
+		//svm ends
+	
 		//temp - test
+		/*
 		Mat result = Mat.zeros(1,1,CvType.CV_32S);
-		//it should output 0
 		int idx = 1500;
 		logis_reg_model.predict (all_data.row (idx), result, 0);
 		Debug.Log ("Data is: " + all_data.get(idx,0)[0]);
-		Debug.Log ("Data is: " + all_data.get(idx,1)[0]);
+		Debug.Log ("Theta is: " + logis_reg_model.get_learnt_thetas().get(0,0)[0]);
+		Debug.Log ("Theta is: " + logis_reg_model.get_learnt_thetas().get(0,1)[0]);
+
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
 		Debug.Log ("Predicted label is: " + result.get (0, 0) [0]);
-		//test - test
+		//temp - test
+		*/
 		return;
 	}
 
 	private int poseDetectorMLtesting(){
-		
+		//collect hand data
+		float[] cur_data_array = new float[15];
+		Mat cur_data_mat = Mat.zeros(1,mat_n,CvType.CV_32F);
+
+		Vector3[] vec_bone2 = new Vector3[5];
+		Vector3 palm_plane_norm, palm_plane_up, palm_plane_right;
+		palm_plane_norm = palm.transform.forward;
+		palm_plane_up = palm.transform.up;
+		palm_plane_right = palm.transform.right;
+
+		for (int i = 0; i < 5; i++) {
+			Vector3 vec_palm_bone2 = this.transform.GetChild (i).GetChild (2).position - palm.transform.position;
+			vec_bone2 [i].x = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_right).magnitude;
+			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
+			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
+			cur_data_array [i * 3] = vec_bone2 [i].x;
+			cur_data_array [i * 3 + 1] = vec_bone2 [i].x;
+			cur_data_array [i * 3 + 2] = vec_bone2 [i].x;
+		}
+		cur_data_mat.put (0, 0, cur_data_array);
+		//predict
+
+		Mat result = Mat.ones(1,1,CvType.CV_32S);
+		svm_model.predict (cur_data_mat, result, 0);
+		Debug.Log("result.size(): " + result.size());
+		string[] cur_gesture = gesture_dict[((int)result.get (0, 0) [0]).ToString()];
+		Debug.Log ("Predicted label is: " + cur_gesture [0]);
 		return 0;
 	}
 	//new
