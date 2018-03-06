@@ -75,7 +75,8 @@ public class GestureControl : MonoBehaviour {
 			int mat_m = File.ReadAllLines (data_fname).Length;
 			Mat cur_data = Mat.zeros(mat_m,mat_n,CvType.CV_32F);
 			Mat cur_label = Mat.ones(mat_m, 1, CvType.CV_32F);
-			Core.multiply(cur_label,new Scalar((double)(i+2)),cur_label);
+			/* assign labels for cur_label */
+			Core.multiply(cur_label,new Scalar((double)(i)),cur_label);
 
 			StreamReader reader = new StreamReader (data_fname);
 			int row = 0;
@@ -89,16 +90,29 @@ public class GestureControl : MonoBehaviour {
 			all_label.push_back (cur_label);
 			reader.Close ();
 		}
+		//
+		Debug.Log("----------");
+
+		Debug.Log("----------");
+
+		//
 
 		logis_reg_model = OpenCVForUnity.LogisticRegression.create ();
+		logis_reg_model.setLearningRate (0.0001);
+		logis_reg_model.setRegularization(OpenCVForUnity.LogisticRegression.REG_L2);
+		logis_reg_model.setIterations (100);
+		logis_reg_model.setTrainMethod (OpenCVForUnity.LogisticRegression.BATCH);
+		logis_reg_model.setMiniBatchSize (8);
+
 		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label);
-		Debug.Log(logis_reg_model.train(data_lable));
-		//Debug.Log(logis_reg_model.calcError(data_lable,true,all_label));
+		Debug.Log("Train success: " + logis_reg_model.train(all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label));
+		Debug.Log("Train error: " + logis_reg_model.calcError(data_lable,true,all_label));
 		//temp - test
 		Mat result = Mat.zeros(1,1,CvType.CV_32S);
 		//it should output 0
-		int idx = 100;
+		int idx = 1500;
 		logis_reg_model.predict (all_data.row (idx), result, 0);
+		Debug.Log ("Data is: " + all_data.get(idx,0)[0]);
 		Debug.Log ("Data is: " + all_data.get(idx,1)[0]);
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
 		Debug.Log ("Predicted label is: " + result.get (0, 0) [0]);
