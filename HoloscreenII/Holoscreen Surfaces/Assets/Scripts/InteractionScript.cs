@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -169,8 +169,14 @@ public class InteractionScript : MonoBehaviour {
 				c.bounds.Intersects (ringfinger_l_2.GetComponent<Collider> ().bounds))) {
 
 			//Record current velocity and delete the oldest velocity
-			this.GetComponent<Rigidbody>().useGravity = false;
+			this.GetComponent<Collider> ().isTrigger = true;
+			this.GetComponent<Rigidbody> ().useGravity = false;
+			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			this.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+			this.GetComponent<Rigidbody> ().Sleep ();
 			this.transform.SetParent(grabHolder.transform);
+
+			//Throw
 			Vector3 initial_v = new Vector3 ();
 			initial_v = palm_l.GetComponent<Rigidbody> ().velocity;
 			speedList.Dequeue ();
@@ -228,13 +234,16 @@ public class InteractionScript : MonoBehaviour {
 		else if (grabbed && dist_thumb_index_l > 0.075f) {
 			grabbed = false;
 			//this.GetComponent<Rigidbody>().useGravity = true;
+			this.transform.parent = null;
+			this.GetComponent<Rigidbody>().useGravity = true;
+			this.GetComponent<Collider> ().isTrigger = false;
+
 
 			// New
 			//Vector3 pos = this.transform.position;
-			Quaternion quat = this.transform.rotation;
-			this.transform.parent = null;
+			//Quaternion quat = this.transform.rotation;
 			//this.transform.position = pos;
-			this.transform.rotation = quat;
+			//this.transform.rotation = quat;
 			// New
 
 			//this.GetComponent<Rigidbody> ().isKinematic = false;
@@ -259,6 +268,7 @@ public class InteractionScript : MonoBehaviour {
 
 		} else if(!grabbed) {
 			float diff = Time.time - restoreColliderTimer;
+
 
 			//Wait a certain interval to re-enable the collider of the hand
 			if (diff > colliderReenableTime) {
