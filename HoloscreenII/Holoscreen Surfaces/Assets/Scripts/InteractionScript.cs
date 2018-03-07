@@ -78,6 +78,11 @@ public class InteractionScript : MonoBehaviour {
 		grabHolder = palm_l.transform.GetChild (0).gameObject;
 
 		prePos = new Vector3 (0, 0, 0);
+
+		//new 03/06
+		palm_l.GetComponent<Collider> ().isTrigger = true;
+		palm_l.GetComponent<Rigidbody> ().detectCollisions = false;
+		//palm_l.GetComponent<Rigidbody> ().isKinematic = true;
 	}
 
 	bool isMoving(float thredValue){
@@ -164,6 +169,7 @@ public class InteractionScript : MonoBehaviour {
 				c.bounds.Intersects (ringfinger_l_2.GetComponent<Collider> ().bounds))) {
 
 			//Record current velocity and delete the oldest velocity
+			this.GetComponent<Rigidbody>().useGravity = false;
 			this.transform.SetParent(grabHolder.transform);
 			Vector3 initial_v = new Vector3 ();
 			initial_v = palm_l.GetComponent<Rigidbody> ().velocity;
@@ -171,15 +177,16 @@ public class InteractionScript : MonoBehaviour {
 			speedList.Enqueue (initial_v);
 			restoreColliderTimer = Time.time;
 			grabbed = true;
-			this.GetComponent<Rigidbody> ().isKinematic = true;
+			//this.GetComponent<Rigidbody> ().isKinematic = true;
 			dataManager.setLeftHandGrab (true);
+
 
 			//New
 			palm_l.GetComponent<Collider> ().isTrigger = true;
 			palm_l.GetComponent<Rigidbody> ().detectCollisions = false;
-			palm_l.GetComponent<Rigidbody> ().isKinematic = true;
+			//palm_l.GetComponent<Rigidbody> ().isKinematic = true;
 
-
+			/*
 			Debug.Log ("Disabled");
 			for (int i = 0; i < 3; i++) {
 				thumb_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = true;
@@ -196,6 +203,7 @@ public class InteractionScript : MonoBehaviour {
 			for (int i = 0; i < 3; i++) {
 				ringfinger_l.transform.GetChild (i).GetComponent<Collider> ().isTrigger = true;
 			}
+			*/
 			//New
 
 		}  /*else if (dist_thumb_index_r < 0.060 && (curve_indexfinger_r>15) &&
@@ -219,16 +227,17 @@ public class InteractionScript : MonoBehaviour {
 		//} 
 		else if (grabbed && dist_thumb_index_l > 0.075f) {
 			grabbed = false;
+			//this.GetComponent<Rigidbody>().useGravity = true;
 
 			// New
-			Vector3 pos = this.transform.position;
+			//Vector3 pos = this.transform.position;
 			Quaternion quat = this.transform.rotation;
 			this.transform.parent = null;
-			this.transform.position = pos;
+			//this.transform.position = pos;
 			this.transform.rotation = quat;
 			// New
 
-			this.GetComponent<Rigidbody> ().isKinematic = false;
+			//this.GetComponent<Rigidbody> ().isKinematic = false;
 			//New
 			this.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
 			//New
