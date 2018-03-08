@@ -87,8 +87,9 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     /// A reference to TangoApplication instance.
     /// </summary>
     private TangoApplication m_tangoApplication;
-	private TangoDynamicMesh m_dynamicMesh;
-	private GameObject m_staticMesh;
+	public TangoDynamicMesh m_dynamicMesh;
+	public GameObject m_staticMesh;
+	public AreaLearningInGameController m_gameController;
 
     /// <summary>
     /// The UUID of the selected Area Description.
@@ -144,20 +145,42 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
 
 		// HOLOSCREEN
 		if (isNewAreaDescription) {
-			// Enable mesh construction / interactions
+			// Enable mesh construction
 			m_tangoApplication.Set3DReconstructionEnabled (true);
-			m_dynamicMesh = FindObjectOfType<TangoDynamicMesh> ();
 			m_dynamicMesh.m_canUpdate = true;
+
+			// Disable interactions
 			m_dynamicMesh.GetComponent<MeshCollider> ().enabled = true;
 		} else {
-			// Enable mesh construction / interactions
-			m_tangoApplication.Set3DReconstructionEnabled (true);
-			m_dynamicMesh = FindObjectOfType<TangoDynamicMesh> ();
-			m_dynamicMesh.m_canUpdate = true;
-			m_dynamicMesh.GetComponent<MeshCollider> ().enabled = true;
+			// Disable mesh construction
+			m_tangoApplication.Set3DReconstructionEnabled (false);
+			m_dynamicMesh.m_canUpdate = false;
+
+			// Load mesh
+			Mesh mesh = _LoadMesh(m_curAreaDescriptionUUID + ".mesh");
+			m_staticMesh.GetComponent<MeshFilter>().sharedMesh = mesh;
+			m_staticMesh.GetComponent<MeshCollider> ().sharedMesh = mesh;
+
+			// Enable interactions
+			m_staticMesh.GetComponent<MeshCollider> ().enabled = true;
 		}
+
+		m_gameController.isNewAreaDescription = isNewAreaDescription;
 		// HOLOSCREEN
     }
+
+	private Mesh _LoadMesh(string url) {
+		// Load mesh
+		string path = Path.Combine(Application.persistentDataPath, url);
+		byte[] bytes = File.ReadAllBytes(path);
+		List<Mesh> meshes = (List<Mesh>) Holoscreen.SimpleMeshSerializer.Deserialize(bytes);
+
+		Debug.Log ("Loaded");
+		Debug.Log (meshes.Count);
+		Debug.Log(meshes[0].vertices.Length);
+
+		return meshes[0];
+	}
 
 	//HOLOSCREEN
 	public void DeleteDescription() {

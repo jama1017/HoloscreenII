@@ -66,6 +66,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
     [HideInInspector]
     public AreaDescription m_curAreaDescription;
 
+	// HOLOSCREEN
+	public bool isNewAreaDescription;
+	// HOLOSCREEN
+
 #if UNITY_EDITOR
     /// <summary>
     /// Handles GUI text input in Editor where there is no device keyboard.
@@ -210,17 +214,6 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
             {
                 // do nothing, the button will handle it
             }
-			/*
-            else if (Physics.Raycast(cam.ScreenPointToRay(t.position), out hitInfo))
-            {
-                // Found a marker, select it (so long as it isn't disappearing)!
-                GameObject tapped = hitInfo.collider.gameObject;
-                if (!tapped.GetComponent<Animation>().isPlaying)
-                {
-                    m_selectedMarker = tapped.GetComponent<ARMarker>();
-                }
-            }
-            */
             else
             {
                 // Place a new point at that location, clear selection
@@ -488,10 +481,18 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                     AreaDescription.Metadata metadata = m_curAreaDescription.GetMetadata();
                     metadata.m_name = name;
                     m_curAreaDescription.SaveMetadata(metadata);
+
+					// HOLOSCREEN
+					if(isNewAreaDescription) {
+						_SaveTangoMesh(m_curAreaDescription.m_uuid + ".mesh");
+					}
+					// HOLOSCREEN
 	            });
                 m_saveThread.Start();
 
+				// HOLOSCREEN
 				m_dynamicMesh.m_canUpdate = false;
+				// HOLOSCREEN
             }
             else
             {
@@ -500,8 +501,33 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                 Application.LoadLevel(Application.loadedLevel);
                 #pragma warning restore 618
             }
+
+
         }
     }
+
+	private void _SaveTangoMesh(string url) {
+		// Extract mesh
+		List<Vector3> vertices = new List<Vector3>();
+		List<Vector3> normals = new List<Vector3>();
+		List<Color32> colors = new List<Color32>();
+		List<int> triangles = new List<int>();
+
+		m_tangoApplication.Tango3DRExtractWholeMesh(vertices, normals, colors, triangles);
+
+		Mesh mesh = new Mesh ();
+		mesh.vertices = vertices.ToArray();
+		mesh.normals = normals.ToArray();
+		//mesh.colors = colors.ToArray();
+		mesh.triangles = triangles.ToArray();
+
+		// Save mesh
+		string path = Path.Combine(Application.persistentDataPath, url);
+		byte[] bytes = Holoscreen.SimpleMeshSerializer.Serialize(new Mesh[] {mesh});
+		File.WriteAllBytes(path, bytes);
+
+		Debug.Log ("Saved");
+	}
 
     /// <summary>
     /// Correct all saved marks when loop closure happens.
