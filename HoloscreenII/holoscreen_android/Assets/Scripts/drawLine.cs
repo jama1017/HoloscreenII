@@ -27,7 +27,7 @@ public class drawLine : MonoBehaviour {
 		destPositon = dataManager.getLeftHandPosition ();
 
 		dist = Vector3.Distance (origin.position, destPositon);
-		if (dist < 0.25f && !dataManager.getLeftHandGrab()) {
+		if (dist < 0.25f && !dataManager.checkLeftHandBusy()) {
 			lineRenderer.enabled = true;
 			lineRenderer.SetPosition (0, origin.position);
 			lineRenderer.SetPosition (1, destPositon);	

@@ -53,14 +53,20 @@
      <None Include="Assets\OpenCVForUnity\OpenCV_LICENSE.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\lbpcascade_frontalface.xml" />
      <None Include="Assets\Data\handData_G0.txt" />
+     <None Include="Assets\OutlineEffect\VerticesOutline_Always.shader" />
      <None Include="Assets\Data\handData_G2.txt" />
+     <None Include="Assets\Data\handDataG3_new.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifier_erGrouping.xml" />
+     <None Include="Assets\Data\handDataG4_new.txt" />
      <None Include="Assets\Data\handData_G1.txt" />
+     <None Include="Assets\Data\handDataG0_new.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\OCRHMM_transitions_table.xml" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM1.xml" />
+     <None Include="Assets\Data\handDataG1_new.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM2.xml" />
      <None Include="Assets\Scripts\handData.txt.txt" />
      <None Include="Assets\WebSocketUnity\README-Unity4.X.txt" />
+     <None Include="Assets\Data\handDataG2_new.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -111,6 +117,9 @@
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>

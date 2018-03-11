@@ -168,7 +168,7 @@ public class InteractionScript : MonoBehaviour {
 			(c.bounds.Intersects (indexfinger_l_2.GetComponent<Collider> ().bounds) ||
 				c.bounds.Intersects (middlefinger_l_2.GetComponent<Collider> ().bounds) ||
 				c.bounds.Intersects (ringfinger_l_2.GetComponent<Collider> ().bounds)) && 
-			!dataManager.checkLeftHandGrab() ) {
+			!dataManager.checkLeftHandBusy() ) {
 
 			//Record current velocity and delete the oldest velocity
 			Vector3 initial_v = new Vector3 ();
@@ -178,8 +178,9 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = true;
 			restoreColliderTimer = Time.time;
 			this.GetComponent<Rigidbody> ().isKinematic = true;
-			dataManager.setLeftHandGrab (true);
+			dataManager.setLeftHandBusy (true);
 			disableFingersCollider ();
+			Debug.Log("finger collider disabled");
 			this.transform.SetParent(grabHolder.transform);
 		} else if (dist_thumb_index_r < 0.060 && (curve_indexfinger_r>15) &&
 			(c.bounds.Intersects (thumb_r_2.GetComponent<Collider> ().bounds) || c.bounds.Contains (thumb_r_2.transform.position)) &&
@@ -204,7 +205,7 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = false;
 			this.transform.parent = null;
 			this.GetComponent<Rigidbody> ().isKinematic = false;
-			dataManager.setLeftHandGrab (false);
+			dataManager.setLeftHandBusy(false);
 
 			int num_speed = speedList.Count;
 			Vector3 average = new Vector3 (0, 0, 0);
@@ -235,6 +236,8 @@ public class InteractionScript : MonoBehaviour {
 					//thumb_r.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 					//middlefinger_r.transform.GetChild (i).GetComponent<Collider> ().isTrigger = false;
 					palm_r.GetComponent<Collider> ().isTrigger = false;
+					Debug.Log("palm collider re-enabled");
+
 					enableFingersCollider ();
 				}
 			}
