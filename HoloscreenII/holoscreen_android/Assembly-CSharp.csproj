@@ -371,11 +371,11 @@
      <Compile Include="Assets\Scripts\CamTextureUI.cs" />
      <Compile Include="Assets\Scripts\DataManager.cs" />
      <Compile Include="Assets\Scripts\GestureControl.cs" />
+     <Compile Include="Assets\Scripts\HandManager.cs" />
      <Compile Include="Assets\Scripts\InteractionScript.cs" />
-     <Compile Include="Assets\Scripts\InteractionScriptHand.cs" />
      <Compile Include="Assets\Scripts\InteractionScriptObject.cs" />
      <Compile Include="Assets\Scripts\InteractionScript_Demo.cs" />
-     <Compile Include="Assets\Scripts\PaintFeature.cs" />
+     <Compile Include="Assets\Scripts\PaintManager.cs" />
      <Compile Include="Assets\Scripts\ProjectionScript.cs" />
      <Compile Include="Assets\Scripts\Sync.cs" />
      <Compile Include="Assets\Scripts\WSManager.cs" />
@@ -430,7 +430,7 @@
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>C:/Users/harry/Documents/github/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/harry/Documents/GitHub/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,8 +8,7 @@ using OpenCVForUnity;
 
 public class GestureControl : MonoBehaviour {
 	//Left hand finger declare
-	private GameObject palm, indexfinger, indexfinger_bone1, indexfinger_bone2;
-	public bool Pose = false;
+	private GameObject palm;
 
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
@@ -17,18 +16,19 @@ public class GestureControl : MonoBehaviour {
 	int gesture_num = 3;
 	int mat_n = 15;
 
+	//poseDetector buffer
+	int[] gesture_buff;
+	int gesture_buff_len = 15;
+	int gesture_buff_idx = 0; 
 
 	//Gesture dictionary
 	Dictionary<int, string> gesture_dict = new Dictionary<int, string>();
 
 	// Use this for initialization
 	void Start () {
-		indexfinger = this.transform.GetChild (1).gameObject;
-		indexfinger_bone1 = this.transform.GetChild (1).GetChild (1).gameObject;
-		indexfinger_bone2 = this.transform.GetChild (1).GetChild (2).gameObject;
 		palm = this.transform.GetChild (5).gameObject;
+		gesture_buff = new int[gesture_buff_len];
 
-		//new
 		//Gesture dicitonary establishes
 		gesture_dict.Add(0, "palm");
 		gesture_dict.Add(1, "pinch");
@@ -37,21 +37,21 @@ public class GestureControl : MonoBehaviour {
 		//gesture_dict.Add(4, "undefined");
 
 		//data train
-		poseDetectorMLtrain();
+		gestureDetectorMLtrain();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (checkPosePointing ())
-			Pose = true;
-		else
-			Pose = false;
-		poseDetectorMLtest ();
-		//handDataGenerator ();
+		//Update gesture buffer array
+		gesture_buff[gesture_buff_idx++] = gestureDetectorMLpredict ();
+		gesture_buff_idx = (gesture_buff_idx) % gesture_buff_len;
 	}
 
+
+	/* 	
+	//Method aborted
 	private bool checkPosePointing(){
-		Vector3 palm_plane_norm, palm_plane_up, palm_plane_right, vec_bone1, vec_bone2, proj_bone1, proj_bone2, temp;
+		Vector3 palm_plane_norm, palm_plane_up, palm_plane_right, vec_bone1, vec_bone2, proj_bone1, proj_bone2;
 		palm_plane_norm = palm.transform.forward;
 		palm_plane_up = palm.transform.up;
 		palm_plane_right = palm.transform.right;
@@ -70,22 +70,20 @@ public class GestureControl : MonoBehaviour {
 
 		return false;
 	}
+	*/
 
-	/* 	poseDetectorMLtrainning
+	/* 	gestureDetectorMLtrain
 	*	Input: GameObject obj
 	*	Output: None
 	*	Summary: 1. Process text file to OpenCV mat 2.train the model and store model in disk
 	*/
-	private bool poseDetectorMLtrain(){
-
-
+	private bool gestureDetectorMLtrain(){
 		//Data process
 		string data_fname_basic = "Assets/Data/handDataG";
 		Mat all_data = new Mat();
 		Mat all_label = new Mat ();
 		for (int i = 0; i < gesture_num; i++) {
 			string data_fname = data_fname_basic + i.ToString () + "_new.txt";
-			Debug.Log (data_fname);
 			int mat_m = File.ReadAllLines (data_fname).Length;
 			Mat cur_data = Mat.zeros(mat_m,mat_n,CvType.CV_32F);
 			Mat cur_label = Mat.ones(mat_m, 1, CvType.CV_32S);
@@ -106,8 +104,8 @@ public class GestureControl : MonoBehaviour {
 		}
 		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label);
 
-		//
-		Debug.Log("Debug print(GestureControl.poseDetectorMLtrainning()):----------");
+		//Debug usage
+		//Debug.Log("Debug print(GestureControl.poseDetectorMLtrainning()):----------");
 
 		//logistic reg model starts
 		/*
@@ -135,13 +133,13 @@ public class GestureControl : MonoBehaviour {
 		//logistic reg model ends
 
 		//svm model starts
-		Mat res = Mat.ones(1,1,CvType.CV_32S);
 		svm_model = OpenCVForUnity.SVM.create();
 		bool ret_val = svm_model.train (data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
 
 		//Debug usage
 		/*
+		Mat res = Mat.ones(1,1,CvType.CV_32S);
 		int idx = 2000;
 		svm_model.predict (all_data.row (idx), res, 0);
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
@@ -155,7 +153,12 @@ public class GestureControl : MonoBehaviour {
 		return ret_val;
 	}
 
-	private int poseDetectorMLtest(){
+	/* 	gestureDetectorMLpredict
+	*	Input: None
+	*	Output: None
+	*	Summary: 1. Collect current hand data 2. Generate an instant prediction for current gesture
+	*/
+	private int gestureDetectorMLpredict(){
 		//initialize/declare necessary normals and vector array
 		Vector3[] vec_bone2 = new Vector3[5];
 		float[] cur_data_array = new float[15];
@@ -180,12 +183,39 @@ public class GestureControl : MonoBehaviour {
 		//predict
 		Mat result = Mat.ones(1,1,CvType.CV_32S);
 		svm_model.predict (cur_data_mat, result, 0);
-		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
-		Debug.Log ("Predicted label is: " + cur_gesture);
+
+		//Debug usage
+		//string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
+		//Debug.Log ("Predicted label is: " + cur_gesture);
+
 		return ((int)result.get (0, 0) [0]);
 	}
-	//new
 
+	/* 	bufferedGesture
+	*	Input: None
+	*	Output: None
+	*	Summary: Output mode gesture in last detector_buff_len frames to reduce noise
+	*/
+	public string bufferedGesture(){
+		int[] gesture_hist = new int[gesture_dict.Count];
+		for (int i = 0; i < gesture_buff_len; i++) {
+			gesture_hist [gesture_buff [i]] += 1;
+		}
+
+		int modeGesture = 0;
+		for (int i = 0; i < gesture_hist.Length; i++){
+			if (gesture_hist[i] >= gesture_hist[modeGesture])
+				modeGesture = i;
+		}
+		return gesture_dict [modeGesture];
+	}
+
+
+	/* 	handDataGenerator
+	*	Input: None
+	*	Output: None
+	*	Summary: Output current gesture data into a .txt file
+	*/
 	private void handDataGenerator(){
 		Vector3[] vec_bone2 = new Vector3[5];
 		Vector3 palm_plane_norm, palm_plane_up, palm_plane_right;

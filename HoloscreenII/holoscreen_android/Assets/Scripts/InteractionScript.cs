@@ -178,7 +178,7 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = true;
 			restoreColliderTimer = Time.time;
 			this.GetComponent<Rigidbody> ().isKinematic = true;
-			dataManager.setLeftHandBusy (true);
+			dataManager.setLeftHandBusyOn ();
 			disableFingersCollider ();
 			Debug.Log("finger collider disabled");
 			this.transform.SetParent(grabHolder.transform);
@@ -205,7 +205,7 @@ public class InteractionScript : MonoBehaviour {
 			grabbed = false;
 			this.transform.parent = null;
 			this.GetComponent<Rigidbody> ().isKinematic = false;
-			dataManager.setLeftHandBusy(false);
+			dataManager.setLeftHandBusyOff();
 
 			int num_speed = speedList.Count;
 			Vector3 average = new Vector3 (0, 0, 0);

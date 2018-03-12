@@ -136,7 +136,7 @@ public class InteractionScript_Demo : MonoBehaviour {
 			restoreColliderTimer = Time.time;
 			grabbed = true;
 			//this.GetComponent<Rigidbody> ().isKinematic = true;
-			dataManager.setLeftHandBusy (true);
+			dataManager.setLeftHandBusyOn();
 
 
 			//New
@@ -172,7 +172,7 @@ public class InteractionScript_Demo : MonoBehaviour {
 			//New
 			this.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
 			//New
-			dataManager.setLeftHandBusy (false);
+			dataManager.setLeftHandBusyOff ();
 
 			// New
 			/*	

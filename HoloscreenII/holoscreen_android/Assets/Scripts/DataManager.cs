@@ -6,7 +6,7 @@ public class DataManager : MonoBehaviour {
 
 
 	private Vector3 hand_l_position;
-	private bool hand_l_isgrab, hand_r_isgrab;
+	private bool hand_l_busy, hand_r_busy;
 	private GameObject hand_l_obj, hand_r_obj;
 	// Use this for initialization
 	void Start () {
@@ -26,32 +26,35 @@ public class DataManager : MonoBehaviour {
 		//hand_l_position = v;
 	}
 
-	public void setLeftHandBusy(bool t){
-		if (!t){
-			hand_l_obj.GetComponent<InteractionScriptObject>().resetIsGrabbed();
-			hand_l_obj = null;
-		}
-		hand_l_isgrab = t;
+	public void setLeftHandBusyOn(){
+		hand_l_busy = true;
 	}
 
-	public void setRightHandBusy(bool t){
-		if (!t){
-			hand_r_obj.GetComponent<InteractionScriptObject>().resetIsGrabbed();
-			hand_r_obj = null;
-		}
-		hand_r_isgrab = t;
+	public void setLeftHandBusyOff(){
+		hand_l_obj = null;
+		hand_l_busy = false;
+	}
+
+	public void setRightHandBusyOn(){
+		hand_r_busy = true;
+	}
+
+	public void setRightHandBusyOff(){
+		hand_r_obj = null;
+		hand_r_busy = false;
 	}
 
 	public bool checkLeftHandBusy(){
-		return hand_l_isgrab;
+		return hand_l_busy;
 	}
 
 	
 	public bool checkRightHandBusy(){
-		return hand_r_isgrab;
+		return hand_r_obj;
 	}
 
 	public void setLeftHandObject(GameObject obj){
+		hand_l_busy = true;
 		hand_l_obj = obj;
 		Debug.Log("setLeftHandObject:" + hand_l_obj.name);
 		return;
