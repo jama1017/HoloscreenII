@@ -27,6 +27,7 @@ using System.Xml.Serialization;
 using Tango;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// AreaLearningGUIController is responsible for the main game interaction.
@@ -144,6 +145,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 	private GameObject m_staticMesh;
 
     private Thread m_saveThread;
+
+	public VirtualFurnitureMenu m_furnitureMenu;
+	public VirtualPaintMenu m_paintMenu;
+	public PaintFeature m_paintFeature;
 
     /// <summary>
     /// Unity Start function.
@@ -748,6 +753,34 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 		// Return
         yield break;
     }
+
+	public void setMeshVisible(bool meshVisible) {
+		m_staticMesh.GetComponent<MeshRenderer> ().enabled = meshVisible;
+	}
+
+	public void setFurnitureMenu(bool furnitureMenu) {
+		if (furnitureMenu) {
+			m_furnitureMenu.gameObject.SetActive (true);
+			m_furnitureMenu.open ();
+
+			GameObject.Find ("PaintToggle").GetComponent<Toggle> ().isOn = false;
+		} else {
+			m_furnitureMenu.close ();
+		}
+	}
+
+	public void setPaintMenu(bool paintMenu) {
+		if (paintMenu) {
+			m_paintMenu.gameObject.SetActive (true);
+			m_paintMenu.open ();
+			m_paintFeature.setCanPaint (true);
+
+			GameObject.Find ("FurnitureToggle").GetComponent<Toggle> ().isOn = false;
+		} else {
+			m_paintMenu.close ();
+			m_paintFeature.setCanPaint (false);
+		}
+	}
 
     /// <summary>
     /// Data container for marker.

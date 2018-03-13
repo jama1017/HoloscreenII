@@ -58,6 +58,11 @@ public class PaintFeature : MonoBehaviour {
 		canPaint = cp;
 	}
 
+	public void setColor(Color color) {
+		ink.startColor = color;
+		ink.endColor = color;
+	}
+
 	/*	Check pose pointing
  	*	Input: GameObject
 	*	Output: Boolean 

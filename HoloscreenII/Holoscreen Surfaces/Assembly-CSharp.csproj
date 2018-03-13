@@ -61,6 +61,16 @@
      <Compile Include="Assets\Scripts\SimpleMeshSerializer.cs" />
      <Compile Include="Assets\Scripts\Sync.cs" />
      <Compile Include="Assets\Scripts\TagResizeController.cs" />
+     <Compile Include="Assets\Scripts\VMIClose.cs" />
+     <Compile Include="Assets\Scripts\VMIColor.cs" />
+     <Compile Include="Assets\Scripts\VMIFurniture.cs" />
+     <Compile Include="Assets\Scripts\VMINextPage.cs" />
+     <Compile Include="Assets\Scripts\VMIOpen.cs" />
+     <Compile Include="Assets\Scripts\VMIPrevPage.cs" />
+     <Compile Include="Assets\Scripts\VirtualFurnitureMenu.cs" />
+     <Compile Include="Assets\Scripts\VirtualMenu.cs" />
+     <Compile Include="Assets\Scripts\VirtualMenuItem.cs" />
+     <Compile Include="Assets\Scripts\VirtualPaintMenu.cs" />
      <Compile Include="Assets\Scripts\WSManager.cs" />
      <Compile Include="Assets\Scripts\camControl.cs" />
      <Compile Include="Assets\Scripts\cameraProjectionRemap.cs" />
