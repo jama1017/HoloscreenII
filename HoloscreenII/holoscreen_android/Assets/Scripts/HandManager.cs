@@ -7,7 +7,7 @@ public class HandManager : MonoBehaviour {
 	//private DataManager dataManager;
 	private GestureControl gestureManager;
 	private PaintManager paintManager;
-	private GameObject grabHolder;
+	private GameObject grabHolder, palm;
 	private bool is_grabbing = false;
 
 	//Context: objct, paint, menu
@@ -17,11 +17,17 @@ public class HandManager : MonoBehaviour {
 	private int[] context_buff;
 	Dictionary<int, string> context_dict = new Dictionary<int, string>();
 
+	// These methods will be called on the object it hits.
+	const string OnRaycastExitMessage = "OnRaycastExit";
+	const string OnRaycastEnterMessage = "OnRaycastEnter";
+	private GameObject prev_hit;
+
 	// Use this for initialization
 	void Start () {
 		//dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
 		gestureManager = this.GetComponent<GestureControl> ();
 		paintManager = this.GetComponent<PaintManager> ();
+		palm = this.transform.GetChild (5).gameObject;
 		grabHolder = this.transform.GetChild (5).GetChild (0).gameObject;
 		context_buff = new int[context_buff_len];
 		context_dict.Add (0, "object");
@@ -31,32 +37,75 @@ public class HandManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (this.transform.GetChild (5).GetComponent<Rigidbody> ().angularVelocity);
-		if (gestureManager.bufferedGesture () == "palm" && this.transform.GetChild (5).forward.y > 0.9f) {
-			contextBuffUpdate (1);
-		} else if (gestureManager.bufferedGesture () == "palm" && this.transform.GetChild (5).forward.y < -0.9f){
-			contextBuffUpdate (0);
-		}
+		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
+		//if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
+		//	contextBuffUpdate (1);
+		//} else if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y < -0.9f){
+		//	contextBuffUpdate (0);
+		//}
 
 		switch (bufferedContext()){
-			case "menu":
-				break;
-			case "paint":
-				break;
-			default:
-				GameObject interact_obj = getHandObject ();
-				if (interact_obj != null) {
-					//Grab a object if hand gesture is grabbing
-					if (gestureManager.bufferedGesture () == "pinch") {
-						if (!is_grabbing)
-							grabObject (interact_obj);
-					} else {
-						if (is_grabbing)
-							releaseObject (interact_obj);
-					}
+		case "menu":
+			break;
+		case "paint":
+			break;
+		default:
+			GameObject interact_obj = getHandObject ();
+			if (interact_obj != null) {
+				SendMessageTo (OnRaycastExitMessage, prev_hit);
+				prev_hit = null;
+				guideToObject ();
+				//Grab a object if hand gesture is grabbing
+				if (gestureManager.bufferedGesture () == "pinch") {
+					if (!is_grabbing)
+						grabObject (interact_obj);
+				} else {
+					if (is_grabbing)
+						releaseObject (interact_obj);
 				}
+			} else {
+				hitObject ();
+			}
 				break;
 		}
+	}
+
+	/* 	hit
+	*	Input: String set_to_context
+	*	Output: None
+	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
+	*/
+	private void hitObject(){
+		RaycastHit hit;
+		guideToObject ();
+		if (Physics.Raycast (palm.transform.position, palm.transform.forward, out hit, 10f) ) {
+			GameObject cur_hit = hit.collider.gameObject;
+			if (prev_hit != cur_hit && cur_hit.tag == "InteractableObj") {
+				SendMessageTo (OnRaycastExitMessage, prev_hit);
+				SendMessageTo (OnRaycastEnterMessage, cur_hit);
+				prev_hit = cur_hit;
+			}
+		} else {
+			SendMessageTo (OnRaycastExitMessage, prev_hit);
+			prev_hit = null;
+		}
+	}
+
+	private void guideToObject(){
+		if (prev_hit) {
+			GameObject arrow = GameObject.Find ("arrow");
+			arrow.transform.GetChild (0).gameObject.SetActive(true);
+			arrow.transform.position = palm.transform.position + 0.01f * palm.transform.forward;
+			arrow.transform.up = palm.transform.forward;
+		} else {
+			GameObject arrow = GameObject.Find ("arrow");
+			arrow.transform.GetChild (0).gameObject.SetActive(false);
+		}
+	}
+
+	private void SendMessageTo(string msg, GameObject tar){
+		if (tar)
+			tar.SendMessage (msg, this.gameObject, SendMessageOptions.DontRequireReceiver);
 	}
 
 	/* 	contextSwtitch
