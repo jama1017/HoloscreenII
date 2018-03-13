@@ -14,6 +14,7 @@ public class VirtualPaintMenu : VirtualMenu {
 
 			item.AddComponent<VMIColor> ();
 			item.GetComponent<VMIColor> ().m_color = c;
+			item.AddComponent<VMIClose> ();
 
 			addBodyItem (item);
 		}
@@ -24,11 +25,11 @@ public class VirtualPaintMenu : VirtualMenu {
 		addFooterItem (prevPage);
 
 		GameObject closeMenu = Instantiate (m_itemPrefab) as GameObject;
-		prevPage.AddComponent<VMIClose> ();
+		closeMenu.AddComponent<VMIClose> ();
 		addFooterItem (closeMenu);
 
 		GameObject nextPage = Instantiate (m_itemPrefab) as GameObject;
-		prevPage.AddComponent<VMINextPage> ();
+		nextPage.AddComponent<VMINextPage> ();
 		addFooterItem (nextPage);
 	}
 }

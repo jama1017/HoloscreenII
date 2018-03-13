@@ -10,7 +10,7 @@ public class VirtualMenuItem : MonoBehaviour {
 	protected bool m_collidingWithHand = false;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		hand_l = GameObject.Find ("Hand_l").gameObject;
 
 		thumb_l = hand_l.transform.GetChild (0).gameObject;
@@ -21,7 +21,7 @@ public class VirtualMenuItem : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		if (this.transform.parent != null) {
 			m_menu = this.transform.parent.gameObject.GetComponent<VirtualMenu>();
 		}

@@ -5,7 +5,9 @@ using UnityEngine;
 public class VMIColor : VirtualMenuItem {
 	public Color m_color;
 
-	void Update() {
+	protected override void Update() {
+		base.Update ();
+
 		GetComponent<Renderer> ().material.color = m_color;
 	}
 	

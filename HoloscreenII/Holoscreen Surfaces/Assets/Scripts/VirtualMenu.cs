@@ -28,18 +28,18 @@ public class VirtualMenu : MonoBehaviour {
 
 	private float m_elapsed = 0.0f;
 
-	// TODO: velocity + acceleration
-	// TODO: actions
+	// TODO: merge with Haoming
+	// TODO: gesture for opening menu
+	// TODO: gestures for selecting things
+	// TODO: just drag models into menu
 	// TODO: depth
-	// TODO: just drag in furniture items, we create interactable objects from them
-	// TODO: merge with haoming
 
-	void Start () {
+	protected virtual void Start () {
 		
 	}
 	
 	// Update transform relative to camera
-	void Update () {
+	protected virtual void Update () {
 		Camera cam = Camera.main;
 
 		if (m_elapsed > 0.1f) {
@@ -116,9 +116,11 @@ public class VirtualMenu : MonoBehaviour {
 
 	public void setPage(int page) {
 		m_page = page;
+		Debug.Log ("Set page");
 
 		if (m_opened) {
 			updateBody ();
+			updateFooter ();
 		}
 	}
 
@@ -132,6 +134,7 @@ public class VirtualMenu : MonoBehaviour {
 
 	public void open() {
 		m_opened = true;
+		Debug.Log ("Opened");
 
 		updateBody();
 		updateFooter();
@@ -139,6 +142,7 @@ public class VirtualMenu : MonoBehaviour {
 
 	public void close() {
 		m_opened = false;
+		Debug.Log ("Closed");
 
 		foreach (GameObject o in m_body) {
 			o.SetActive(false);
@@ -172,6 +176,9 @@ public class VirtualMenu : MonoBehaviour {
 
 		Debug.Log ("Updating menu");
 		Debug.Log (m_body.Count);
+		Debug.Log (m_page);
+		Debug.Log (startIndex);
+		Debug.Log (endIndex);
 
 		for (int i = startIndex; i < endIndex; i++) {
 			int col = (i - startIndex) % m_cols;
@@ -181,6 +188,7 @@ public class VirtualMenu : MonoBehaviour {
 			float yPos = startY + deltaY * row;
 
 			m_body [i].SetActive (true);
+			m_body [i].transform.SetParent (this.transform);
 			m_body [i].transform.localPosition = new Vector3(xPos, yPos, 0);
 		}	
 	}
@@ -199,6 +207,7 @@ public class VirtualMenu : MonoBehaviour {
 			float xPos = startX + deltaX * i;
 
 			m_footer [i].SetActive (true);
+			m_footer [i].transform.SetParent (this.transform);
 			m_footer [i].transform.localPosition = new Vector3(xPos, -m_height, 0);
 		}
 	}

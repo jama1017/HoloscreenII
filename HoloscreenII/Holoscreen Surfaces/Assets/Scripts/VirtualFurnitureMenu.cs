@@ -14,6 +14,7 @@ public class VirtualFurnitureMenu : VirtualMenu {
 
 			item.AddComponent<VMIFurniture> ();
 			item.GetComponent<VMIFurniture> ().m_furniturePrefab = f;
+			item.AddComponent<VMIClose> ();
 
 			addBodyItem (item);
 		}
@@ -24,11 +25,11 @@ public class VirtualFurnitureMenu : VirtualMenu {
 		addFooterItem (prevPage);
 
 		GameObject closeMenu = Instantiate (m_itemPrefab) as GameObject;
-		prevPage.AddComponent<VMIClose> ();
+		closeMenu.AddComponent<VMIClose> ();
 		addFooterItem (closeMenu);
 
 		GameObject nextPage = Instantiate (m_itemPrefab) as GameObject;
-		prevPage.AddComponent<VMINextPage> ();
+		nextPage.AddComponent<VMINextPage> ();
 		addFooterItem (nextPage);
 	}
 }

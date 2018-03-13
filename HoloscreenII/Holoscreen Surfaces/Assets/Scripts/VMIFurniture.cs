@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class VMIFurniture : VirtualMenuItem {
 	public GameObject m_furniturePrefab;
-
-	void Update() {
-
-	}
 	
 	public override void onHandIn ()
 	{
@@ -15,7 +11,7 @@ public class VMIFurniture : VirtualMenuItem {
 
 		GameObject newFurnitureObject = Instantiate(m_furniturePrefab,
 			cam.transform.position + cam.transform.forward,
-			Quaternion.LookRotation(-cam.transform.forward, new Vector3(0, 1, 0))) as GameObject;
+			Quaternion.LookRotation(-cam.transform.forward, new Vector3(0, 1, 0))) as GameObject;		
 	}
 
 }
