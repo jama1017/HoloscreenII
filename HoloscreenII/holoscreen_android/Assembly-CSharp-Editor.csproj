@@ -50,6 +50,7 @@
      <Compile Include="Assets\OpenCVForUnity\Editor\iOS_BuildPostprocessor.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\haarcascade_frontalface_alt.xml" />
+     <None Include="Assets\Data\svm.xml" />
      <None Include="Assets\OpenCVForUnity\OpenCV_LICENSE.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\lbpcascade_frontalface.xml" />
      <None Include="Assets\Data\handData_G0.txt" />
@@ -125,7 +126,7 @@
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>C:/Users/harry/Documents/github/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/harry/Documents/GitHub/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

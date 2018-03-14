@@ -36,8 +36,14 @@ public class GestureControl : MonoBehaviour {
 		//gesture_dict.Add(3, "gist");
 		//gesture_dict.Add(4, "undefined");
 
-		//data train
-		gestureDetectorMLtrain();
+		//Train svm model when svm model does not exist
+		//if (File.Exists ("Assets/Data/svm.xml"))
+		//	svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
+		//else {
+			gestureDetectorMLtrain ();
+			svm_model.save ("Assets/Data/svm.xml");
+		//}
+
 	}
 	
 	// Update is called once per frame
@@ -110,6 +116,9 @@ public class GestureControl : MonoBehaviour {
 		//logistic reg model starts
 		/*
 		logis_reg_model = OpenCVForUnity.LogisticRegression.create ();
+		ret_val = logis_reg_model.train (data_lable);
+		Debug.Log ("Logistic train success : " + ret_val);
+		logis_reg_model = OpenCVForUnity.LogisticRegression.create ();
 		logis_reg_model.setLearningRate (0.0001);
 		logis_reg_model.setRegularization(OpenCVForUnity.LogisticRegression.REG_L2);
 		logis_reg_model.setIterations (100);
@@ -128,6 +137,8 @@ public class GestureControl : MonoBehaviour {
 
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
 		Debug.Log ("Predicted label is: " + result.get (0, 0) [0]);
+
+
 		*/
 
 		//logistic reg model ends
@@ -136,7 +147,6 @@ public class GestureControl : MonoBehaviour {
 		svm_model = OpenCVForUnity.SVM.create();
 		bool ret_val = svm_model.train (data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
-
 		//Debug usage
 		/*
 		Mat res = Mat.ones(1,1,CvType.CV_32S);
@@ -147,7 +157,7 @@ public class GestureControl : MonoBehaviour {
 		*/
 
 		//Trainning error printed out
-		//Debug.Log("SVM trainning error: " + svm_model.calcError (data_lable,true,all_label));
+		Debug.Log("SVM trainning error: " + svm_model.calcError (data_lable,true,all_label));
 
 		//svm model ends
 		return ret_val;
@@ -175,8 +185,8 @@ public class GestureControl : MonoBehaviour {
 			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
 			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
 			cur_data_array [i * 3] = vec_bone2 [i].x;
-			cur_data_array [i * 3 + 1] = vec_bone2 [i].x;
-			cur_data_array [i * 3 + 2] = vec_bone2 [i].x;
+			cur_data_array [i * 3 + 1] = vec_bone2 [i].y;
+			cur_data_array [i * 3 + 2] = vec_bone2 [i].z;
 		}
 		cur_data_mat.put (0, 0, cur_data_array);
 

@@ -52,9 +52,7 @@ public class HandManager : MonoBehaviour {
 		default:
 			GameObject interact_obj = getHandObject ();
 			if (interact_obj != null) {
-				SendMessageTo (OnRaycastExitMessage, prev_hit);
-				prev_hit = null;
-				guideToObject ();
+				cleanGuidance ();
 				//Grab a object if hand gesture is grabbing
 				if (gestureManager.bufferedGesture () == "pinch") {
 					if (!is_grabbing)
@@ -64,20 +62,23 @@ public class HandManager : MonoBehaviour {
 						releaseObject (interact_obj);
 				}
 			} else {
-				hitObject ();
+				if (gestureManager.bufferedGesture () == "palm")
+					hitObject ();
+				else {
+					cleanGuidance ();
+				}
 			}
 				break;
 		}
 	}
 
-	/* 	hit
-	*	Input: String set_to_context
+	/* 	hitObject
+	*	Input: None
 	*	Output: None
-	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
+	*	Summary: Send msg to any object interesected by the raycast which shoots from palm center to palm.norm direction
 	*/
 	private void hitObject(){
 		RaycastHit hit;
-		guideToObject ();
 		if (Physics.Raycast (palm.transform.position, palm.transform.forward, out hit, 10f) ) {
 			GameObject cur_hit = hit.collider.gameObject;
 			if (prev_hit != cur_hit && cur_hit.tag == "InteractableObj") {
@@ -89,8 +90,14 @@ public class HandManager : MonoBehaviour {
 			SendMessageTo (OnRaycastExitMessage, prev_hit);
 			prev_hit = null;
 		}
+		guideToObject ();
 	}
 
+	/* 	guideToObject
+	*	Input: None
+	*	Output: None
+	*	Summary: Create a arrow between object and palm
+	*/
 	private void guideToObject(){
 		if (prev_hit) {
 			GameObject arrow = GameObject.Find ("arrow");
@@ -100,6 +107,21 @@ public class HandManager : MonoBehaviour {
 		} else {
 			GameObject arrow = GameObject.Find ("arrow");
 			arrow.transform.GetChild (0).gameObject.SetActive(false);
+		}
+	}
+
+
+	/* 	hitObject
+	*	Input: None
+	*	Output: None
+	*	Summary: Clean 
+	*/
+	private void cleanGuidance(){
+		if (prev_hit != null) {
+			SendMessageTo (OnRaycastExitMessage, prev_hit);
+			prev_hit = null;
+			guideToObject ();
+			Debug.Log ("Arrow cleaned");
 		}
 	}
 
@@ -120,15 +142,18 @@ public class HandManager : MonoBehaviour {
 				paintManager.turnOnPaint();
 				removeHandObject ();
 				context = set_to_context;
+				cleanGuidance ();
 			} else if(set_to_context == "object") {
 				//closeMenu ();
 				paintManager.turnOffPaint ();
 				context = set_to_context;
+				cleanGuidance ();
 			} else if (set_to_context == "menu"){
 				paintManager.turnOffPaint ();
 				removeHandObject ();
 				//call menu func
 				context = set_to_context;
+				cleanGuidance ();
 			}
 		}
 		return;

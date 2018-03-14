@@ -106,7 +106,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	private void OnRaycastEnter(GameObject sender){
-		//Debug.Log ("Hit " + this.gameObject.name);
+		Debug.Log ("Hit " + this.gameObject.name);
 		this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", Vector4.zero);
 		Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
 		Color cur_color =  this.GetComponent<Renderer> ().material.GetColor("_EmissionColor") + add_color;
@@ -114,7 +114,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	private void OnRaycastExit(GameObject sender){
-		//Debug.Log ("Hit leaves " + this.gameObject.name);
+		Debug.Log ("Hit leaves " + this.gameObject.name);
 		Color cur_color =  new Vector4 (0f, 0f, 0f, 0f);
 		this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
 	}
