@@ -65,7 +65,7 @@ public class HandManager : MonoBehaviour {
 				} else {
 					if (is_grabbing) {
 						Debug.Log ("Releasing object");
-						//releaseObject (interact_obj);
+						releaseObject (interact_obj);
 					}
 				}
 			} else {
