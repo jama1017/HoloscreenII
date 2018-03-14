@@ -29,6 +29,8 @@ public class VirtualMenu : MonoBehaviour {
 	private float m_elapsed = 0.0f;
 
 	// TODO: merge with Haoming
+	// 		- hand position
+	// 		- object outline
 	// TODO: gesture for opening menu
 	// TODO: gestures for selecting things
 	// TODO: just drag models into menu

@@ -13,7 +13,7 @@ public class VMIColor : VirtualMenuItem {
 	
 	public override void onHandIn ()
 	{
-		hand_l.GetComponent<PaintFeature> ().setColor (m_color);
+		//hand_l.GetComponent<PaintFeature> ().setColor (m_color);
 	}
 
 }
