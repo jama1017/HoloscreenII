@@ -89,7 +89,7 @@ public class Sync : MonoBehaviour {
 				if (type.Contains ("pos")) {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					palm_pos = palm_pos * 0.001f;
-					palm_pos [1] += 0.2f;
+					//palm_pos [1] += 0.2f;
 					l_palm.transform.localPosition = palm_pos;
 					dataManager.setLeftHandPosition (palm_pos);
 				} else if (type.Contains ("vel")) {
@@ -121,7 +121,7 @@ public class Sync : MonoBehaviour {
 						if (vec3_type.Contains ("pos")) {
 							Vector3 bone_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 							bone_pos = bone_pos * 0.001f;
-							bone_pos [1] += 0.2f;
+							//bone_pos [1] += 0.2f;
 							bone.transform.localPosition = bone_pos;
 						} else {
 							//Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);
@@ -136,7 +136,7 @@ public class Sync : MonoBehaviour {
 			}
 		}
 
-		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0.02f, -0.29f, -0.01f);
+		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0.02f, -0.09f, -0.01f);
 		transform.rotation = Camera.main.transform.rotation;
 	}
 

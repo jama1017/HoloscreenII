@@ -74,6 +74,8 @@ public class GestureControl : MonoBehaviour {
 		//Update gesture buffer array
 		gesture_buff[gesture_buff_idx++] = gestureDetectorMLpredict ();
 		gesture_buff_idx = (gesture_buff_idx) % gesture_buff_len;
+
+		handDataGenerator ();
 	}
 
 
@@ -219,6 +221,7 @@ public class GestureControl : MonoBehaviour {
 		//Debug usage
 		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
 		Debug.Log ("Predicted label is: " + cur_gesture);
+		Debug.Log (result.get (0, 0) [0]);
 
 		return ((int)result.get (0, 0) [0]);
 	}
@@ -268,6 +271,8 @@ public class GestureControl : MonoBehaviour {
 				temp += "\n";
 		}
 
-		System.IO.File.AppendAllText(System.IO.Path.Combine(Application.persistentDataPath, "handDataG_new.txt"), temp);
+		Debug.Log ("Printing Data");
+		Debug.Log ("Palm Position: " + (palm.transform.position).ToString() + ", bone 1 position: " + (this.transform.GetChild (0).GetChild (2).position).ToString());
+		//System.IO.File.AppendAllText(System.IO.Path.Combine(Application.persistentDataPath, "handDataG_new.txt"), temp);
 	}
 }

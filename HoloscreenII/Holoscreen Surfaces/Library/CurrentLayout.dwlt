@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 49
+  controlID: 21
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
     y: 0
     width: 1520
     height: 764
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 50
+  controlID: 22
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 51
+  controlID: 23
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -366,9 +366,9 @@ MonoBehaviour:
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 119}
-    m_SelectedIDs: 3c360000
-    m_LastClickedID: 13884
-    m_ExpandedIDs: 000000003a3200007232000086320000923200009432000096320000c6320000f6320000c4340000f2340000f434000066350000a8350000c0350000c6350000e6350000023600003a3600003c36000070360000943600000a3700002e3700004e370000b83b0000ba3b0000bc3b0000be3b0000c03b0000c23b0000c43b000000ca9a3bffffff7f
+    m_SelectedIDs: ec340000
+    m_LastClickedID: 13548
+    m_ExpandedIDs: 00000000a0290000f4290000322a0000782a0000942a00009a2a0000402b0000e42b00004e2f0000dc2f0000e22f00009c3100007c320000c832000052330000ce330000ea340000ec3400006a350000b83500004e370000dc37000066380000943f0000963f0000983f00009a3f00009c3f00009e3f0000a03f0000a23f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -396,7 +396,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003a3200007232000086320000923200009432000096320000c6320000f6320000c4340000f2340000f434000066350000a8350000c0350000e6350000023600003a36000070360000943600000a3700004e370000b83b0000ba3b0000bc3b0000be3b0000c03b0000c23b0000c43b0000
+    m_ExpandedIDs: 00000000a0290000f4290000322a0000782a0000942a00009a2a0000402b0000e42b00004e2f0000dc2f0000e22f00009c3100007c320000c832000052330000ce330000ea340000ec3400006a350000b83500004e370000dc37000066380000943f0000963f0000983f00009a3f00009c3f00009e3f0000a03f0000a23f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -448,7 +448,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 180}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 240
 --- !u!114 &15
@@ -514,21 +514,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: bc67fbff5668fbffe869fbfff46dfbff8e6efbff2070fbffba73fbff5474fbffe675fbff9c7afbff367bfbffc87cfbfff47ffbff8e80fbff2082fbff7285fbff0c86fbff9e87fbff828cfbff1c8dfbffae8efbff7092fbff0a93fbff9c94fbff50a5fbffeaa5fbff7ca7fbffd6adfbff70aefbff06b0fbff18b8fbff90b8fbff22bafbff00bdfbff78bdfbff0abffbffb4c5fbff2cc6fbffbec7fbff8ecafbff06cbfbff98ccfbffa6dafbff20dbfbffb2dcfbff4cebfbffc6ebfbff5cedfbff5af0fbffd4f0fbff66f2fbff2004fcffba04fcff4c06fcff320afcffcc0afcff600cfcffbc3bfcff563cfcffe43dfcff5653fcfff253fcff8255fcffdefefcff6cfffcfffa00fdffd230ffffe230ffffe630ffffe830ffffea30fffff430ffff2833ffff3433ffff3833ffff3c33ffff4233ffff4a33ffff4c33ffffa244ffff28acffff4eacffff50acffff48adffff00000000e2370000ee370000283800003238000060380000663800008a3800009c380000a4380000b4380000bc380000d2380000d8380000de380000e8380000143900001c3900002639000030390000403900006c3900008c39000094390000d8af000004b00000b0b000004cb10000acb100000cb200003a0301005c9b0100c09d0100
+    m_ExpandedIDs: 26f0ffffc8f0ffff5ef2ffffe6fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: grabHolder
-      m_OriginalName: grabHolder
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 105658
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 4}
     m_SearchString: 

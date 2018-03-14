@@ -60,7 +60,7 @@ public class HandManager : MonoBehaviour {
 				if (gestureManager.bufferedGesture () == "pinch") {
 					if (!is_grabbing) {
 						Debug.Log ("Grabbing object");
-						//grabObject (interact_obj);
+						grabObject (interact_obj);
 					}
 				} else {
 					if (is_grabbing) {

@@ -2,20 +2,20 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GestureControl.cs">
     <Files>
-      <File FileName="Assets\Scripts\AreaLearningInGameController.cs" Line="145" Column="34" />
-      <File FileName="Assets\Scripts\VirtualMenu.cs" Line="31" Column="19" />
-      <File FileName="Assets\Scripts\VirtualMenuItem.cs" Line="13" Column="12" />
+      <File FileName="Assets\Scripts\AreaLearningInGameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\VirtualMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\VirtualMenuItem.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\VMIClose.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\VMIColor.cs" Line="15" Column="3" />
+      <File FileName="Assets\Scripts\VMIColor.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\VMIFurniture.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\VMINextPage.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\VMIPrevPage.cs" Line="9" Column="21" />
+      <File FileName="Assets\Scripts\VMIPrevPage.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\VirtualPaintMenu.cs" Line="20" Column="4" />
-      <File FileName="Assets\Scripts\VirtualFurnitureMenu.cs" Line="17" Column="35" />
-      <File FileName="Assets\Scripts\PaintManager.cs" Line="35" Column="45" />
-      <File FileName="Assets\Scripts\HandManager.cs" Line="67" Column="38" />
-      <File FileName="Assets\Scripts\GestureControl.cs" Line="193" Column="41" />
-      <File FileName="Assets\Scripts\InteractionScriptObject.cs" Line="56" Column="30" />
+      <File FileName="Assets\Scripts\VirtualFurnitureMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PaintManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HandManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GestureControl.cs" Line="222" Column="37" />
+      <File FileName="Assets\Scripts\InteractionScriptObject.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
