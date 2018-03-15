@@ -7,14 +7,15 @@ public class VirtualPaintMenu : VirtualMenu {
 	public GameObject m_itemPrefab;
 
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
+		base.Start ();
+
 		// Add body
 		foreach (Color c in m_colors) {
 			GameObject item = Instantiate (m_itemPrefab) as GameObject;
 
 			item.AddComponent<VMIColor> ();
 			item.GetComponent<VMIColor> ().m_color = c;
-			item.AddComponent<VMIClose> ();
 
 			addBodyItem (item);
 		}
@@ -24,12 +25,12 @@ public class VirtualPaintMenu : VirtualMenu {
 		prevPage.AddComponent<VMIPrevPage> ();
 		addFooterItem (prevPage);
 
-		GameObject closeMenu = Instantiate (m_itemPrefab) as GameObject;
-		closeMenu.AddComponent<VMIClose> ();
-		addFooterItem (closeMenu);
-
 		GameObject nextPage = Instantiate (m_itemPrefab) as GameObject;
 		nextPage.AddComponent<VMINextPage> ();
 		addFooterItem (nextPage);
+
+		GameObject closeMenu = Instantiate (m_itemPrefab) as GameObject;
+		closeMenu.AddComponent<VMIClose> ();
+		addFooterItem (closeMenu);
 	}
 }

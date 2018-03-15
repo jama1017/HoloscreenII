@@ -29,13 +29,10 @@ public class VirtualMenu : MonoBehaviour {
 	private float m_elapsed = 0.0f;
 
 	// TODO: merge with Haoming
-	// 		- Painting
-	// 		- arrows and highlighting objects
-	// 		- arrows and highlighting menu items (guidance)
-	// 		- only select item when gesture is paint
-	// 		- open menu on palm open
-	// 		- better models for the menu / better distance
+	// 		- menu created from only furniture items, interaction script add, etc.
 	// 		- better furniture placement
+	// 		- menu for selecting things
+	// 		- workflows
 	// 		- faster depth
 
 	protected virtual void Start () {

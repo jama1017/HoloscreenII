@@ -2,12 +2,14 @@
 {
 	Properties {
 		_MainTex("Base (RGB)", 2D) = "white" {}
-		_OutlineFactor("Outline Factor", Range(0, 1)) = 0.5
+		_UseBodyColor("Use Body Color", Float) = 0
+		_BodyColor("Body Color", Color) = (1,1,1,1)
+		_OutlineFactor("Outline Factor", Range(0, 1)) = 0
 		_OutlineColor("Outline Color", Color) = (1,1,1,1)
-		_OutlineWidth("Outline Width", Range(0, 10)) = 0.002
+		_OutlineWidth("Outline Width", Range(0, 10)) = 0.005
 		_BodyAlpha("Body Alpha", Range(0, 1)) = 1
 
-		_Stencil("Stencil ID", Int) = 16
+		_Stencil("Stencil ID", Int) = 8
 
 		[HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
 		[HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
@@ -63,6 +65,9 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 
+			uniform float _UseBodyColor;
+			uniform fixed4 _BodyColor;
+
 			v2f vert(appdata_t v)
 			{
 				v2f o;
@@ -78,7 +83,15 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.texcoord);
+				fixed4 col;
+
+				if(_UseBodyColor == 0) {
+					col = tex2D(_MainTex, i.texcoord);
+				}
+				else {
+					col = _BodyColor;
+				}
+
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				UNITY_OPAQUE_ALPHA(col.a);
 
@@ -280,6 +293,9 @@
 			float4 _MainTex_ST;
 			uniform float _BodyAlpha;
 
+			uniform float _UseBodyColor;
+			uniform fixed4 _BodyColor;
+
 			v2f vert(appdata_t v)
 			{
 				v2f o;
@@ -295,7 +311,14 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.texcoord);
+				fixed4 col;
+
+				if(_UseBodyColor == 0) {
+					col = tex2D(_MainTex, i.texcoord);
+				}
+				else {
+					col = _BodyColor;
+				}
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				UNITY_OPAQUE_ALPHA(col.a);
 

@@ -23,9 +23,9 @@ public class HandManager : MonoBehaviour {
 	const string OnRaycastEnterMessage = "OnRaycastEnter";
 	private GameObject prev_hit;
 
-	public VirtualFurnitureMenu m_furnitureMenu;
-	public VirtualPaintMenu m_paintMenu;
-	private int current_menu = 0;
+	private VirtualFurnitureMenu m_furnitureMenu;
+	private VirtualPaintMenu m_paintMenu;
+	private int m_currentMenu = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -38,17 +38,22 @@ public class HandManager : MonoBehaviour {
 		context_dict.Add (0, "object");
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
+
+		// Get menus
+		m_furnitureMenu = GameObject.Find ("FurnitureMenu").GetComponent<VirtualFurnitureMenu>();
+		m_paintMenu = GameObject.Find ("PaintMenu").GetComponent<VirtualPaintMenu>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
 		if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
-			contextBuffUpdate (1);
+			contextSwitch ("menu");
 		}
-
-		switch (bufferedContext()){
+			
+		switch (context){
 		case "menu":
+			Debug.Log ("In Menu");
 			break;
 		case "paint":
 			break;
@@ -139,30 +144,31 @@ public class HandManager : MonoBehaviour {
 	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
 	*/
 	public void contextSwitch(string set_to_context){
+		Debug.Log (set_to_context);
+
 		if (context != set_to_context){
 			if (set_to_context == "paint") {
 				paintManager.turnOnPaint();
 				removeHandObject ();
-				context = set_to_context;
-				cleanGuidance ();
 			} else if(set_to_context == "object") {
 				paintManager.turnOffPaint ();
-				context = set_to_context;
-				cleanGuidance ();
 			} else if (set_to_context == "menu"){
 				paintManager.turnOffPaint ();
 				removeHandObject ();
 
 				// Open menu
-				if (current_menu == 0) {
+				if (m_currentMenu == 0) {
 					m_furnitureMenu.open ();
+					m_paintMenu.close ();
+					contextSwitch ("object");
 				} else {
 					m_paintMenu.open ();
+					m_furnitureMenu.close ();
 				}
-
-				context = set_to_context;
-				cleanGuidance ();
 			}
+
+			cleanGuidance ();
+			context = set_to_context;
 		}
 		return;
 	}
@@ -195,6 +201,12 @@ public class HandManager : MonoBehaviour {
 	private void contextBuffUpdate(int cur_context){
 		context_buff [context_buff_idx++] = cur_context;
 		context_buff_idx = context_buff_idx % context_buff_len;
+	}
+
+	private void contextBuffClear(){
+		for (int i = 0; i < context_buff_len; i++) {
+			context_buff [i] = 0;
+		}
 	}
 
 	/* 
@@ -242,11 +254,8 @@ public class HandManager : MonoBehaviour {
 	}
 
 	public void setMenu(int menu) {
-		if (menu == 0) {
-			GameObject.Find ("PaintToggle").GetComponent<Toggle> ().isOn = false;
-		} else {
-			GameObject.Find ("FurnitureMenu").GetComponent<Toggle> ().isOn = false;
-		}
+		m_currentMenu = menu;
+		contextSwitch ("object");
 	}
 
 	/* 	collectHandSpeed

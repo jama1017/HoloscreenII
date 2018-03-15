@@ -9,8 +9,17 @@ public class VirtualMenuItem : MonoBehaviour {
 	protected GameObject hand_l, thumb_l, indexfinger_l, middlefinger_l, ringfinger_l, palm_l;
 	protected bool m_collidingWithHand = false;
 
+	private Shader m_primaryShader;
+	private Shader m_secondaryShader;
+	private string m_lastGesture = "";
+
 	// Use this for initialization
 	protected virtual void Start () {
+		// Get shaders
+		m_primaryShader = this.GetComponent<Renderer>().material.shader;
+		m_secondaryShader = Shader.Find ("ModelEffect/VerticsOutline_Always");
+
+		// Get hand objects
 		hand_l = GameObject.Find ("Hand_l").gameObject;
 
 		thumb_l = hand_l.transform.GetChild (0).gameObject;
@@ -27,6 +36,7 @@ public class VirtualMenuItem : MonoBehaviour {
 		}
 
 		if (m_menu != null) {
+			// Detect collision
 			if (!m_collidingWithHand) {
 				m_collidingWithHand = collidesWithHand ();
 
@@ -40,6 +50,18 @@ public class VirtualMenuItem : MonoBehaviour {
 					onHandOut ();
 				}
 			}
+
+			// Detect grab
+			if (m_collidingWithHand) {
+				string curGesture = hand_l.GetComponent<GestureControl> ().bufferedGesture ();
+
+				if (curGesture != m_lastGesture && curGesture == "pinch") {
+					onHandGrab ();
+				}
+			}
+
+			// Reset last gesture
+			m_lastGesture = hand_l.GetComponent<GestureControl> ().bufferedGesture ();
 		}
 	}
 
@@ -67,11 +89,33 @@ public class VirtualMenuItem : MonoBehaviour {
 		return c.bounds.Intersects (o.GetComponent<Collider> ().bounds);
 	}
 
+	private void highlightMaterial(GameObject g) {
+		g.GetComponent<Renderer> ().material.shader = m_secondaryShader;
+		g.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", new Color (0, 248.0f / 256.0f, 63.0f / 256.0f, 143.0f / 256.0f));
+		g.GetComponent<Renderer> ().material.SetFloat ("_OutlineWidth", 0.001f);
+	}
+
+	private void unhighlightMaterial(GameObject g) {
+		g.GetComponent<Renderer> ().material.shader = m_primaryShader;
+	}
+
 	public virtual void onHandIn() {
-		
+		highlightMaterial (this.gameObject);
+
+		foreach (Transform child in transform) {
+			highlightMaterial (child.gameObject);
+		}
 	}
 
 	public virtual void onHandOut() {
+		unhighlightMaterial (this.gameObject);
+
+		foreach (Transform child in transform) {
+			unhighlightMaterial (child.gameObject);
+		}
+	}
+
+	public virtual void onHandGrab() {
 
 	}
 }

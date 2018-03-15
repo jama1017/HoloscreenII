@@ -35,8 +35,8 @@ inline float TangoDepthSample(sampler2D cameraDepthTexture, float4 screenPos, fl
 float TangoOcclusionCertainty(sampler2D cameraDepthTexture, float4 screenPos, float blurAmount)
 {
     // Pre-calculate weights for each diagonal shift amount.
-    float shift[5] = { 0.0, 1.0, 2.0, 3.0, 4.0 };
-    float weight[5] = { 0.09, 0.075, 0.06, 0.045, 0.025 };
+    float shift[3] = { 0.0, 1.0, 2.0 };
+    float weight[3] = { 0.09, 0.075, 0.06 };
     float cameraDistZ = screenPos.z + (_ProjectionParams.y * 2);
     
     // Add up the weighted depth values by testing the z depth in diagonal directions to get a final value for the
@@ -44,14 +44,14 @@ float TangoOcclusionCertainty(sampler2D cameraDepthTexture, float4 screenPos, fl
     float certainty = 0;
     certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[0], shift[0], shift[0]);
 
-    for (int i = 1; i < 5; i++){
+    for (int i = 1; i < 3; i++){
         certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[i], shift[i], shift[i]);
         certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[i], -shift[i], shift[i]);
         certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[i], shift[i], -shift[i]);
         certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[i], -shift[i], -shift[i]);
     }
 
-    return certainty * 1.1;
+    return certainty * 1.2;
 
 //	float certainty = 0;
 //	float weight = 0;

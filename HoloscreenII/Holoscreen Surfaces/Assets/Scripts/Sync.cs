@@ -136,7 +136,7 @@ public class Sync : MonoBehaviour {
 			}
 		}
 
-		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0.02f, -0.09f, -0.01f);
+		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(-0.02f, -0.08f, -0.01f);
 		transform.rotation = Camera.main.transform.rotation;
 	}
 

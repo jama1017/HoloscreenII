@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VMINextPage : VirtualMenuItem {
 
-	public override void onHandIn ()
+	public override void onHandGrab ()
 	{
 		m_menu.nextPage();
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VMIClose : VirtualMenuItem {
 
-	public override void onHandIn ()
+	public override void onHandGrab ()
 	{
 		m_menu.close();
 	}

@@ -27,11 +27,14 @@ public class PaintManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log (paint_mode);
+
 		//Paint feature
 		if (paint_mode) {
 			if (gestureManager.bufferedGesture () == "paint") {
 				if (!is_painting) {
 					new_ink = Instantiate (ink);
+					new_ink.GetComponent<Renderer> ().material = Instantiate (new_ink.GetComponent<Renderer> ().material) as Material;
 					new_ink.gameObject.transform.SetParent (ink_group.gameObject.transform);
 					new_ink.positionCount = 0;
 					new_ink.numCornerVertices = 5;
