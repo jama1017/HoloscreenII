@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour {
 	//Left hand has priority
@@ -12,7 +13,7 @@ public class HandManager : MonoBehaviour {
 
 	//Context: objct, paint, menu
 	private string context = "object";
-	private int context_buff_len = 30;
+	private int context_buff_len = 300;
 	private int context_buff_idx;
 	private int[] context_buff;
 	Dictionary<int, string> context_dict = new Dictionary<int, string>();
@@ -21,6 +22,10 @@ public class HandManager : MonoBehaviour {
 	const string OnRaycastExitMessage = "OnRaycastExit";
 	const string OnRaycastEnterMessage = "OnRaycastEnter";
 	private GameObject prev_hit;
+
+	public VirtualFurnitureMenu m_furnitureMenu;
+	public VirtualPaintMenu m_paintMenu;
+	private int current_menu = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -34,16 +39,13 @@ public class HandManager : MonoBehaviour {
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
-		//if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
-		//	contextBuffUpdate (1);
-		//} else if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y < -0.9f){
-		//	contextBuffUpdate (0);
-		//}
-		Debug.Log(gestureManager.bufferedGesture());
+		if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
+			contextBuffUpdate (1);
+		}
 
 		switch (bufferedContext()){
 		case "menu":
@@ -53,36 +55,33 @@ public class HandManager : MonoBehaviour {
 		default:
 			GameObject interact_obj = getHandObject ();
 			if (interact_obj != null) {
-				//SendMessageTo (OnRaycastExitMessage, prev_hit);
-				prev_hit = null;
-				//guideToObject ();
+				cleanGuidance ();
 				//Grab a object if hand gesture is grabbing
 				if (gestureManager.bufferedGesture () == "pinch") {
-					if (!is_grabbing) {
-						Debug.Log ("Grabbing object");
+					if (!is_grabbing)
 						grabObject (interact_obj);
-					}
 				} else {
-					if (is_grabbing) {
-						Debug.Log ("Releasing object");
+					if (is_grabbing)
 						releaseObject (interact_obj);
-					}
 				}
 			} else {
-				//hitObject ();
+				if (gestureManager.bufferedGesture () == "palm")
+					hitObject ();
+				else {
+					cleanGuidance ();
+				}
 			}
-				break;
+			break;
 		}
 	}
 
-	/* 	hit
-	*	Input: String set_to_context
+	/* 	hitObject
+	*	Input: None
 	*	Output: None
-	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
+	*	Summary: Send msg to any object interesected by the raycast which shoots from palm center to palm.norm direction
 	*/
 	private void hitObject(){
 		RaycastHit hit;
-		//guideToObject ();
 		if (Physics.Raycast (palm.transform.position, palm.transform.forward, out hit, 10f) ) {
 			GameObject cur_hit = hit.collider.gameObject;
 			if (prev_hit != cur_hit && cur_hit.tag == "InteractableObj") {
@@ -94,8 +93,14 @@ public class HandManager : MonoBehaviour {
 			SendMessageTo (OnRaycastExitMessage, prev_hit);
 			prev_hit = null;
 		}
+		guideToObject ();
 	}
 
+	/* 	guideToObject
+	*	Input: None
+	*	Output: None
+	*	Summary: Create a arrow between object and palm
+	*/
 	private void guideToObject(){
 		if (prev_hit) {
 			GameObject arrow = GameObject.Find ("arrow");
@@ -105,6 +110,21 @@ public class HandManager : MonoBehaviour {
 		} else {
 			GameObject arrow = GameObject.Find ("arrow");
 			arrow.transform.GetChild (0).gameObject.SetActive(false);
+		}
+	}
+
+
+	/* 	hitObject
+	*	Input: None
+	*	Output: None
+	*	Summary: Clean 
+	*/
+	private void cleanGuidance(){
+		if (prev_hit != null) {
+			SendMessageTo (OnRaycastExitMessage, prev_hit);
+			prev_hit = null;
+			guideToObject ();
+			Debug.Log ("Arrow cleaned");
 		}
 	}
 
@@ -121,19 +141,27 @@ public class HandManager : MonoBehaviour {
 	public void contextSwitch(string set_to_context){
 		if (context != set_to_context){
 			if (set_to_context == "paint") {
-				//closeMenu ();
 				paintManager.turnOnPaint();
 				removeHandObject ();
 				context = set_to_context;
+				cleanGuidance ();
 			} else if(set_to_context == "object") {
-				//closeMenu ();
 				paintManager.turnOffPaint ();
 				context = set_to_context;
+				cleanGuidance ();
 			} else if (set_to_context == "menu"){
 				paintManager.turnOffPaint ();
 				removeHandObject ();
-				//call menu func
+
+				// Open menu
+				if (current_menu == 0) {
+					m_furnitureMenu.open ();
+				} else {
+					m_paintMenu.open ();
+				}
+
 				context = set_to_context;
+				cleanGuidance ();
 			}
 		}
 		return;
@@ -211,6 +239,14 @@ public class HandManager : MonoBehaviour {
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		is_grabbing = false;
 		//Debug.Log (obj.name + " is dropped");
+	}
+
+	public void setMenu(int menu) {
+		if (menu == 0) {
+			GameObject.Find ("PaintToggle").GetComponent<Toggle> ().isOn = false;
+		} else {
+			GameObject.Find ("FurnitureMenu").GetComponent<Toggle> ().isOn = false;
+		}
 	}
 
 	/* 	collectHandSpeed

@@ -148,7 +148,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 
 	public VirtualFurnitureMenu m_furnitureMenu;
 	public VirtualPaintMenu m_paintMenu;
-	//public PaintFeature m_paintFeature;
+	public HandManager m_handManager;
 
     /// <summary>
     /// Unity Start function.
@@ -773,12 +773,10 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 		if (paintMenu) {
 			m_paintMenu.gameObject.SetActive (true);
 			m_paintMenu.open ();
-			//m_paintFeature.setCanPaint (true);
 
 			GameObject.Find ("FurnitureToggle").GetComponent<Toggle> ().isOn = false;
 		} else {
 			m_paintMenu.close ();
-			//m_paintFeature.setCanPaint (false);
 		}
 	}
 

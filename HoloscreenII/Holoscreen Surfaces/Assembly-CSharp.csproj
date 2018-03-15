@@ -375,6 +375,7 @@
      <Compile Include="Assets\Scripts\DataManager.cs" />
      <Compile Include="Assets\Scripts\FaceTrackingController.cs" />
      <Compile Include="Assets\Scripts\GestureControl.cs" />
+     <Compile Include="Assets\Scripts\GuideHighlight.cs" />
      <Compile Include="Assets\Scripts\HandManager.cs" />
      <Compile Include="Assets\Scripts\InteractionScript.cs" />
      <Compile Include="Assets\Scripts\InteractionScriptObject.cs" />
@@ -399,6 +400,7 @@
      <Compile Include="Assets\Scripts\WSManager.cs" />
      <Compile Include="Assets\Scripts\camControl.cs" />
      <Compile Include="Assets\Scripts\cameraProjectionRemap.cs" />
+     <Compile Include="Assets\Scripts\distHighlightFeature.cs" />
      <Compile Include="Assets\Scripts\drawLine.cs" />
      <Compile Include="Assets\Scripts\hand_enable.cs" />
      <Compile Include="Assets\TangoPrefabs\Deprecated\TangoARPoseController.cs" />

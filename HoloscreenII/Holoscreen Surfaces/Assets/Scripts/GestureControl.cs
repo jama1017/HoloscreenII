@@ -74,8 +74,6 @@ public class GestureControl : MonoBehaviour {
 		//Update gesture buffer array
 		gesture_buff[gesture_buff_idx++] = gestureDetectorMLpredict ();
 		gesture_buff_idx = (gesture_buff_idx) % gesture_buff_len;
-
-		handDataGenerator ();
 	}
 
 
