@@ -17,7 +17,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	//Highlight variables
 	public Material primaryMaterial;
 	public Material secondaryMaterial;
-
+	private Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
 	// Use this for initialization
 	void Start () {
 		//Initialize dictionary for calculating num of fingers inserted into this.gameObject
@@ -106,17 +106,27 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	private void OnRaycastEnter(GameObject sender){
-		Debug.Log ("Hit " + this.gameObject.name);
-		this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", Vector4.zero);
-		Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
-		Color cur_color =  this.GetComponent<Renderer> ().material.GetColor("_EmissionColor") + add_color;
-		this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
+		//Debug.Log ("Hit " + this.gameObject.name);
+		//this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", Vector4.zero);
+		//Color cur_color =  this.GetComponent<Renderer> ().material.GetColor("_EmissionColor") + add_color;
+		//this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
 	}
 
 	private void OnRaycastExit(GameObject sender){
-		Debug.Log ("Hit leaves " + this.gameObject.name);
-		Color cur_color =  new Vector4 (0f, 0f, 0f, 0f);
-		this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
+		//Debug.Log ("Hit leaves " + this.gameObject.name);
+		//Color cur_color =  new Vector4 (0f, 0f, 0f, 0f);
+		//this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color);
+	}
+
+	private void updateHighlight(GameObject sender){
+		float highlight_threshold = 0.35f;
+		float dist_obj_cam = Vector3.Distance (sender.transform.position, this.transform.position);
+		if (dist_obj_cam < highlight_threshold){
+			Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
+			Color cur_color_max = add_color*((highlight_threshold - dist_obj_cam)/highlight_threshold);
+			//Debug.Log (cur_color);
+			this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color_max);
+		}
 	}
 
 	void OnTriggerEnter(Collider other){

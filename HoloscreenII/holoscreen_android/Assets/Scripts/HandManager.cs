@@ -38,11 +38,14 @@ public class HandManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
-		//if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
-		//	contextBuffUpdate (1);
-		//} else if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y < -0.9f){
-		//	contextBuffUpdate (0);
-		//}
+		if (gestureManager.bufferedGesture () == "palm" && bufferedContext() != "Menu" && palm.transform.forward.y > 0.9f) {
+			contextBuffUpdate (2);
+		} 
+		/*
+		else if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y < -0.9f){
+			contextBuffUpdate (0);
+		}
+		*/
 
 		switch (bufferedContext()){
 		case "menu":
@@ -68,7 +71,7 @@ public class HandManager : MonoBehaviour {
 					cleanGuidance ();
 				}
 			}
-				break;
+			break;
 		}
 	}
 
@@ -121,7 +124,6 @@ public class HandManager : MonoBehaviour {
 			SendMessageTo (OnRaycastExitMessage, prev_hit);
 			prev_hit = null;
 			guideToObject ();
-			Debug.Log ("Arrow cleaned");
 		}
 	}
 

@@ -37,11 +37,11 @@ public class GestureControl : MonoBehaviour {
 		//gesture_dict.Add(4, "undefined");
 
 		//Train svm model when svm model does not exist
-		//if (File.Exists ("Assets/Data/svm.xml"))
-		//	svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
+		if (File.Exists ("Assets/Data/svm.xml"))
+			svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
 		//else {
-			gestureDetectorMLtrain ();
-			svm_model.save ("Assets/Data/svm.xml");
+		//	gestureDetectorMLtrain ();
+		//	svm_model.save ("Assets/Data/svm.xml");
 		//}
 
 	}
@@ -51,6 +51,7 @@ public class GestureControl : MonoBehaviour {
 		//Update gesture buffer array
 		gesture_buff[gesture_buff_idx++] = gestureDetectorMLpredict ();
 		gesture_buff_idx = (gesture_buff_idx) % gesture_buff_len;
+		//handDataGenerator ();
 	}
 
 
@@ -195,8 +196,8 @@ public class GestureControl : MonoBehaviour {
 		svm_model.predict (cur_data_mat, result, 0);
 
 		//Debug usage
-		//string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
-		//Debug.Log ("Predicted label is: " + cur_gesture);
+//		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
+//		Debug.Log ("Predicted label is: " + cur_gesture);
 
 		return ((int)result.get (0, 0) [0]);
 	}
@@ -245,6 +246,7 @@ public class GestureControl : MonoBehaviour {
 			else
 				temp += "\n";
 		}
-		System.IO.File.AppendAllText("handDataG_new.txt", temp);
+
+		//System.IO.File.AppendAllText("handDataG_new.txt", temp);
 	}
 }

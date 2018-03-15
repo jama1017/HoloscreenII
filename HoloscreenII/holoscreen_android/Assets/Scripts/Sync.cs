@@ -87,7 +87,7 @@ public class Sync : MonoBehaviour {
 				if (type.Contains ("pos")) {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					palm_pos = palm_pos * 0.001f;
-					palm_pos [1] += 0.2f;
+					//palm_pos [1] += 0.2f;
 					//test
 					//Vector3 velocity = l_palm.GetComponent<Rigidbody> ().velocity;
 					//l_palm.transform.position = Vector3.SmoothDamp(transform.position, palm_pos, ref velocity, 1f);
@@ -108,11 +108,13 @@ public class Sync : MonoBehaviour {
 				}else if(type.Contains ("norm")){
 					palm_norm = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);
-					l_palm.transform.rotation = palm_rot_byNorm;
+					//l_palm.transform.rotation = palm_rot_byNorm;
 				}else{
 					Vector3 palm_dir = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
-					Quaternion palm_rot_byDir = Quaternion.FromToRotation (l_palm.transform.up,palm_dir);
-					l_palm.transform.rotation = palm_rot_byDir*l_palm.transform.rotation;
+					//Quaternion palm_rot_byDir = Quaternion.FromToRotation (l_palm.transform.up,palm_dir);
+					//l_palm.transform.rotation = palm_rot_byDir*l_palm.transform.rotation;
+					Quaternion palm_rot_byDir = Quaternion.FromToRotation (Vector3.up,palm_dir);
+					l_palm.transform.localRotation = Quaternion.LookRotation (palm_norm, palm_dir);
 				}
 					
 			}else if(type.Contains ("finger")){
@@ -129,7 +131,7 @@ public class Sync : MonoBehaviour {
 						if (vec3_type.Contains ("pos")) {
 							Vector3 bone_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 							bone_pos = bone_pos * 0.001f;
-							bone_pos[1] += 0.2f;
+							//bone_pos[1] += 0.2f;
 							bone.transform.position = bone_pos;
 						} else {
 							//Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);
