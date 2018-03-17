@@ -17,7 +17,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	//Highlight variables
 	public Material primaryMaterial;
 	public Material secondaryMaterial;
-	private Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
+
 	// Use this for initialization
 	void Start () {
 		//Initialize dictionary for calculating num of fingers inserted into this.gameObject
