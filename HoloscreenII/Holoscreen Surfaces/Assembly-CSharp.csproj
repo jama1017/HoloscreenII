@@ -39,10 +39,10 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program_Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program_Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -59,18 +59,22 @@
      <Compile Include="Assets\OpenCVForUnity\Examples\Basic\WebCamTextureToMatExample\WebCamTextureToMatExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\Basic\WebCamTextureToMatHelperExample\WebCamTextureToMatHelperExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\ARUtils.cs" />
+     <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\ArUcoCameraCalibrationExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\ArUcoCreateMarkerExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\ArUcoExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\ArUcoWebCamTextureExample.cs" />
+     <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\aruco\ArUcoExample\CameraParameters.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\face\FaceRecognizerExample\FaceRecognizerExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\plot\PlotExample\PlotExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\text\TextExample\TextDetectionExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\text\TextExample\TextRecognitionExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ContribModules\tracking\TrackingExample\TrackingExample.cs" />
+     <Compile Include="Assets\OpenCVForUnity\Examples\ImageOptimizationHelper.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\calib3d\StereoBMExample\StereoBMExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\core\PCAExample\PCAExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\CaffeExample\MobileNetSSDExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\CaffeExample\MobileNetSSDWebCamTextureExample.cs" />
+     <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\CaffeExample\OpenPoseExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\CaffeExample\ResnetSSDFaceDetectionExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\TensorFlowExample\TensorFlowWebCamTextureExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\dnn\YoloExample\YoloObjectDetectionExample.cs" />
@@ -99,11 +103,11 @@
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\shape\ThinPlateSplineShapeTransformerExample\ThinPlateSplineShapeTransformerExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\video\BackgroundSubtractorMOG2Example\BackgroundSubtractorMOG2Example.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\video\CamShiftExample\CamShiftExample.cs" />
+     <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\video\KalmanFilterExample\KalmanFilterExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\video\OpticalFlowExample\OpticalFlowExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\videoio\VideoCaptureExample\VideoCaptureExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\MainModules\videoio\VideoWriterExample\VideoWriterExample.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\OpenCVForUnityExample.cs" />
-     <Compile Include="Assets\OpenCVForUnity\Examples\OptimizationWebCamTextureToMatHelper.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\ShowLicense.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\TouchController.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\WebCamTextureToMatHelper.cs" />
@@ -147,7 +151,6 @@
      <Compile Include="Assets\OpenCVForUnity\org\opencv\core\TickMeter.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\dnn\DictValue.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\dnn\Dnn.cs" />
-     <Compile Include="Assets\OpenCVForUnity\org\opencv\dnn\Importer.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\dnn\Layer.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\dnn\Net.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\features2d\AKAZE.cs" />
@@ -176,6 +179,7 @@
      <Compile Include="Assets\OpenCVForUnity\org\opencv\imgproc\Moments.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\imgproc\Subdiv2D.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\ml\ANN_MLP.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv\ml\ANN_MLP_ANNEAL.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\ml\Boost.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\ml\DTrees.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv\ml\EM.cs" />
@@ -243,8 +247,12 @@
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\aruco\GridBoard.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorCNT.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorGMG.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorGSOC.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorLSBP.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorLSBPDesc.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\BackgroundSubtractorMOG.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\Bgsegm.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bgsegm\SyntheticSequenceGenerator.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bioinspired\Bioinspired.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bioinspired\Retina.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\bioinspired\RetinaFastToneMapping.cs" />
@@ -320,6 +328,7 @@
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\MultiTracker.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\Tracker.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\TrackerBoosting.cs" />
+     <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\TrackerCSRT.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\TrackerKCF.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\TrackerMIL.cs" />
      <Compile Include="Assets\OpenCVForUnity\org\opencv_contrib\tracking\TrackerMOSSE.cs" />
@@ -375,7 +384,6 @@
      <Compile Include="Assets\Scripts\DataManager.cs" />
      <Compile Include="Assets\Scripts\FaceTrackingController.cs" />
      <Compile Include="Assets\Scripts\GestureControl.cs" />
-     <Compile Include="Assets\Scripts\GuideHighlight.cs" />
      <Compile Include="Assets\Scripts\HandManager.cs" />
      <Compile Include="Assets\Scripts\InteractionScript.cs" />
      <Compile Include="Assets\Scripts\InteractionScriptObject.cs" />
@@ -400,7 +408,6 @@
      <Compile Include="Assets\Scripts\WSManager.cs" />
      <Compile Include="Assets\Scripts\camControl.cs" />
      <Compile Include="Assets\Scripts\cameraProjectionRemap.cs" />
-     <Compile Include="Assets\Scripts\distHighlightFeature.cs" />
      <Compile Include="Assets\Scripts\drawLine.cs" />
      <Compile Include="Assets\Scripts\hand_enable.cs" />
      <Compile Include="Assets\TangoPrefabs\Deprecated\TangoARPoseController.cs" />
@@ -549,28 +556,31 @@
      <None Include="Assets\Shaders\ZTestBlur.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\EnvironmentalLightingDiffuse.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
- <HintPath>D:/Program_Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>D:/dev/research/Unity/HoloscreenII/HoloscreenII/Holoscreen Surfaces/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/tutu5110/Documents/Research/Holoscreen/HoloScreenIII_DEMO/HoloscreenII/HoloscreenII/Holoscreen Surfaces/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Cecil">
+ <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

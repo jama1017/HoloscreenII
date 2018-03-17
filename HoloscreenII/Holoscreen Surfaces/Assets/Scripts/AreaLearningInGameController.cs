@@ -235,6 +235,8 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                 touchEffectRectTransform.anchorMin = touchEffectRectTransform.anchorMax = normalizedPosition;
             }
         }
+
+
     }
 
     /// <summary>
@@ -351,7 +353,11 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
     /// </summary>
     public void Save()
     {
-        StartCoroutine(_DoSaveCurrentAreaDescription());
+		_SaveTangoMesh("123.mesh");
+		m_tangoApplication.Set3DReconstructionEnabled (false);
+		m_dynamicMesh.m_canUpdate = false;
+
+        //StartCoroutine(_DoSaveCurrentAreaDescription());
     }
 
     /// <summary>
@@ -391,6 +397,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
         // timestamp).
         // Loop closure definition: https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping#Loop_closure
         //
+
         // When learning mode is off, and an Area Description is loaded, this callback indicates a
         // relocalization event. Relocalization is when the device finds out where it is with respect to the loaded
         // Area Description. In our case, when the device is relocalized, the markers will be loaded because we
@@ -482,7 +489,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
                 m_saveThread = new Thread(delegate()
                 {
                     // Start saving process in another thread.
-                    m_curAreaDescription = AreaDescription.SaveCurrent();
+                  //  m_curAreaDescription = AreaDescription.SaveCurrent();
                     AreaDescription.Metadata metadata = m_curAreaDescription.GetMetadata();
                     metadata.m_name = name;
                     m_curAreaDescription.SaveMetadata(metadata);
@@ -527,11 +534,16 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 		mesh.triangles = triangles.ToArray();
 
 		// Save mesh
-		string path = Path.Combine(Application.persistentDataPath, url);
-		byte[] bytes = Holoscreen.SimpleMeshSerializer.Serialize(new Mesh[] {mesh});
-		File.WriteAllBytes(path, bytes);
+		//string path = Path.Combine(Application.persistentDataPath, url);
+		//byte[] bytes = Holoscreen.SimpleMeshSerializer.Serialize(new Mesh[] {mesh});
+		m_staticMesh.GetComponent<MeshFilter>().sharedMesh = mesh;
+		m_staticMesh.GetComponent<MeshCollider> ().sharedMesh = mesh;
 
-		Debug.Log ("Saved");
+		// Enable interactionss
+		m_staticMesh.GetComponent<MeshCollider> ().enabled = true;
+		//File.WriteAllBytes(path, bytes);
+
+		//Debug.Log ("Saved");
 	}
 
     /// <summary>
