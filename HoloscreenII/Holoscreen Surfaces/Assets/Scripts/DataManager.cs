@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DataManager : MonoBehaviour {
 
 
@@ -11,6 +12,7 @@ public class DataManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		hand_l_position = new Vector3 (0, 0, 0);	
+		Handheld.Vibrate ();
 	}
 	
 	// Update is called once per frame

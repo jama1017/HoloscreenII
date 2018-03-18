@@ -401,6 +401,7 @@
      <Compile Include="Assets\Scripts\VMINextPage.cs" />
      <Compile Include="Assets\Scripts\VMIOpen.cs" />
      <Compile Include="Assets\Scripts\VMIPrevPage.cs" />
+     <Compile Include="Assets\Scripts\Vibration.cs" />
      <Compile Include="Assets\Scripts\VirtualFurnitureMenu.cs" />
      <Compile Include="Assets\Scripts\VirtualMenu.cs" />
      <Compile Include="Assets\Scripts\VirtualMenuItem.cs" />

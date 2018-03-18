@@ -151,6 +151,7 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
 
 			// Disable interactions
 			m_dynamicMesh.GetComponent<MeshCollider> ().enabled = true;
+			Vibration.Vibrate (10);
 		} else {
 			// Disable mesh construction
 			m_tangoApplication.Set3DReconstructionEnabled (false);
@@ -242,7 +243,7 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     public void Start()
     {
         m_tangoApplication = FindObjectOfType<TangoApplication>();
-        
+
         if (m_tangoApplication != null)
         {
             m_tangoApplication.Register(this);
