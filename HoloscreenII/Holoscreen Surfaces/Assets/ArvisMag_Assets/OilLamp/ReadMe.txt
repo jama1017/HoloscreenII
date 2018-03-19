@@ -1,0 +1,2 @@
+Hi! Thank You for buying this Unity Asset. I be very thankful that you find time to rate this Asset and comment how good or bad it is!
+I wanted tell that it will help continue my work. Thank You for your time and I wish you successful and rocket speed in your game development. ;)
