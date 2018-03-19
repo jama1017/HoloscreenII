@@ -143,11 +143,14 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
+		/* if the colidee the object has parent */
 		if (other.transform.parent != null) {
+			/* if the colidee is finger tip */
 			if (other.transform.parent.parent != null) {
 				if (other.transform.parent.parent.name == "Hand_l" || other.transform.parent.parent.name == "Hand_r")
 					hand_nearby [other.transform.parent.parent.name] -= 1;
 			}else {
+		    /* if the colidee is palm */
 				if (other.transform.parent.name == "Hand_l" || other.transform.parent.name == "Hand_r")
 					hand_nearby [other.transform.parent.name] -= 1;
 			}

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* sync only get information from Leap */
+/* it does not deals with gesture  */
+
 public class Sync : MonoBehaviour {
 	private WSManager ws;
 	private DataManager dataManager;
@@ -76,12 +79,21 @@ public class Sync : MonoBehaviour {
 		//if (msg.Equals("")) 
 		//	this.gameObject.SetActive (false);
 
-		var hand_info = msg.Split (new char[] {',', ':', ';'});
+		string[] hand_info = msg.Split (new char[] {',', ':', ';'});
+
+		/* return before any hand found */
+		if (!hand_info.Equals (""))
+			updateHandSkeletonFromLeap (hand_info);
+
+
+	}
+
+	/* updating hand skeleton from Leap */
+	void updateHandSkeletonFromLeap(string[] hand_info){
 
 		int i = 2; //skip hand type
 		Vector3 palm_norm = new Vector3();
 		Vector3 palm_dir = new Vector3();
-
 		while (i<hand_info.Length){
 			string type = hand_info[i++];
 
@@ -135,11 +147,9 @@ public class Sync : MonoBehaviour {
 				i++;
 			}
 		}
-
 		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(-0.02f, -0.08f, -0.01f);
 		transform.rotation = Camera.main.transform.rotation;
 	}
-
 	/* Bone Mapping functions, do not modify 
 	   unless you are sure what it is */
 	GameObject getBoneFromFinger(int fingerIndex, int bone){

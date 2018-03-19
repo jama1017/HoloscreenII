@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ArvisMag_Assets\OilLamp\Script\OilLamp.cs" />
      <Compile Include="Assets\Google-Unity\Scripts\AndroidHelper.cs" />
      <Compile Include="Assets\Google-Unity\Scripts\AndroidLifecycle.cs" />
      <Compile Include="Assets\OpenCVForUnity\Examples\Advanced\ComicFilterExample\ComicFilterExample.cs" />
@@ -510,6 +511,7 @@
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
      <None Include="Assets\TangoSDK\Examples\ExperimentalMeshOcclusion\Shaders\ZTestBlur.shader" />
+     <None Include="Assets\ArvisMag_Assets\OilLamp\ReadMe.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\haarcascade_frontalface_alt.xml" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\EnvironmentalLightingStandard.shader" />
      <None Include="Assets\OpenCVForUnity\OpenCV_LICENSE.txt" />

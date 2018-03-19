@@ -35,6 +35,8 @@ public class HandManager : MonoBehaviour {
 		palm = this.transform.GetChild (5).gameObject;
 		grabHolder = this.transform.GetChild (5).GetChild (0).gameObject;
 		context_buff = new int[context_buff_len];
+
+		/* switching among modes: object mode, paint moode and menu mode */
 		context_dict.Add (0, "object");
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
@@ -50,7 +52,7 @@ public class HandManager : MonoBehaviour {
 		if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
 			contextSwitch ("menu");
 		}
-			
+
 		switch (context){
 		case "menu":
 			Debug.Log ("In Menu");
@@ -78,6 +80,7 @@ public class HandManager : MonoBehaviour {
 			}
 			break;
 		}
+
 	}
 
 	/* 	hitObject
@@ -250,6 +253,7 @@ public class HandManager : MonoBehaviour {
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		is_grabbing = false;
+
 		//Debug.Log (obj.name + " is dropped");
 	}
 
@@ -295,6 +299,7 @@ public class HandManager : MonoBehaviour {
 	*	Summary: 1. Remove current obj
 	*/
 	public void removeHandObject(){
+		/* hand_obj is the object on hand*/
 		if (is_grabbing)
 			releaseObject (hand_obj);
 		hand_obj = null;

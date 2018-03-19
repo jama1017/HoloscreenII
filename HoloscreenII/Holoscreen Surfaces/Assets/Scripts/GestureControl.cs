@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using OpenCVForUnity;
 
+/* detect basic 3 gestures */
+
 public class GestureControl : MonoBehaviour {
 	//Left hand finger declare
 	private GameObject palm;
