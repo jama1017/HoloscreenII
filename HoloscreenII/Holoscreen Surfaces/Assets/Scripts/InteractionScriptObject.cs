@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractionScriptObject : MonoBehaviour {
 	Dictionary<string, int> hand_nearby = new Dictionary<string, int>();
 	private bool isInteracted, notified = false;
+	private bool useFingerBuffer = false;
 	private DataManager dataManager;
 	private HandManager hand_l, hand_r;
 
@@ -29,12 +30,16 @@ public class InteractionScriptObject : MonoBehaviour {
 		hand_l = GameObject.Find ("Hand_l").GetComponent<HandManager> ();
 		hand_r = GameObject.Find ("Hand_r").GetComponent<HandManager> ();
 
+		fingers_buff_len = dataManager.unCollidingBuffer;
 		//Initialize highlight main texture
 		primaryMaterial = this.GetComponent<Renderer> ().material;
 
 		//Initialize hand finger buffers
 		hand_l_fingers_buff = new int[fingers_buff_len];
 		hand_r_fingers_buff = new int[fingers_buff_len];
+
+		/* check if need finger buffer */
+		useFingerBuffer = dataManager.useFingerBuffer;
 	}
 
 	// Update is called once per frame
@@ -64,15 +69,19 @@ public class InteractionScriptObject : MonoBehaviour {
 		}
 		//If this is current being interacted with any hand, remove itself from interactable list of left/right hand whenever left/right hand leaves object
 		else {
-			if (bufferedLeftHandFingers () == 0) {
-				isInteracted = notified = false;
-				unhighlightSelf ();
-				hand_l.removeHandObject ();
+			if (bufferedLeftHandFingers () == 0 && useFingerBuffer) {
+				releaseTargetObject ();
 				//Debug.Log (this.name + " is not interacted" + Time.time);
 			}
 		}
 	}
 
+	public void releaseTargetObject(){
+		//Debug.Log ("release!");
+		isInteracted = notified = false;
+		unhighlightSelf ();
+		hand_l.removeHandObject ();
+	}
 	/* 	notifyLeave
 	*	Input: None
 	*	Output: None
@@ -119,7 +128,6 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	private void updateHighlight(GameObject sender){
-		/* 0.35 must be changed to fit with disHighlight */
 		float highlight_threshold = 0.35f;
 		float dist_obj_cam = Vector3.Distance (sender.transform.position, this.transform.position);
 		if (dist_obj_cam < highlight_threshold){
@@ -143,14 +151,11 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
-		/* if the colidee the object has parent */
 		if (other.transform.parent != null) {
-			/* if the colidee is finger tip */
 			if (other.transform.parent.parent != null) {
 				if (other.transform.parent.parent.name == "Hand_l" || other.transform.parent.parent.name == "Hand_r")
 					hand_nearby [other.transform.parent.parent.name] -= 1;
 			}else {
-		    /* if the colidee is palm */
 				if (other.transform.parent.name == "Hand_l" || other.transform.parent.name == "Hand_r")
 					hand_nearby [other.transform.parent.name] -= 1;
 			}

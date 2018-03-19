@@ -20,14 +20,20 @@ public class GestureControl : MonoBehaviour {
 
 	//poseDetector buffer
 	int[] gesture_buff;
-	int gesture_buff_len = 15;
+	int gesture_buff_len = 5;
 	int gesture_buff_idx = 0; 
+
+	GameObject dataMgr;
 
 	//Gesture dictionary
 	Dictionary<int, string> gesture_dict = new Dictionary<int, string>();
 
 	// Use this for initialization
 	IEnumerator Start () {
+		dataMgr = GameObject.Find ("gDataManager");
+		gesture_buff_len = dataMgr.GetComponent<DataManager> ().gestBuffer;
+
+
 		palm = this.transform.GetChild (5).gameObject;
 		gesture_buff = new int[gesture_buff_len];
 

@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DataManager : MonoBehaviour {
 
 
 	private Vector3 hand_l_position;
 	private bool hand_l_busy, hand_r_busy;
 	private GameObject hand_l_obj, hand_r_obj;
+	public int gestBuffer = 30;
+	public int unCollidingBuffer = 30;
+	public bool useFingerBuffer = true;
+	public int handThrowingPowerMultiplier = 20;
 	// Use this for initialization
 	void Start () {
 		hand_l_position = new Vector3 (0, 0, 0);	
-		Handheld.Vibrate ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	public void setLeftHandPosition(Vector3 v){
@@ -50,7 +52,7 @@ public class DataManager : MonoBehaviour {
 		return hand_l_busy;
 	}
 
-	
+
 	public bool checkRightHandBusy(){
 		return hand_r_obj;
 	}
