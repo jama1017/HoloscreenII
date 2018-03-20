@@ -22,6 +22,10 @@ public class HandManager : MonoBehaviour {
 	const string OnRaycastEnterMessage = "OnRaycastEnter";
 	private GameObject prev_hit;
 
+	private VirtualFurnitureMenu m_furnitureMenu;
+	private VirtualPaintMenu m_paintMenu;
+	private int m_currentMenu = 0;
+
 	private GameObject indexFinger;
 	private GameObject thumbFinger;
 
@@ -56,20 +60,19 @@ public class HandManager : MonoBehaviour {
 		context_dict.Add (0, "object");
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
+
+		// Get menus
+		m_furnitureMenu = GameObject.Find ("FurnitureMenu").GetComponent<VirtualFurnitureMenu>();
+		m_paintMenu = GameObject.Find ("PaintMenu").GetComponent<VirtualPaintMenu>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
-		if (gestureManager.bufferedGesture () == "palm" && bufferedContext() != "Menu" && palm.transform.forward.y > 0.9f) {
-			contextBuffUpdate (2);
-		} 
-		/*
-		else if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y < -0.9f){
-			contextBuffUpdate (0);
+		if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
+			contextSwitch ("menu");
 		}
-		*/
-
+	
 		switch (bufferedContext()){
 		case "menu":
 			break;
@@ -86,7 +89,6 @@ public class HandManager : MonoBehaviour {
 						grabObject (interact_obj);
 				} else {
 					if (is_grabbing) {
-						//print ("is grabbing is " + is_grabbing);
 						interact_obj.GetComponent<InteractionScriptObject> ().releaseTargetObject ();
 						//						releaseObject (interact_obj);
 					}
