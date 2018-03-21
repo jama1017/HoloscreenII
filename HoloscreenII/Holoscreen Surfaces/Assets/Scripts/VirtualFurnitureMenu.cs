@@ -16,9 +16,16 @@ public class VirtualFurnitureMenu : VirtualMenu {
 		foreach (GameObject f in m_furniturePrefabs) {
 			GameObject item = Instantiate (f) as GameObject;
 
-			item.AddComponent<BoxCollider> ();
-			Bounds bounds = item.GetComponent<Renderer> ().bounds;
-			item.transform.localScale = new Vector3 (0.05f / bounds.size.x, 0.05f / bounds.size.x, 0.05f / bounds.size.x);
+			if (item.GetComponent<Renderer> () != null) {
+				item.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+				item.AddComponent<BoxCollider> ();
+			} else {
+				item.transform.localScale = new Vector3 (0.05f, 0.05f, 0.05f);
+
+				foreach(Transform child in item.transform) {
+					child.gameObject.AddComponent<BoxCollider> ();
+				}
+			}
 
 			VMIFurniture v = item.AddComponent<VMIFurniture> ();
 			v.m_furniturePrefab = f;

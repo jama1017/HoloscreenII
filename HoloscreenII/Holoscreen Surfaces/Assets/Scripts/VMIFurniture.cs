@@ -18,16 +18,37 @@ public class VMIFurniture : VirtualMenuItem {
 		Debug.Log ("Creating new object");
 		fo.tag = "InteractableObj";
 
+
+		Debug.Log ("Adding collider");
+
+		if (fo.GetComponent<Renderer> () != null) {
+			SetDepthMaterial (fo);
+
+			BoxCollider c = fo.AddComponent<BoxCollider> ();
+			c.isTrigger = false;
+		} else {
+			Bounds combinedBounds = new Bounds();
+
+			foreach (Transform child in transform) {
+				SetDepthMaterial (child.gameObject);
+
+				BoxCollider cc = child.gameObject.AddComponent<BoxCollider> ();
+				cc.isTrigger = false;
+				combinedBounds.Encapsulate (cc.bounds);
+			}
+
+			BoxCollider c = fo.AddComponent<BoxCollider> ();
+			c.isTrigger = false;
+			c.size = combinedBounds.size;
+		}
+
+		Debug.Log ("Adding interaction script");
+
 		InteractionScriptObject iso = fo.AddComponent<InteractionScriptObject> ();
 		iso.secondaryMaterial = new Material(Shader.Find ("ModelEffect/VerticsOutline_Always"));
 		iso.secondaryMaterial.SetColor ("_OutlineColor", new Color (0, 248.0f / 256.0f, 63.0f / 256.0f, 143.0f / 256.0f));
-		iso.secondaryMaterial.mainTexture = fo.GetComponent<Renderer> ().material.mainTexture;
 
-		fo.GetComponent<Renderer> ().material.shader = Shader.Find ("Custom/ZTestBlur");
-		fo.GetComponent<Renderer> ().material.SetTexture ("_CameraDepthTexture", GameObject.Find ("DepthCamera").GetComponent<Camera> ().targetTexture);
-
-		BoxCollider c = fo.AddComponent<BoxCollider> ();
-		c.isTrigger = false;
+		Debug.Log ("Adding rigid body");
 
 		Rigidbody r = fo.AddComponent<Rigidbody> ();
 		r.collisionDetectionMode = CollisionDetectionMode.Discrete;
@@ -40,4 +61,8 @@ public class VMIFurniture : VirtualMenuItem {
 		hand_l.GetComponent<HandManager> ().contextSwitch ("object");
 	}
 
+	private void SetDepthMaterial(GameObject o) {
+		o.GetComponent<Renderer> ().material.shader = Shader.Find ("Custom/ZTestBlur");
+		o.GetComponent<Renderer> ().material.SetTexture ("_CameraDepthTexture", GameObject.Find ("DepthCamera").GetComponent<Camera> ().targetTexture);
+	}
 }

@@ -28,19 +28,13 @@ public class VirtualMenu : MonoBehaviour {
 
 	private float m_elapsed = 0.0f;
 
-	// TODO: merge with Haoming
-	// 		- menu created from only furniture items, interaction script add, etc.
-	// 		- better furniture placement
-	// 		- menu for selecting things
-	// 		- workflows
-	// 		- faster depth
-
 	protected virtual void Start () {
 		
 	}
 	
 	// Update transform relative to camera
 	protected virtual void Update () {
+		/*
 		Camera cam = Camera.main;
 
 		if (m_elapsed > 0.1f) {
@@ -53,6 +47,14 @@ public class VirtualMenu : MonoBehaviour {
 		transform.rotation = Quaternion.Slerp (transform.rotation, m_goalRot, m_elapsed * 10);
 
 		m_elapsed += Time.fixedDeltaTime;
+		*/
+	}
+
+	public void setToCameraPosition() {
+		Camera cam = Camera.main;
+
+		transform.position = cam.transform.position + cam.transform.rotation * new Vector3 (-m_width / 2, m_height / 2, -m_depth);
+		transform.rotation = cam.transform.rotation;
 	}
 
 	public void addBodyItem(GameObject item) {
@@ -137,6 +139,7 @@ public class VirtualMenu : MonoBehaviour {
 		m_opened = true;
 		Debug.Log ("Opened");
 
+		setToCameraPosition();
 		updateBody();
 		updateFooter();
 	}

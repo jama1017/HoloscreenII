@@ -31,7 +31,7 @@ public class PaintManager : MonoBehaviour {
 
 		//Paint feature
 		if (paint_mode) {
-			if (gestureManager.bufferedGesture () == "pinch") {
+			if (gestureManager.bufferedGesture () == "paint") {
 				if (!is_painting) {
 					new_ink = Instantiate (ink);
 					new_ink.GetComponent<Renderer> ().material = Instantiate (new_ink.GetComponent<Renderer> ().material) as Material;

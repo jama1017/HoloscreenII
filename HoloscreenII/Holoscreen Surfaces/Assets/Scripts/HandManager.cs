@@ -38,6 +38,7 @@ public class HandManager : MonoBehaviour {
 	private int thumbFingerPosCNT = 0 ;
 
 	private int _handThrowingPowerMultiplier = 10;
+
 	// Use this for initialization
 	void Start () {
 
@@ -73,7 +74,7 @@ public class HandManager : MonoBehaviour {
 			contextSwitch ("menu");
 		}
 	
-		switch (bufferedContext()){
+		switch (context){
 		case "menu":
 			break;
 		case "paint":
@@ -168,25 +169,33 @@ public class HandManager : MonoBehaviour {
 	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
 	*/
 	public void contextSwitch(string set_to_context){
+		Debug.Log ("Context switch");
+		Debug.Log (set_to_context);
+
 		if (context != set_to_context){
 			if (set_to_context == "paint") {
-				//closeMenu ();
-				paintManager.turnOnPaint();
+				paintManager.turnOnPaint ();
 				removeHandObject ();
-				context = set_to_context;
-				cleanGuidance ();
-			} else if(set_to_context == "object") {
-				//closeMenu ();
+			} else if (set_to_context == "object") {
 				paintManager.turnOffPaint ();
-				context = set_to_context;
-				cleanGuidance ();
-			} else if (set_to_context == "menu"){
+			} else if (set_to_context == "menu") {
 				paintManager.turnOffPaint ();
 				removeHandObject ();
-				//call menu func
-				context = set_to_context;
-				cleanGuidance ();
+
+				// Open menu
+				if (m_currentMenu == 0) {
+					m_furnitureMenu.open ();
+					m_paintMenu.close ();
+					contextSwitch ("object");
+				} else {
+					m_paintMenu.open ();
+					m_furnitureMenu.close ();
+				}
+			} else {
 			}
+
+			cleanGuidance ();
+			context = set_to_context;
 		}
 		return;
 	}
@@ -265,6 +274,11 @@ public class HandManager : MonoBehaviour {
 		Vector3 v = calculateVelocity (indexFingerPos);
 		obj.GetComponent<Rigidbody> ().velocity = new Vector3 (0, v[1] / 5,v[2]);
 		//Debug.Log (obj.name + " is dropped");
+	}
+
+	public void setMenu(int menu) {
+		m_currentMenu = menu;
+		contextSwitch ("object");
 	}
 
 	/* 	collectHandSpeed

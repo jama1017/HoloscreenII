@@ -221,6 +221,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 			}
 			else
 			{
+				/*
 				// Place a new point at that location, clear selection
 				m_selectedMarker = null;
 				StartCoroutine(_WaitForDepthAndFindPlane(t.position));
@@ -233,6 +234,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 				normalizedPosition.x /= Screen.width;
 				normalizedPosition.y /= Screen.height;
 				touchEffectRectTransform.anchorMin = touchEffectRectTransform.anchorMax = normalizedPosition;
+				*/
 			}
 		}
 	}
@@ -532,6 +534,8 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
 		File.WriteAllBytes(path, bytes);
 
 		Debug.Log ("Saved");
+		Debug.Log (File.ReadAllLines (path).Length);
+		Debug.Log (vertices.Count);
 	}
 
 	/// <summary>

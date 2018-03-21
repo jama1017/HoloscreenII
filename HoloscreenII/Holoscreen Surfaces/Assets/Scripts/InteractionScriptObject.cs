@@ -16,7 +16,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	private int[] hand_l_fingers_buff, hand_r_fingers_buff;
 
 	//Highlight variables
-	public Material primaryMaterial;
+	public Material[] primaryMaterial;
 	public Material secondaryMaterial;
 
 	// Use this for initialization
@@ -32,7 +32,19 @@ public class InteractionScriptObject : MonoBehaviour {
 
 		fingers_buff_len = dataManager.unCollidingBuffer;
 		//Initialize highlight main texture
-		primaryMaterial = this.GetComponent<Renderer> ().material;
+
+		if (this.GetComponent<Renderer> () != null) {
+			primaryMaterial = new Material[1];
+			primaryMaterial[0] = this.GetComponent<Renderer> ().material;
+		} else {
+			primaryMaterial = new Material[transform.childCount];
+
+			int i = 0;
+			foreach (Transform child in transform) {
+				primaryMaterial [i] = child.GetComponent<Renderer> ().material;
+				i++;
+			}
+		}
 
 		//Initialize hand finger buffers
 		hand_l_fingers_buff = new int[fingers_buff_len];
@@ -106,12 +118,28 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	private void highlightSelf(){
-		secondaryMaterial.mainTexture = primaryMaterial.mainTexture;
-		this.GetComponent<Renderer> ().material = secondaryMaterial;
+		if (this.GetComponent<Renderer> () != null) {
+			secondaryMaterial.mainTexture = primaryMaterial [0].mainTexture;
+			this.GetComponent<Renderer> ().material = secondaryMaterial;
+		} else {
+			int i = 0;
+			foreach (Transform child in transform) {
+				secondaryMaterial.mainTexture = primaryMaterial [i].mainTexture;
+				child.gameObject.GetComponent<Renderer> ().material = secondaryMaterial;
+			}
+		}
+
 	}
 
 	private void unhighlightSelf(){
-		this.GetComponent<Renderer> ().material = primaryMaterial;
+		if (this.GetComponent<Renderer> () != null) {
+			this.GetComponent<Renderer> ().material = primaryMaterial[0];
+		} else {
+			int i = 0;
+			foreach (Transform child in transform) {
+				child.gameObject.GetComponent<Renderer> ().material = primaryMaterial [i];
+			}
+		}
 	}
 
 	private void OnRaycastEnter(GameObject sender){
