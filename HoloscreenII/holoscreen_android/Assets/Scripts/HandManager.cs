@@ -9,8 +9,10 @@ public class HandManager : MonoBehaviour {
 	private PaintManager paintManager;
 	private GameObject grabHolder, palm;
 	private bool is_grabbing = false;
+	private IEnumerator coroutine;
+	private float palm_collider_delay;
 
-	//Context: objct, paint, menu
+	//Context: object, paint, menu
 	private string context = "object";
 	private int context_buff_len = 30;
 	private int context_buff_idx;
@@ -33,6 +35,10 @@ public class HandManager : MonoBehaviour {
 		context_dict.Add (0, "object");
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
+
+		/*initial all user-defined settings*/
+		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();
+		palm_collider_delay = data_mngr.getPalmColliderDelay ();
 	}
 	
 	// Update is called once per frame
@@ -210,13 +216,27 @@ public class HandManager : MonoBehaviour {
 	*	Summary: 1. Reset and inactivate rigidbody of current obj. Otherwise obj could "magically" move in your hand :) 2. Set obj to move with hand
 	*/
 	private void grabObject(GameObject obj){
+		/*
+		GameObject obj_to_set;
+		if (obj.transform.parent != null)
+			obj_to_set = obj.transform.parent.gameObject;
+		else
+			obj_to_set = obj;
+		*/
+
 		obj.GetComponent<Collider> ().isTrigger = true;
 		obj.GetComponent<Rigidbody> ().useGravity = false;
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().Sleep ();
 		obj.transform.SetParent(grabHolder.transform);
+
 		is_grabbing = true;
+
+		/*new feature: push*/
+		coroutine = disablePalmCollider (palm_collider_delay);
+		StopCoroutine(coroutine);
+		palm.GetComponent<Collider> ().isTrigger = true;
 		//Debug.Log (obj.name + " is grabbed");
 	}
 
@@ -226,13 +246,32 @@ public class HandManager : MonoBehaviour {
 	*	Summary: 1. Free current obj from hand 2. Activate rigidbody of current obj
 	*/
 	private void releaseObject(GameObject obj){
-		obj.transform.parent = null;
+		/*
+		GameObject obj_to_set;
+		if (obj.transform.parent.name != "grabHolder")
+			obj_to_set = obj.transform.parent.gameObject;
+		else
+			obj_to_set = obj;
+		*/
+		obj.transform.SetParent(null);
 		obj.GetComponent<Rigidbody>().useGravity = true;
 		obj.GetComponent<Collider> ().isTrigger = false;
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		is_grabbing = false;
+
+		/*new feature: push*/
+		StartCoroutine (coroutine);
 		//Debug.Log (obj.name + " is dropped");
+	}
+
+
+	/*new feature: push*/
+	public IEnumerator disablePalmCollider(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		palm.GetComponent<Collider> ().isTrigger = false;
+		Debug.Log ("aa");
 	}
 
 	/* 	collectHandSpeed

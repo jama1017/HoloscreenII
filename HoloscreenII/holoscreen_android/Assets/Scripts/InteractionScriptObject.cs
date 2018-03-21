@@ -10,7 +10,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	private HandManager hand_l, hand_r;
 
 	//inserted hand finger buffers
-	private int fingers_buff_len = 15;
+	private int fingers_buff_len = 20;
 	private int fingers_buff_idx;
 	private int[] hand_l_fingers_buff, hand_r_fingers_buff;
 
@@ -30,7 +30,8 @@ public class InteractionScriptObject : MonoBehaviour {
 		hand_r = GameObject.Find ("Hand_r").GetComponent<HandManager> ();
 
 		//Initialize highlight main texture
-		primaryMaterial = this.GetComponent<Renderer> ().material;
+		if (this.GetComponent<Renderer> () != null)
+			primaryMaterial = this.GetComponent<Renderer> ().material;
 
 		//Initialize hand finger buffers
 		hand_l_fingers_buff = new int[fingers_buff_len];
@@ -130,6 +131,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
+		Debug.Log (this.name);
 		if (other.transform.parent != null){
 			if (other.transform.parent.parent != null) {
 				if (other.transform.parent.parent.name == "Hand_l" || other.transform.parent.parent.name == "Hand_r")

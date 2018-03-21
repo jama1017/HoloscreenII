@@ -8,9 +8,10 @@ public class DataManager : MonoBehaviour {
 	private Vector3 hand_l_position;
 	private bool hand_l_busy, hand_r_busy;
 	private GameObject hand_l_obj, hand_r_obj;
+	public float palm_collider_delay = 1.0f;
 	// Use this for initialization
 	void Start () {
-		hand_l_position = new Vector3 (0, 0, 0);	
+
 	}
 	
 	// Update is called once per frame
@@ -18,6 +19,17 @@ public class DataManager : MonoBehaviour {
 		
 	}
 
+	public void setPalmColliderDelay(float set_to){
+		palm_collider_delay = set_to;
+	}
+
+	public float getPalmColliderDelay(){
+		return palm_collider_delay;
+	}
+
+
+
+	/*Below method are aborted*/
 	public void setLeftHandPosition(Vector3 v){
 		hand_l_position = v;
 	}
