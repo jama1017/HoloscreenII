@@ -106,6 +106,11 @@ public class Sync : MonoBehaviour {
 					dataManager.setLeftHandPosition (palm_pos);
 				} else if (type.Contains ("vel")) {
 					i += 3;
+					/*
+					Vector3 palm_vel = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
+					palm_vel = palm_vel * 0.001f;
+					l_palm.GetComponent<Rigidbody> ().velocity = palm_vel;
+					*/
 				} else if (type.Contains ("norm")) {
 					palm_norm = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);

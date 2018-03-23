@@ -15,11 +15,10 @@ public class snapDarts : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.name.Equals ("PD_1")) {
+		if (other.name.Contains ("PD")) {
 			other.GetComponent<Rigidbody> ().useGravity = false;
 			other.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			other.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
-			Debug.Log ("hey!");
 		}
 	}
 }

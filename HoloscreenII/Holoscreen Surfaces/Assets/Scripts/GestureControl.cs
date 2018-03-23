@@ -20,7 +20,7 @@ public class GestureControl : MonoBehaviour {
 
 	//poseDetector buffer
 	int[] gesture_buff;
-	int gesture_buff_len = 5;
+	int gesture_buff_len = 10;
 	int gesture_buff_idx = 0; 
 
 	GameObject dataMgr;
@@ -226,8 +226,8 @@ public class GestureControl : MonoBehaviour {
 
 		//Debug usage
 		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
-		Debug.Log ("Predicted label is: " + cur_gesture);
-		Debug.Log (result.get (0, 0) [0]);
+		//Debug.Log ("Predicted label is: " + cur_gesture);
+		//Debug.Log (result.get (0, 0) [0]);
 
 		return ((int)result.get (0, 0) [0]);
 	}
@@ -276,9 +276,6 @@ public class GestureControl : MonoBehaviour {
 			else
 				temp += "\n";
 		}
-
-		Debug.Log ("Printing Data");
-		Debug.Log ("Palm Position: " + (palm.transform.position).ToString() + ", bone 1 position: " + (this.transform.GetChild (0).GetChild (2).position).ToString());
 		//System.IO.File.AppendAllText(System.IO.Path.Combine(Application.persistentDataPath, "handDataG_new.txt"), temp);
 	}
 }

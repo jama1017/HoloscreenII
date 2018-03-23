@@ -9,6 +9,9 @@ public class HandManager : MonoBehaviour {
 	private PaintManager paintManager;
 	private GameObject grabHolder, palm;
 	private bool is_grabbing = false;
+	private bool push_enabled = false;
+	private IEnumerator coroutine;
+	private float palm_collider_delay;
 
 	//Context: objct, paint, menu
 	private string context = "object";
@@ -65,6 +68,11 @@ public class HandManager : MonoBehaviour {
 		// Get menus
 		m_furnitureMenu = GameObject.Find ("FurnitureMenu").GetComponent<VirtualFurnitureMenu>();
 		m_paintMenu = GameObject.Find ("PaintMenu").GetComponent<VirtualPaintMenu>();
+
+		/*initial all user-defined settings*/
+		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();
+		palm_collider_delay = data_mngr.getPalmColliderDelay ();
+		palm.GetComponent<Rigidbody> ().maxAngularVelocity = 0;
 	}
 
 	// Update is called once per frame
@@ -88,10 +96,11 @@ public class HandManager : MonoBehaviour {
 				if (gestureManager.bufferedGesture () == "pinch") {
 					if (!is_grabbing)
 						grabObject (interact_obj);
+					//Debug.Log ("obj isTrigger is " + interact_obj.GetComponent<Collider>().isTrigger + "palm isTrigger is " + palm.GetComponent<Collider>().isTrigger + "palm angular v is " + palm.GetComponent<Rigidbody>().angularVelocity);
 				} else {
 					if (is_grabbing) {
-						interact_obj.GetComponent<InteractionScriptObject> ().releaseTargetObject ();
-						//						releaseObject (interact_obj);
+						interact_obj.GetComponent<InteractionScriptObject> ().releaseSelf ();
+						//releaseObject (interact_obj);
 					}
 				}
 				/* nothing in hand */
@@ -136,7 +145,7 @@ public class HandManager : MonoBehaviour {
 		if (prev_hit) {
 			GameObject arrow = GameObject.Find ("arrow");
 			arrow.transform.GetChild (0).gameObject.SetActive(true);
-			arrow.transform.position = palm.transform.position + 0.01f * palm.transform.forward;
+			arrow.transform.position = palm.transform.position + 0.02f * palm.transform.forward;
 			arrow.transform.up = palm.transform.forward;
 		} else {
 			GameObject arrow = GameObject.Find ("arrow");
@@ -169,11 +178,12 @@ public class HandManager : MonoBehaviour {
 	*	Summary: Switch context: 1. 'object' to 'paint' 2. 'paint' to 'object'
 	*/
 	public void contextSwitch(string set_to_context){
-		Debug.Log ("Context switch");
-		Debug.Log (set_to_context);
+		//Debug.Log ("Context switch");
+		//Debug.Log (set_to_context);
 
 		if (context != set_to_context){
 			if (set_to_context == "paint") {
+				paintManager.cleanInk ();
 				paintManager.turnOnPaint ();
 				removeHandObject ();
 			} else if (set_to_context == "object") {
@@ -250,13 +260,18 @@ public class HandManager : MonoBehaviour {
 	*/
 	private void grabObject(GameObject obj){
 		obj.GetComponent<Collider> ().isTrigger = true;
+		/*new feature: push*/
+		if (push_enabled) {
+			if (coroutine != null)
+				StopCoroutine (coroutine);
+			palm.GetComponent<Collider> ().isTrigger = true;
+		}
 		obj.GetComponent<Rigidbody> ().useGravity = false;
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().Sleep ();
 		obj.transform.SetParent(grabHolder.transform);
 		is_grabbing = true;
-		//Debug.Log (obj.name + " is grabbed");
 	}
 
 	/* 	releaseObject
@@ -266,14 +281,29 @@ public class HandManager : MonoBehaviour {
 	*/
 	private void releaseObject(GameObject obj){
 		obj.transform.parent = null;
-		obj.GetComponent<Rigidbody>().useGravity = true;
+		obj.GetComponent<Rigidbody> ().useGravity = true;
 		obj.GetComponent<Collider> ().isTrigger = false;
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		is_grabbing = false;
+		//obj.GetComponent<Rigidbody> ().velocity = palm.GetComponent<Rigidbody> ().velocity * 5.0f;
+
+
 		Vector3 v = calculateVelocity (indexFingerPos);
-		obj.GetComponent<Rigidbody> ().velocity = new Vector3 (0, v[1] / 5,v[2]);
-		//Debug.Log (obj.name + " is dropped");
+		obj.GetComponent<Rigidbody> ().velocity = new Vector3 (v[0], v[1] / 1.5,v[2]);
+
+		/*new feature: push*/
+		if (push_enabled) {
+			coroutine = disablePalmCollider (palm_collider_delay);
+			StartCoroutine (coroutine);
+		}
+	}
+
+	/*new feature: push*/
+	public IEnumerator disablePalmCollider(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		palm.GetComponent<Collider> ().isTrigger = false;
 	}
 
 	public void setMenu(int menu) {

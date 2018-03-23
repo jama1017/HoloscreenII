@@ -82,18 +82,24 @@ public class InteractionScriptObject : MonoBehaviour {
 		//If this is current being interacted with any hand, remove itself from interactable list of left/right hand whenever left/right hand leaves object
 		else {
 			if (bufferedLeftHandFingers () == 0 && useFingerBuffer) {
-				releaseTargetObject ();
+				releaseSelf();
 				//Debug.Log (this.name + " is not interacted" + Time.time);
 			}
 		}
 	}
 
-	public void releaseTargetObject(){
+	/* 	releaseSelf
+	*	Input: None
+	*	Output: None
+	*	Summary: Reset self as not interactable any more
+	*/
+	public void releaseSelf(){
 		//Debug.Log ("release!");
 		isInteracted = notified = false;
 		unhighlightSelf ();
 		hand_l.removeHandObject ();
 	}
+
 	/* 	notifyLeave
 	*	Input: None
 	*	Output: None
@@ -159,7 +165,8 @@ public class InteractionScriptObject : MonoBehaviour {
 		float highlight_threshold = 0.35f;
 		float dist_obj_cam = Vector3.Distance (sender.transform.position, this.transform.position);
 		if (dist_obj_cam < highlight_threshold){
-			Color add_color = new Vector4 (0.3f, 0.3f, 0.3f, 0f);
+			/*Set the _emissionColor according to dist from sender to this.gameObject*/
+			Color add_color = new Vector4 (0.8f, 0.8f, 0.8f, 0f);
 			Color cur_color_max = add_color*((highlight_threshold - dist_obj_cam)/highlight_threshold);
 			//Debug.Log (cur_color);
 			this.GetComponent<Renderer> ().material.SetColor("_EmissionColor", cur_color_max);

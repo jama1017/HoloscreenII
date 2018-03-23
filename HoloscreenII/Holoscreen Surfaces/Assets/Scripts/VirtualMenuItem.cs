@@ -87,8 +87,8 @@ public class VirtualMenuItem : MonoBehaviour {
 
 	bool collidesWithFinger(GameObject finger) {
 		for (int i = 0; i < 3; i++) {
-			Debug.Log (finger);
-			Debug.Log (finger.transform.GetChild (i));
+			//Debug.Log (finger);
+			//Debug.Log (finger.transform.GetChild (i));
 
 			if (collidesWithObject(finger.transform.GetChild (i).gameObject)) {
 				return true;
