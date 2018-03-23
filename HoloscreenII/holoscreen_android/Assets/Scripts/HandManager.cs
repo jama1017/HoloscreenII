@@ -39,6 +39,8 @@ public class HandManager : MonoBehaviour {
 		/*initial all user-defined settings*/
 		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();
 		palm_collider_delay = data_mngr.getPalmColliderDelay ();
+		palm.GetComponent<Rigidbody> ().maxAngularVelocity = 0;
+
 	}
 	
 	// Update is called once per frame
@@ -66,6 +68,7 @@ public class HandManager : MonoBehaviour {
 				if (gestureManager.bufferedGesture () == "pinch") {
 					if (!is_grabbing)
 						grabObject (interact_obj);
+					Debug.Log ("obj isTrigger is " + interact_obj.GetComponent<Collider>().isTrigger + "palm isTrigger is " + palm.GetComponent<Collider>().isTrigger + "palm angular v is " + palm.GetComponent<Rigidbody>().angularVelocity);
 				} else {
 					if (is_grabbing)
 						releaseObject (interact_obj);
@@ -234,8 +237,8 @@ public class HandManager : MonoBehaviour {
 		is_grabbing = true;
 
 		/*new feature: push*/
-		coroutine = disablePalmCollider (palm_collider_delay);
-		StopCoroutine(coroutine);
+		if (coroutine != null)
+			StopCoroutine(coroutine);
 		palm.GetComponent<Collider> ().isTrigger = true;
 		//Debug.Log (obj.name + " is grabbed");
 	}
@@ -261,6 +264,7 @@ public class HandManager : MonoBehaviour {
 		is_grabbing = false;
 
 		/*new feature: push*/
+		coroutine = disablePalmCollider (palm_collider_delay);
 		StartCoroutine (coroutine);
 		//Debug.Log (obj.name + " is dropped");
 	}
