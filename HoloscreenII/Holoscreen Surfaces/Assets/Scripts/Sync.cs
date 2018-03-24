@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Kalman;
 /* sync only get information from Leap */
 /* it does not deals with gesture  */
 
@@ -37,6 +37,8 @@ public class Sync : MonoBehaviour {
 
 	private GameObject finger;
 	private GameObject bone;
+
+	private IKalmanWrapper kalmanPalm,kalmanIndex,kalmanThumb;
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
@@ -66,6 +68,10 @@ public class Sync : MonoBehaviour {
 		l_finger4_bone0 = l_finger4.transform.GetChild (0).gameObject;
 		l_finger4_bone1 = l_finger4.transform.GetChild (1).gameObject;
 		l_finger4_bone2 = l_finger4.transform.GetChild (2).gameObject;
+
+		kalmanPalm = new MatrixKalmanWrapper ();
+		kalmanIndex = new MatrixKalmanWrapper ();
+		kalmanThumb = new MatrixKalmanWrapper ();
 	}
 
 	// Update is called once per frame
@@ -82,7 +88,7 @@ public class Sync : MonoBehaviour {
 		string[] hand_info = msg.Split (new char[] {',', ':', ';'});
 
 		/* return before any hand found */
-		if (!hand_info.Equals (""))
+		if (!hand_info[0].Equals(""))
 			updateHandSkeletonFromLeap (hand_info);
 
 
@@ -102,6 +108,7 @@ public class Sync : MonoBehaviour {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					palm_pos = palm_pos * 0.001f;
 					//palm_pos [1] += 0.2f;
+					palm_pos = kalmanPalm.Update (palm_pos);
 					l_palm.transform.localPosition = palm_pos;
 					dataManager.setLeftHandPosition (palm_pos);
 				} else if (type.Contains ("vel")) {
@@ -138,7 +145,11 @@ public class Sync : MonoBehaviour {
 						if (vec3_type.Contains ("pos")) {
 							Vector3 bone_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 							bone_pos = bone_pos * 0.001f;
-							//bone_pos [1] += 0.2f;
+							if (bone_i == 2 && finger_i == 0)
+								bone_pos = kalmanThumb.Update (bone_pos);
+							else if (bone_i == 2 && finger_i == 1)
+								bone_pos = kalmanIndex.Update (bone_pos);
+							
 							bone.transform.localPosition = bone_pos;
 						} else {
 							//Quaternion palm_rot_byNorm = Quaternion.FromToRotation (Vector3.forward, palm_norm);

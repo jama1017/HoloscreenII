@@ -220,3 +220,4 @@ C:\Users\harry\Documents\github\HoloscreenII_demo_v2\HoloscreenII\HoloscreenII\H
 C:\Users\harry\Documents\github\HoloscreenII_demo_v2\HoloscreenII\HoloscreenII\Holoscreen Surfaces\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\harry\Documents\github\HoloscreenII_demo_v2\HoloscreenII\HoloscreenII\Holoscreen Surfaces\obj\Debug\Assembly-CSharp.dll
 C:\Users\harry\Documents\github\HoloscreenII_demo_v2\HoloscreenII\HoloscreenII\Holoscreen Surfaces\obj\Debug\Assembly-CSharp.pdb
+C:\Users\tutu5110\Documents\Research\Holoscreen\Portalble_prealpha\HoloscreenII\HoloscreenII\Holoscreen Surfaces\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

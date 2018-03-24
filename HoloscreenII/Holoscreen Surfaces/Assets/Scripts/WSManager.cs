@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.UI;
 
 using System.Linq;
 using System.Collections.Generic;
@@ -22,15 +23,20 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 //	private float eyeScale = -1.0f;
 //	private Vector2 eyeCentroid = new Vector2(0, 0);
 //
-
+	private GameObject InputHolder;
+	private InputField websocketInputField;
 	// Use this for initialization
 	void Start () {
-		
+		InputHolder = GameObject.Find ("NodeServer");
+		websocketInputField = InputHolder.GetComponentInChildren<UnityEngine.UI.InputField> ();
+		websocketInputField.text = websocketServer;
+		websocketInputField.onEndEdit.AddListener(delegate { updateWebSocketServerInfo();});
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log ("aaaaa");
+		Debug.Log(websocketServer);
 	}
 
 
@@ -46,7 +52,12 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		// Open the connection
 		webSocket.Open();
 	}
-
+		
+	private void updateWebSocketServerInfo(){
+		websocketServer = websocketInputField.text;
+		webSocket.Close ();
+		OnEnable ();
+	}
 
 	#region WebSocketUnityDelegate implementation
 
@@ -125,7 +136,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 		int testInt1 = System.BitConverter.ToInt32(data,0);
 		int testInt2 = System.BitConverter.ToInt32(data,4);;
 
-		Debug.Log("Received data from server : " + testInt1+", "+testInt2);
+		//Debug.Log("Received data from server : " + testInt1+", "+testInt2);
 		//GameObject.Find("NotificationText").GetComponent<TextMesh>().text = "Received data from server : " + testInt1+", "+testInt2;
 	}
 

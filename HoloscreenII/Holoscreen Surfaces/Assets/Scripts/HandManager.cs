@@ -290,7 +290,7 @@ public class HandManager : MonoBehaviour {
 
 
 		Vector3 v = calculateVelocity (indexFingerPos);
-		obj.GetComponent<Rigidbody> ().velocity = new Vector3 (v[0], v[1] / 1.5,v[2]);
+		obj.GetComponent<Rigidbody> ().velocity = new Vector3 (v[0], v[1] / 1.5f,v[2]);
 
 		/*new feature: push*/
 		if (push_enabled) {
