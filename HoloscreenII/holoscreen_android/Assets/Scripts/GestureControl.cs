@@ -87,32 +87,32 @@ public class GestureControl : MonoBehaviour {
 	private bool gestureDetectorMLtrain(){
 		//Data process
 		string data_fname_basic = "Assets/Data/handDataG";
-		Mat all_data = new Mat();
+		Mat all_data = new Mat ();
 		Mat all_label = new Mat ();
 		for (int i = 0; i < gesture_num; i++) {
 			string data_fname = data_fname_basic + i.ToString () + "_new.txt";
 			int mat_m = File.ReadAllLines (data_fname).Length;
-			Mat cur_data = Mat.zeros(mat_m,mat_n,CvType.CV_32F);
-			Mat cur_label = Mat.ones(mat_m, 1, CvType.CV_32S);
+			Mat cur_data = Mat.zeros (mat_m, mat_n, CvType.CV_32F);
+			Mat cur_label = Mat.ones (mat_m, 1, CvType.CV_32S);
 			/* assign labels for cur_label */
-			Core.multiply(cur_label,new Scalar((double)(i)),cur_label);
+			Core.multiply (cur_label, new Scalar ((double)(i)), cur_label);
 
 			StreamReader reader = new StreamReader (data_fname);
 			int row = 0;
-			while(reader.Peek() >= 0) {
-				string cur_line = reader.ReadLine();
+			while (reader.Peek () >= 0) {
+				string cur_line = reader.ReadLine ();
 				float[] cur_line_data = Array.ConvertAll (cur_line.Split (','), float.Parse);
-				cur_data.put(row,0,cur_line_data);
+				cur_data.put (row, 0, cur_line_data);
 				row++;
 			}
 			all_data.push_back (cur_data);
 			all_label.push_back (cur_label);
 			reader.Close ();
 		}
-		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label);
-		data_lable.setTrainTestSplitRatio(0.8,true);
-		TrainData train_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTrainSamples(), OpenCVForUnity.Ml.ROW_SAMPLE,data_lable.getTrainResponses());
-		TrainData test_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTestSamples(), OpenCVForUnity.Ml.ROW_SAMPLE,data_lable.getTestResponses());
+		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE, all_label);
+		data_lable.setTrainTestSplitRatio (0.8, true);
+		TrainData train_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTrainSamples (), OpenCVForUnity.Ml.ROW_SAMPLE, data_lable.getTrainResponses ());
+		TrainData test_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTestSamples (), OpenCVForUnity.Ml.ROW_SAMPLE, data_lable.getTestResponses ());
 
 		//Debug usage
 		//Debug.Log("Debug print(GestureControl.poseDetectorMLtrainning()):----------");
@@ -147,19 +147,24 @@ public class GestureControl : MonoBehaviour {
 
 		//logistic reg model ends
 
-		/*
-		//svm model starts
+
+		//svm model starts (13.5 ~ 14.5)
+		//Optimize STEP 1: kerneltype: RBF, C=3; CHI2 (8.5, 8.5); INTER (6.5, 6.5)
+		//Optimize STEP 2: C = 1 to C = 20. (6.5, 6.5) to (2, 2.5)
 		svm_model = OpenCVForUnity.SVM.create();
+		//Debug.Log (svm_model.getType(SVM));
+		svm_model.setKernel (SVM.INTER);
+		svm_model.setC (20);
 		bool ret_val = svm_model.train (train_data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
+		/*
 		//Debug usage
-
 		Mat res = Mat.ones(1,1,CvType.CV_32S);
 		int idx = 2000;
 		svm_model.predict (all_data.row (idx), res, 0);
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
 		Debug.Log("SVM predicted: " + res.get (0, 0) [0]);
-
+		*/
 
 		//Trainning error printed out
 		Debug.Log("SVM trainning error: " + svm_model.calcError (train_data_lable,true,train_data_lable.getResponses()));
@@ -175,7 +180,8 @@ public class GestureControl : MonoBehaviour {
 		float time_elapsed = Time.realtimeSinceStartup - start_time;
 		Debug.Log ("Prediction time is " + time_elapsed.ToString("F6") + "s");
 		//svm model ends
-		*/
+		/*
+		//DTree model
 		DTrees model_DTree = OpenCVForUnity.DTrees.create();
 		bool ret_val = model_DTree.train (train_data_lable);
 		Debug.Log ("DTree train success : " + ret_val);
@@ -184,6 +190,7 @@ public class GestureControl : MonoBehaviour {
 
 		//Test err printed out
 		Debug.Log("DTree test error: " + model_DTree.calcError (test_data_lable,true,test_data_lable.getResponses()));
+		*/
 		return ret_val;
 	}
 
