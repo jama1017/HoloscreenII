@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class camControl : MonoBehaviour
 {
-	public Matrix4x4 originalProjection;
+	//public Matrix4x4 originalProjection;
 	Camera cam;
 	Matrix4x4 m;
 	void Start()
@@ -32,6 +32,6 @@ public class camControl : MonoBehaviour
 	void Update()
 	{
 		cam.projectionMatrix = m;
-		//Debug.Log (cam.projectionMatrix);
+		Debug.Log (cam.projectionMatrix);
 	}
 }

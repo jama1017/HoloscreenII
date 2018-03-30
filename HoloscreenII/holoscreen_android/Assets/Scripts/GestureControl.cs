@@ -13,7 +13,7 @@ public class GestureControl : MonoBehaviour {
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
 	SVM svm_model;
-	int gesture_num = 3;
+	int gesture_num = 4;
 	int mat_n = 15;
 
 	//poseDetector buffer
@@ -33,15 +33,15 @@ public class GestureControl : MonoBehaviour {
 		gesture_dict.Add(0, "palm");
 		gesture_dict.Add(1, "pinch");
 		gesture_dict.Add(2, "paint");
-		//gesture_dict.Add(3, "gist");
+		gesture_dict.Add(3, "fist");
 		//gesture_dict.Add(4, "undefined");
 
 		//Train svm model when svm model does not exist
-		if (File.Exists ("Assets/Data/svm.xml"))
-			svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
+		//if (File.Exists ("Assets/Data/svm.xml"))
+		//	svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
 		//else {
-		//	gestureDetectorMLtrain ();
-		//	svm_model.save ("Assets/Data/svm.xml");
+			gestureDetectorMLtrain ();
+			svm_model.save ("Assets/Data/svm.xml");
 		//}
 
 	}
@@ -110,6 +110,9 @@ public class GestureControl : MonoBehaviour {
 			reader.Close ();
 		}
 		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE,all_label);
+		data_lable.setTrainTestSplitRatio(0.8,true);
+		TrainData train_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTrainSamples(), OpenCVForUnity.Ml.ROW_SAMPLE,data_lable.getTrainResponses());
+		TrainData test_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTestSamples(), OpenCVForUnity.Ml.ROW_SAMPLE,data_lable.getTestResponses());
 
 		//Debug usage
 		//Debug.Log("Debug print(GestureControl.poseDetectorMLtrainning()):----------");
@@ -144,23 +147,43 @@ public class GestureControl : MonoBehaviour {
 
 		//logistic reg model ends
 
+		/*
 		//svm model starts
 		svm_model = OpenCVForUnity.SVM.create();
-		bool ret_val = svm_model.train (data_lable);
+		bool ret_val = svm_model.train (train_data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
 		//Debug usage
-		/*
+
 		Mat res = Mat.ones(1,1,CvType.CV_32S);
 		int idx = 2000;
 		svm_model.predict (all_data.row (idx), res, 0);
 		Debug.Log ("Label should be: " + all_label.get(idx,0)[0]);
 		Debug.Log("SVM predicted: " + res.get (0, 0) [0]);
-		*/
+
 
 		//Trainning error printed out
-		Debug.Log("SVM trainning error: " + svm_model.calcError (data_lable,true,all_label));
+		Debug.Log("SVM trainning error: " + svm_model.calcError (train_data_lable,true,train_data_lable.getResponses()));
 
+		//Test err printed out
+		Debug.Log("SVM test error: " + svm_model.calcError (test_data_lable,true,test_data_lable.getResponses()));
+
+		//Predicton speed printed out
+		Mat temp_row = test_data_lable.getSamples();
+		Mat result = Mat.ones(1,1,CvType.CV_32S);
+		float start_time= Time.realtimeSinceStartup;
+		svm_model.predict (temp_row.row(0), result, 0);
+		float time_elapsed = Time.realtimeSinceStartup - start_time;
+		Debug.Log ("Prediction time is " + time_elapsed.ToString("F6") + "s");
 		//svm model ends
+		*/
+		DTrees model_DTree = OpenCVForUnity.DTrees.create();
+		bool ret_val = model_DTree.train (train_data_lable);
+		Debug.Log ("DTree train success : " + ret_val);
+		//Trainning error printed out
+		Debug.Log("DTree trainning error: " + model_DTree.calcError (train_data_lable,true,train_data_lable.getResponses()));
+
+		//Test err printed out
+		Debug.Log("DTree test error: " + model_DTree.calcError (test_data_lable,true,test_data_lable.getResponses()));
 		return ret_val;
 	}
 

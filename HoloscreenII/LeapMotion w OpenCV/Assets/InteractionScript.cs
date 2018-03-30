@@ -244,7 +244,7 @@ public class InteractionScript : MonoBehaviour {
 			float percent = Mathf.Pow(Mathf.Min((threshold - Mathf.Min (dist_obj_palm_l, dist_obj_palm_r)) / (threshold/2), 1), 2);
 			float max_brightness = 0.35f;
 			float min_brightness = 0f;
-			Debug.Log (percent);
+			//Debug.Log (percent);
 
 			if (this.GetComponent<Renderer> ().material.GetColor ("_EmissionColor").r > max_brightness) {
 				add = -0.03f;

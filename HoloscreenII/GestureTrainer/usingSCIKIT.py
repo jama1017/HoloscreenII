@@ -2,16 +2,18 @@ from sklearn.cluster import  KMeans
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.cross_validation import train_test_split
+import time
+
 #addition pkg: scipy
 
 # Read training data
-data_fname = "handData_G"
+data_fname = "handDataG"
 all_npData = np.empty((0,15),float)
 all_label = np.empty((1,0), int)
 #print(all_label.shape)
 #all_npData = np.array(all_npData)
 for i in range(3):
-    cur_fname = data_fname + str(i) + '.txt'
+    cur_fname = data_fname + str(i) + '_new.txt'
     npData = None
     with open(cur_fname) as f:
         readData = f.read()        
@@ -45,7 +47,15 @@ X_train, X_test, y_train, y_test = train_test_split(all_npData, all_label, test_
 model = LogisticRegression()
 model = model.fit(X_train, y_train)
 
-# check the accuracy on the training set
-print(model.score(X_test, y_test))
-print(model.predict(rdata))
+# check the trainning/testing err on the training set
+print(1-model.score(X_train, y_train))
+print(1-model.score(X_test, y_test))
+
+# test the prediction time
+start = time.time()
+model.predict(X_train)
+end = time.time()
+print("%1.11f"%(float(end - start)))
+print("%1.11f"%(start))
+print("%1.11f"%(end))
 #temp = np.asarray(np.float,dtype=np.float32)
