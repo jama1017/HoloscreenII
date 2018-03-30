@@ -9,7 +9,7 @@ public class HandManager : MonoBehaviour {
 	private PaintManager paintManager;
 	private GameObject grabHolder, palm;
 	private bool is_grabbing = false;
-	private bool push_enabled = false;
+	public bool push_enabled = true;
 	private IEnumerator coroutine;
 	private float palm_collider_delay;
 

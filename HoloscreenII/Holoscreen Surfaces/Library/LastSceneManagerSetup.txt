@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/AreaLearning.unity
+- path: Assets/Billiard.unity
   isLoaded: 1
   isActive: 1

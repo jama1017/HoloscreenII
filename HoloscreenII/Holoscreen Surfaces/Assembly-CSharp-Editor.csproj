@@ -80,6 +80,7 @@
      <None Include="Assets\Materials\OutlineEffect\OutlineEffect\VerticesOutline.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\EnvironmentalLightingSpecularBumped.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\TangoEnvironmentalLighting.cginc" />
+     <None Include="Assets\Steaming_Hot_Tea_And_Coffee\Steaming_Hot_Tea_And_Coffee - Documentation.txt" />
      <None Include="Assets\TangoSDK\Core\Shaders\DepthEmulation.shader" />
      <None Include="Assets\TangoSDK\Core\Shaders\RGB2YUV_Y.shader" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifier_erGrouping.xml" />

@@ -283,10 +283,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="LeapCSharp.NET3.5">
- <HintPath>C:/Users/tutu5110/Documents/Research/Holoscreen/HoloscreenII/HoloscreenII/LeapMotion w OpenCV/Assets/LeapMotion/Core/Plugins/LeapCSharp.NET3.5.dll</HintPath>
+ <HintPath>C:/Users/tutu5110/Documents/Research/Holoscreen/Portalble_prealpha/HoloscreenII/HoloscreenII/LeapMotion w OpenCV/Assets/LeapMotion/Core/Plugins/LeapCSharp.NET3.5.dll</HintPath>
  </Reference>
  <Reference Include="InteractionEngineUtility">
- <HintPath>C:/Users/tutu5110/Documents/Research/Holoscreen/HoloscreenII/HoloscreenII/LeapMotion w OpenCV/Assets/LeapMotion/Modules/InteractionEngine/Plugins/InteractionEngineUtility.dll</HintPath>
+ <HintPath>C:/Users/tutu5110/Documents/Research/Holoscreen/Portalble_prealpha/HoloscreenII/HoloscreenII/LeapMotion w OpenCV/Assets/LeapMotion/Modules/InteractionEngine/Plugins/InteractionEngineUtility.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

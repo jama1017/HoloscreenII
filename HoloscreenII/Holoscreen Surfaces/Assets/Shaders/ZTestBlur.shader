@@ -85,8 +85,8 @@ Shader "Custom/ZTestBlur"
             float4 rimOut = _RimColor * pow(rim, _RimPower);
             
             // Find the final color by blending the occluded and non-occluded colors.
-            //float occ = TangoOcclusionCertainty(_CameraDepthTexture, IN.screenPos, 15 * 1.0 / _MainTex_TexelSize.z);
-            float occ = TangoOcclusionCertainty(_CameraDepthTexture, IN.screenPos, _BlurThresholdMax);
+			//float occ = TangoOcclusionCertainty(_CameraDepthTexture, IN.screenPos, 15 * 1.0 / _MainTex_TexelSize.z);
+             float occ = TangoOcclusionCertainty(_CameraDepthTexture, IN.screenPos, _BlurThresholdMax);
             //c = (occ * rimOut) + ((1 - occ) * c);
             
             o.Albedo = c;

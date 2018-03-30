@@ -511,6 +511,7 @@
      <Compile Include="Assets\WebSocketUnity\WebSocketUnity.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
      <Compile Include="Assets\snapDarts.cs" />
+     <Compile Include="Assets\testRot.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
      <None Include="Assets\TangoSDK\Examples\ExperimentalMeshOcclusion\Shaders\ZTestBlur.shader" />
      <None Include="Assets\ArvisMag_Assets\OilLamp\ReadMe.txt" />
@@ -534,6 +535,7 @@
      <None Include="Assets\Materials\OutlineEffect\OutlineEffect\VerticesOutline.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\EnvironmentalLightingSpecularBumped.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\TangoEnvironmentalLighting\TangoEnvironmentalLighting.cginc" />
+     <None Include="Assets\Steaming_Hot_Tea_And_Coffee\Steaming_Hot_Tea_And_Coffee - Documentation.txt" />
      <None Include="Assets\TangoSDK\Core\Shaders\DepthEmulation.shader" />
      <None Include="Assets\TangoSDK\Core\Shaders\RGB2YUV_Y.shader" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifier_erGrouping.xml" />

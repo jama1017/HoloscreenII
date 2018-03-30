@@ -51,7 +51,7 @@ float TangoOcclusionCertainty(sampler2D cameraDepthTexture, float4 screenPos, fl
         certainty += TangoDepthSample(cameraDepthTexture, screenPos, blurAmount, cameraDistZ, weight[i], -shift[i], -shift[i]);
     }
 
-    return certainty * 1.2;
+    return certainty * 2;
 
 //	float certainty = 0;
 //	float weight = 0;

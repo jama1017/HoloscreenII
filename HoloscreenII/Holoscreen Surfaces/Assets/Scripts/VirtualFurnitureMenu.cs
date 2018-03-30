@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class VirtualFurnitureMenu : VirtualMenu {
 	public GameObject[] m_furniturePrefabs;
-	public GameObject m_itemPrefab;
+	public GameObject m_itemPrefabPre;
+	public GameObject m_itemPrefabNxt;
+	public GameObject m_itemPrefabCls;
 
 	// Use this for initialization
 	protected override void Start () {
@@ -36,16 +38,19 @@ public class VirtualFurnitureMenu : VirtualMenu {
 		Debug.Log ("Creating furniture sub-menu");
 
 		// Add footer
-		GameObject prevPage = Instantiate (m_itemPrefab) as GameObject;
+		GameObject prevPage = Instantiate (m_itemPrefabPre) as GameObject;
 		prevPage.AddComponent<VMIPrevPage> ();
+		prevPage.transform.Rotate (new Vector3 (0, 90, 0));
 		addFooterItem (prevPage);
 
-		GameObject nextPage = Instantiate (m_itemPrefab) as GameObject;
+		GameObject nextPage = Instantiate (m_itemPrefabNxt) as GameObject;
 		nextPage.AddComponent<VMINextPage> ();
+		nextPage.transform.Rotate (new Vector3 (0, 90, 0));
 		addFooterItem (nextPage);
 
-		GameObject closeMenu = Instantiate (m_itemPrefab) as GameObject;
+		GameObject closeMenu = Instantiate (m_itemPrefabCls) as GameObject;
 		closeMenu.AddComponent<VMIClose> ();
+		closeMenu.transform.Rotate (new Vector3 (0, 90, 0));
 		addFooterItem (closeMenu);
 	}
 }
