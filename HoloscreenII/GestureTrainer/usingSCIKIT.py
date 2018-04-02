@@ -1,6 +1,8 @@
 from sklearn.cluster import  KMeans
 import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.cross_validation import train_test_split
 import time
 
@@ -12,7 +14,7 @@ all_npData = np.empty((0,15),float)
 all_label = np.empty((1,0), int)
 #print(all_label.shape)
 #all_npData = np.array(all_npData)
-for i in range(3):
+for i in range(4):
     cur_fname = data_fname + str(i) + '_new.txt'
     npData = None
     with open(cur_fname) as f:
@@ -45,11 +47,13 @@ with open(test_fname) as f:
 X_train, X_test, y_train, y_test = train_test_split(all_npData, all_label, test_size=0.2, random_state=2)
 #model = LogisticRegression(class_weight={0:, 1: ,2: ,3: ,4:, 5: ,6: ,7: ,8: ,9: ,10:, 11})
 model = LogisticRegression()
+#model = KNeighborsClassifier()
+#model = DecisionTreeClassifier()
 model = model.fit(X_train, y_train)
 
 # check the trainning/testing err on the training set
-print(1-model.score(X_train, y_train))
-print(1-model.score(X_test, y_test))
+print(model.score(X_train, y_train))
+print(model.score(X_test, y_test))
 
 # test the prediction time
 start = time.time()
