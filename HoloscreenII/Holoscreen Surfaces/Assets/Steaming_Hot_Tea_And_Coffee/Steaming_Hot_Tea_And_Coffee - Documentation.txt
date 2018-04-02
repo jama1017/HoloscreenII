@@ -1,0 +1,7 @@
+A realistic hot mug of coffee and cup of tea, both with a steam particle effect.
+
+Load the Steaming_Hot_Tea_And_Coffee.unity for an example scene, or drag the Cup_Of_Tea.prefab or Mug_Of_Coffee.prefab prefabs from the Project window into the Hierarchy window.
+
+Have fun!
+
+If you have any questions then please get in touch at bendurrant@rivermillstudios.com
