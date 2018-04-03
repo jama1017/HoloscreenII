@@ -59,7 +59,7 @@ public class PaintManager : MonoBehaviour {
 						new_ink.SetPosition (new_ink.positionCount - 1, newPoint);
 					}
 				}
-			} else {
+			} else if (gestureManager.bufferedGesture () == "palm") {
 				if (new_ink.positionCount > 10 && clean_trail == false) {
 					new_ink.positionCount -= 10;
 					clean_trail = true;

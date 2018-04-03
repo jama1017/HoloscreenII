@@ -72,6 +72,7 @@
      <None Include="Assets\OutlineEffect\VerticesOutline_Always.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\YUV2RGB.shader" />
      <None Include="Assets\TangoSDK\Core\Shaders\RGB2YUV_CbCr.shader" />
+     <None Include="Assets\StreamingAssets\svm.xml" />
      <None Include="Assets\Data\handData_G2.txt" />
      <None Include="Assets\Data\handDataG3_new.txt" />
      <None Include="Assets\TangoPrefabs\Shaders\ARPostProcess.shader" />
@@ -90,7 +91,6 @@
      <None Include="Assets\Data\handDataG0_new.txt" />
      <None Include="Assets\Kitty\Assets\Pet.shader" />
      <None Include="Assets\TangoSDK\Examples\ExperimentalMeshBuilderWithColor\Shaders\UnlitVertexColor.shader" />
-     <None Include="Assets\StreamingAssets\svm.xml" />
      <None Include="Assets\TangoSDK\Examples\ExperimentalMeshOcclusion\Shaders\OcclusionMask.shader" />
      <None Include="Assets\TangoSDK\Core\Shaders\ColorCameraEmulation.shader" />
      <None Include="Assets\TangoPrefabs\Shaders\PointCloud_Occlusion.shader" />
@@ -98,6 +98,7 @@
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\OCRHMM_transitions_table.xml" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM1.xml" />
      <None Include="Assets\Data\handDataG1_new.txt" />
+     <None Include="Assets\StreamingAssets\~~~~~svm.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Shaders\TangoOcclusion.cginc" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM2.xml" />

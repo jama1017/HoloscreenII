@@ -15,7 +15,7 @@ public class GestureControl : MonoBehaviour {
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
 	SVM svm_model;
-	int gesture_num = 3;
+	int gesture_num = 4;
 	int mat_n = 15;
 
 	//poseDetector buffer
@@ -41,7 +41,7 @@ public class GestureControl : MonoBehaviour {
 		gesture_dict.Add(0, "palm");
 		gesture_dict.Add(1, "pinch");
 		gesture_dict.Add(2, "paint");
-		//gesture_dict.Add(3, "gist");
+		gesture_dict.Add(3, "fist");
 		//gesture_dict.Add(4, "undefined")
 
 		// Read svm
@@ -55,6 +55,7 @@ public class GestureControl : MonoBehaviour {
 			Debug.Log (File.ReadAllText (System.IO.Path.Combine (Application.persistentDataPath, "svm.xml")));
 
 			svm_model = OpenCVForUnity.SVM.load(System.IO.Path.Combine(Application.persistentDataPath, "svm.xml"));
+
 			Debug.Log(svm_model.empty());
 		}
 
@@ -176,6 +177,8 @@ public class GestureControl : MonoBehaviour {
 
 		//svm model starts
 		svm_model = OpenCVForUnity.SVM.create();
+		svm_model.setKernel (SVM.INTER);
+		svm_model.setC (20);
 		bool ret_val = svm_model.train (data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
 

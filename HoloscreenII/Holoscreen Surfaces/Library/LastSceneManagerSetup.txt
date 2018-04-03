@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Furniture.unity
+- path: Assets/paint.unity
   isLoaded: 1
   isActive: 1

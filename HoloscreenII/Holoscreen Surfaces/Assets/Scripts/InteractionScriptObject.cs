@@ -10,6 +10,7 @@ public class InteractionScriptObject : MonoBehaviour {
 	private DataManager dataManager;
 	private HandManager hand_l, hand_r;
 
+	private bool shortVibrTriggered;
 	//inserted hand finger buffers
 	private int fingers_buff_len = 15;
 	private int fingers_buff_idx;
@@ -24,6 +25,8 @@ public class InteractionScriptObject : MonoBehaviour {
 		//Initialize dictionary for calculating num of fingers inserted into this.gameObject
 		hand_nearby.Add("Hand_l",0);
 		hand_nearby.Add("Hand_r",0);
+
+		shortVibrTriggered = false;
 
 		//Initialize all managers
 		dataManager = GameObject.Find ("gDataManager").GetComponent<DataManager> ();
@@ -73,6 +76,11 @@ public class InteractionScriptObject : MonoBehaviour {
 					if (hand_l.setHandObject (this.gameObject)){
 						isInteracted = true;
 						highlightSelf ();
+						/* vibration */
+						if (!shortVibrTriggered) {
+							Vibration.Vibrate (30);
+							shortVibrTriggered = true;
+						}
 					}
 				}
 			} else if (hand_nearby.TryGetValue ("Hand_r", out hand_r_fingers) && hand_r_fingers > 0 && (!dataManager.checkRightHandBusy ())) {
@@ -98,6 +106,7 @@ public class InteractionScriptObject : MonoBehaviour {
 		isInteracted = notified = false;
 		unhighlightSelf ();
 		hand_l.removeHandObject ();
+		shortVibrTriggered = false;
 	}
 
 	/* 	notifyLeave

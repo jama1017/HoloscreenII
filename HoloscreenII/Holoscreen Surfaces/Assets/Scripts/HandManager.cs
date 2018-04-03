@@ -40,6 +40,8 @@ public class HandManager : MonoBehaviour {
 	private int indexFingerPosCNT = 0 ;
 	private int thumbFingerPosCNT = 0 ;
 
+	private bool pulsationFlag = false;
+
 	private int _handThrowingPowerMultiplier = 10;
 
 	// Use this for initialization
@@ -97,10 +99,12 @@ public class HandManager : MonoBehaviour {
 					if (!is_grabbing)
 						grabObject (interact_obj);
 					//Debug.Log ("obj isTrigger is " + interact_obj.GetComponent<Collider>().isTrigger + "palm isTrigger is " + palm.GetComponent<Collider>().isTrigger + "palm angular v is " + palm.GetComponent<Rigidbody>().angularVelocity);
+
 				} else {
 					if (is_grabbing) {
 						interact_obj.GetComponent<InteractionScriptObject> ().releaseSelf ();
 						//releaseObject (interact_obj);
+						CancelInvoke();
 					}
 				}
 				/* nothing in hand */
@@ -115,6 +119,10 @@ public class HandManager : MonoBehaviour {
 		}
 	}
 
+	/* pulsation */
+	private void VPulse(){
+		Vibration.Vibrate (30);
+	}
 	/* 	hitObject
 	*	Input: None
 	*	Output: None
@@ -271,6 +279,10 @@ public class HandManager : MonoBehaviour {
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().Sleep ();
 		obj.transform.SetParent(grabHolder.transform);
+		/* pulasation */
+		/* before invoke, check 2 things. if it is enabled, if there are existing ones */
+		/* FIX!!!*/ 
+		InvokeRepeating ("VPulse", 1.0f, 1.0f);
 		is_grabbing = true;
 	}
 

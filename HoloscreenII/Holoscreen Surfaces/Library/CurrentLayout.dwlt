@@ -42,10 +42,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 681, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 35
+  controlID: 110
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -64,8 +64,8 @@ MonoBehaviour:
     y: 0
     width: 441
     height: 731
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 36
+  controlID: 111
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 37
+  controlID: 112
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -253,8 +253,8 @@ MonoBehaviour:
     y: 0
     width: 721
     height: 306
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -346,7 +346,7 @@ MonoBehaviour:
     width: 1093
     height: 404
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: colors
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -356,20 +356,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Chair7
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Chair7
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\tutu5110\Documents\Research\Holoscreen\Portalble_prealpha\HoloscreenII\HoloscreenII\Holoscreen
     Surfaces
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 64490000
-    m_LastClickedID: 18788
-    m_ExpandedIDs: 00000000d82900002a2a00007a2a00007c2a0000fa2a0000222b00002e2b0000e42b0000182c00009e2c0000ce30000068310000c8320000b633000016340000b63400003a3500007036000072360000263700007037000012380000d2390000663a0000d0420000d2420000d4420000d6420000d8420000da420000dc420000de420000e042000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 189}
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 00000000064600005c460000a8460000aa4600002a4700004e4700005a4700000048000030480000ae480000d44c0000664d0000b64e0000a44f000008500000a6500000245100005452000056520000025300004a530000ea5300009855000024560000ee5e0000f05e0000f25e0000f45e0000f65e0000f85e0000fa5e0000fc5e0000fe5e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -397,7 +397,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d82900002a2a00007a2a00007c2a0000fa2a0000222b00002e2b0000e42b0000182c00009e2c0000ce30000068310000c8320000b633000016340000b63400003a3500007036000072360000263700007037000012380000d2390000663a0000d0420000d2420000d4420000d6420000d8420000da420000dc420000de420000e0420000
+    m_ExpandedIDs: 00000000064600005c460000a8460000aa4600002a4700004e4700005a4700000048000030480000ae480000d44c0000664d0000b64e0000a44f000008500000a6500000245100005452000056520000025300004a530000ea5300009855000024560000ee5e0000f05e0000f25e0000f45e0000f65e0000f85e0000fa5e0000fc5e0000fe5e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -515,26 +515,26 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: fc81fdffc682fdff1485fdff38a1fdff02a2fdff9ea3fdff54b2fdff1eb3fdffbcb4fdfff0d1fdff7ed2fdff1ad4fdff0e51feff0c66feff2689feff26aefeff2cc9feffdae2feff8ef0feffe02dffff702effff0c30ffff5845ffff2446ffffc247ffff1ec0ffff42f8ffffe0fbffff00000000
+    m_ExpandedIDs: c8dbfdff5cdcfdfff8ddfdff9807feff5408fefff009feffd246feff8047feff1849feff4466fefff866feff9e68feff0c00ffffce00ffff6602fffff83fffffba40ffff5242ffffbe46ffff8047ffff1849ffff2a73fffff873ffff9075fffff47cffff007effff987fffff9e86ffffaa87ffff4489ffffceeaffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Chair7
-      m_OriginalName: Chair7
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -110322
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 4}
     m_SearchString: 
   m_ExpandedScenes:
-  - Furniture
+  - paint
   m_CurrenRootInstanceID: 0
   m_Locked: 1
   m_CurrentSortingName: TransformSorting
@@ -570,9 +570,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.47245362, y: 0.119170874, z: 0.6251602}
+    m_Target: {x: 0.17440712, y: 0.07781835, z: 0.3972223}
     speed: 2
-    m_Value: {x: -0.47245362, y: 0.119170874, z: 0.6251602}
+    m_Value: {x: 0.17440712, y: 0.07781835, z: 0.3972223}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -595,13 +595,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.21448408, y: -0.19106762, z: 0.04288275, w: -0.9569445}
+    m_Target: {x: -0.11178883, y: -0.09137207, z: 0.010375969, w: -0.9895145}
     speed: 2
-    m_Value: {x: -0.21447422, y: -0.19105883, z: 0.042880777, w: -0.9569005}
+    m_Value: {x: -0.111783676, y: -0.091367856, z: 0.01037549, w: -0.9894689}
   m_Size:
-    m_Target: 1.0635359
+    m_Target: 0.4635359
     speed: 2
-    m_Value: 1.0635359
+    m_Value: 0.4635359
   m_Ortho:
     m_Target: 0
     speed: 2
