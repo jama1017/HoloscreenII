@@ -37,12 +37,12 @@ public class GestureControl : MonoBehaviour {
 		gesture_dict.Add(4, "undefined");
 
 		//Train svm model when svm model does not exist
-		if (File.Exists ("Assets/Data/svm.xml"))
-			svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
-		else {
+		//if (File.Exists ("Assets/Data/svm.xml"))
+		//	svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
+		//else {
 			gestureDetectorMLtrain ();
 			svm_model.save ("Assets/Data/svm.xml");
-		}
+		//}
 
 	}
 	
@@ -110,7 +110,7 @@ public class GestureControl : MonoBehaviour {
 			reader.Close ();
 		}
 		TrainData data_lable = OpenCVForUnity.TrainData.create (all_data, OpenCVForUnity.Ml.ROW_SAMPLE, all_label);
-		data_lable.setTrainTestSplitRatio (0.8, true);
+		data_lable.setTrainTestSplitRatio (0.7, true);
 		TrainData train_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTrainSamples (), OpenCVForUnity.Ml.ROW_SAMPLE, data_lable.getTrainResponses ());
 		TrainData test_data_lable = OpenCVForUnity.TrainData.create (data_lable.getTestSamples (), OpenCVForUnity.Ml.ROW_SAMPLE, data_lable.getTestResponses ());
 
@@ -154,7 +154,7 @@ public class GestureControl : MonoBehaviour {
 		svm_model = OpenCVForUnity.SVM.create();
 		//Debug.Log (svm_model.getType(SVM));
 		svm_model.setKernel (SVM.INTER);
-		svm_model.setC (30);
+		svm_model.setC (10);
 		bool ret_val = svm_model.train (train_data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
 		/*
