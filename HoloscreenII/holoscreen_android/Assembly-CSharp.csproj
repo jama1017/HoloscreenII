@@ -391,25 +391,46 @@
      <Compile Include="Assets\WebSocketUnity\WebSocketUnity.cs" />
      <Compile Include="Assets\WebSocketUnity\WebSocketUnityDelegate.cs" />
      <None Include="Assets\WebSocketUnity\README-Unity5.X.txt" />
+     <None Include="Assets\Data\handDataG3_ratio.txt" />
+     <None Include="Assets\Data\handDataG4_30v2.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\haarcascade_frontalface_alt.xml" />
      <None Include="Assets\Data\svm.xml" />
      <None Include="Assets\OpenCVForUnity\OpenCV_LICENSE.txt" />
+     <None Include="Assets\Data\handDataG4_ratiov2.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\lbpcascade_frontalface.xml" />
      <None Include="Assets\Data\handData_G0.txt" />
      <None Include="Assets\OutlineEffect\VerticesOutline_Always.shader" />
+     <None Include="Assets\Data\handDataG0_30.txt" />
+     <None Include="Assets\Data\handDataG2_ratiov2.txt" />
+     <None Include="Assets\Data\handDataG0_ratiov2.txt" />
+     <None Include="Assets\Data\handDataG1_ratio.txt" />
      <None Include="Assets\Data\handData_G2.txt" />
+     <None Include="Assets\Data\handDataG0_30v2.txt" />
      <None Include="Assets\Data\handDataG3_new.txt" />
+     <None Include="Assets\Data\handDataG1_ratiov2.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifier_erGrouping.xml" />
+     <None Include="Assets\Data\handDataG3_30.txt" />
      <None Include="Assets\Data\handDataG4_new.txt" />
      <None Include="Assets\Data\handData_G1.txt" />
+     <None Include="Assets\Data\handDataG1_30.txt" />
+     <None Include="Assets\Data\handDataG4_30.txt" />
      <None Include="Assets\Data\handDataG0_new.txt" />
+     <None Include="Assets\Data\handDataG0_ratio.txt" />
+     <None Include="Assets\Data\handDataG3_ratiov2.txt" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\OCRHMM_transitions_table.xml" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM1.xml" />
      <None Include="Assets\Data\handDataG1_new.txt" />
+     <None Include="Assets\Data\svm_ratio_0.07.xml" />
      <None Include="Assets\OpenCVForUnity\StreamingAssets\text\trained_classifierNM2.xml" />
+     <None Include="Assets\Data\handDataG2_30.txt" />
      <None Include="Assets\Scripts\handData.txt.txt" />
      <None Include="Assets\WebSocketUnity\README-Unity4.X.txt" />
+     <None Include="Assets\Data\handDataG2_30v2.txt" />
      <None Include="Assets\Data\handDataG2_new.txt" />
+     <None Include="Assets\Data\handDataG3_30v2.txt" />
+     <None Include="Assets\Data\handDataG2_ratio.txt" />
+     <None Include="Assets\Data\handDataG4_ratio.txt" />
+     <None Include="Assets\Data\handDataG1_30v2.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -432,7 +453,7 @@
  <HintPath>C:/Program Files/Unity5.6.4/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>C:/Users/harry/Documents/GitHub/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/harry/Documents/github/HoloscreenII/HoloscreenII/holoscreen_android/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,7 +10,7 @@ public class PaintManager : MonoBehaviour {
 
 	//Painter feature global variables
 	private LineRenderer ink, new_ink;
-	private bool is_painting, paint_mode = false;
+	private bool is_painting, paint_mode = true;
 	private GameObject ink_group;
 
 	// Use this for initialization

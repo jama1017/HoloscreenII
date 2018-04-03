@@ -46,9 +46,9 @@ with open(test_fname) as f:
 # instantiate a logistic regression model, and fit with X and y
 X_train, X_test, y_train, y_test = train_test_split(all_npData, all_label, test_size=0.2, random_state=2)
 #model = LogisticRegression(class_weight={0:, 1: ,2: ,3: ,4:, 5: ,6: ,7: ,8: ,9: ,10:, 11})
-model = LogisticRegression()
+#model = LogisticRegression()
 #model = KNeighborsClassifier()
-#model = DecisionTreeClassifier()
+model = DecisionTreeClassifier()
 model = model.fit(X_train, y_train)
 
 # check the trainning/testing err on the training set
@@ -57,7 +57,7 @@ print(model.score(X_test, y_test))
 
 # test the prediction time
 start = time.time()
-model.predict(X_train)
+model.predict(X_test)
 end = time.time()
 print("%1.11f"%(float(end - start)))
 print("%1.11f"%(start))

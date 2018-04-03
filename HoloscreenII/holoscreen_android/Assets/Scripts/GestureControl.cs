@@ -13,8 +13,8 @@ public class GestureControl : MonoBehaviour {
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
 	SVM svm_model;
-	int gesture_num = 4;
-	int mat_n = 15;
+	int gesture_num = 5;
+	int mat_n = 30;
 
 	//poseDetector buffer
 	int[] gesture_buff;
@@ -34,15 +34,15 @@ public class GestureControl : MonoBehaviour {
 		gesture_dict.Add(1, "pinch");
 		gesture_dict.Add(2, "paint");
 		gesture_dict.Add(3, "fist");
-		//gesture_dict.Add(4, "undefined");
+		gesture_dict.Add(4, "undefined");
 
 		//Train svm model when svm model does not exist
-		//if (File.Exists ("Assets/Data/svm.xml"))
-		//	svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
-		//else {
+		if (File.Exists ("Assets/Data/svm.xml"))
+			svm_model = OpenCVForUnity.SVM.load ("Assets/Data/svm.xml");
+		else {
 			gestureDetectorMLtrain ();
 			svm_model.save ("Assets/Data/svm.xml");
-		//}
+		}
 
 	}
 	
@@ -51,7 +51,7 @@ public class GestureControl : MonoBehaviour {
 		//Update gesture buffer array
 		gesture_buff[gesture_buff_idx++] = gestureDetectorMLpredict ();
 		gesture_buff_idx = (gesture_buff_idx) % gesture_buff_len;
-		//handDataGenerator ();
+		handDataGenerator ();
 	}
 
 
@@ -90,7 +90,7 @@ public class GestureControl : MonoBehaviour {
 		Mat all_data = new Mat ();
 		Mat all_label = new Mat ();
 		for (int i = 0; i < gesture_num; i++) {
-			string data_fname = data_fname_basic + i.ToString () + "_new.txt";
+			string data_fname = data_fname_basic + i.ToString () + "_30v2.txt";
 			int mat_m = File.ReadAllLines (data_fname).Length;
 			Mat cur_data = Mat.zeros (mat_m, mat_n, CvType.CV_32F);
 			Mat cur_label = Mat.ones (mat_m, 1, CvType.CV_32S);
@@ -154,7 +154,7 @@ public class GestureControl : MonoBehaviour {
 		svm_model = OpenCVForUnity.SVM.create();
 		//Debug.Log (svm_model.getType(SVM));
 		svm_model.setKernel (SVM.INTER);
-		svm_model.setC (20);
+		svm_model.setC (30);
 		bool ret_val = svm_model.train (train_data_lable);
 		Debug.Log ("SVM train success : " + ret_val);
 		/*
@@ -202,7 +202,8 @@ public class GestureControl : MonoBehaviour {
 	private int gestureDetectorMLpredict(){
 		//initialize/declare necessary normals and vector array
 		Vector3[] vec_bone2 = new Vector3[5];
-		float[] cur_data_array = new float[15];
+		Vector3[] vec_bone1 = new Vector3[5];
+		float[] cur_data_array = new float[30];
 		Mat cur_data_mat = Mat.zeros(1,mat_n,CvType.CV_32F);
 
 		Vector3 palm_plane_norm = palm.transform.forward;
@@ -212,12 +213,19 @@ public class GestureControl : MonoBehaviour {
 		//collect current hand data
 		for (int i = 0; i < 5; i++) {
 			Vector3 vec_palm_bone2 = this.transform.GetChild (i).GetChild (2).position - palm.transform.position;
+			Vector3 vec_palm_bone1 = this.transform.GetChild (i).GetChild (1).position - palm.transform.position;
 			vec_bone2 [i].x = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_right).magnitude;
 			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
 			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
-			cur_data_array [i * 3] = vec_bone2 [i].x;
-			cur_data_array [i * 3 + 1] = vec_bone2 [i].y;
-			cur_data_array [i * 3 + 2] = vec_bone2 [i].z;
+			vec_bone1 [i].x = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_right).magnitude;
+			vec_bone1 [i].y = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_norm).magnitude;
+			vec_bone1 [i].z = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_up).magnitude;
+			cur_data_array [i * 6] = vec_bone2 [i].x;
+			cur_data_array [i * 6 + 1] = vec_bone2 [i].y ;
+			cur_data_array [i * 6 + 2] = vec_bone2 [i].z;
+			cur_data_array [i * 6 + 3] = vec_bone1 [i].x;
+			cur_data_array [i * 6 + 4] = vec_bone1 [i].y;
+			cur_data_array [i * 6 + 5] = vec_bone1 [i].z;
 		}
 		cur_data_mat.put (0, 0, cur_data_array);
 
@@ -226,8 +234,8 @@ public class GestureControl : MonoBehaviour {
 		svm_model.predict (cur_data_mat, result, 0);
 
 		//Debug usage
-//		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
-//		Debug.Log ("Predicted label is: " + cur_gesture);
+		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
+		Debug.Log ("Predicted label is: " + cur_gesture);
 
 		return ((int)result.get (0, 0) [0]);
 	}
@@ -258,7 +266,9 @@ public class GestureControl : MonoBehaviour {
 	*	Summary: Output current gesture data into a .txt file
 	*/
 	private void handDataGenerator(){
+		Vector3[] vec_bone21 = new Vector3[5];
 		Vector3[] vec_bone2 = new Vector3[5];
+		Vector3[] vec_bone1 = new Vector3[5];
 		Vector3 palm_plane_norm, palm_plane_up, palm_plane_right;
 		palm_plane_norm = palm.transform.forward;
 		palm_plane_up = palm.transform.up;
@@ -267,16 +277,33 @@ public class GestureControl : MonoBehaviour {
 		string temp = "";
 		for (int i = 0; i < 5; i++) {
 			Vector3 vec_palm_bone2 = this.transform.GetChild (i).GetChild (2).position - palm.transform.position;
+			Vector3 vec_palm_bone1 = this.transform.GetChild (i).GetChild (1).position - palm.transform.position;
 			vec_bone2 [i].x = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_right).magnitude;
 			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
 			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
-			temp += vec_bone2 [i].x.ToString ("F10") + "," + vec_bone2 [i].y.ToString ("F10") + "," + vec_bone2 [i].z.ToString ("F10") ;
+			vec_bone1 [i].x = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_right).magnitude;
+			vec_bone1 [i].y = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_norm).magnitude;
+			vec_bone1 [i].z = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_up).magnitude;
+			vec_bone21 [i].x = vec_bone2 [i].x / vec_bone1 [i].x;
+			vec_bone21 [i].y = vec_bone2 [i].y / vec_bone1 [i].y;
+			vec_bone21 [i].z = vec_bone2 [i].z / vec_bone1 [i].z;
+			temp += vec_bone21 [i].x.ToString ("F10") + "," + vec_bone21 [i].y.ToString ("F10") + "," + vec_bone21 [i].z.ToString ("F10") ;
 			if (i < 4)
 				temp += ",";
 			else
 				temp += "\n";
 		}
+		System.IO.File.AppendAllText("handDataG_ratiov2.txt", temp);
 
-		//System.IO.File.AppendAllText("handDataG_new.txt", temp);
+		string temp2 = "";
+		for (int i = 0; i < 5; i++) {
+			temp2 += vec_bone2 [i].x.ToString ("F10") + "," + vec_bone2 [i].y.ToString ("F10") + "," + vec_bone2 [i].z.ToString ("F10") + "," + vec_bone1 [i].x.ToString ("F10") + "," + vec_bone1 [i].y.ToString ("F10") + "," + vec_bone1 [i].z.ToString ("F10") ;
+			if (i < 4)
+				temp2 += ",";
+			else
+				temp2 += "\n";
+		}
+
+		System.IO.File.AppendAllText("handDataG_30v2.txt", temp2);
 	}
 }

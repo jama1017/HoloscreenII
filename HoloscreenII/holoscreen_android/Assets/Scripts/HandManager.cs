@@ -13,7 +13,7 @@ public class HandManager : MonoBehaviour {
 	private float palm_collider_delay;
 
 	//Context: object, paint, menu
-	private string context = "object";
+	private string context = "paint";
 	private int context_buff_len = 30;
 	private int context_buff_idx;
 	private int[] context_buff;
@@ -35,6 +35,7 @@ public class HandManager : MonoBehaviour {
 		context_dict.Add (0, "object");
 		context_dict.Add (1, "paint");
 		context_dict.Add (2, "menu");
+		paintManager.turnOnPaint();
 
 		/*initial all user-defined settings*/
 		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();
@@ -55,7 +56,7 @@ public class HandManager : MonoBehaviour {
 		}
 		*/
 
-		switch (bufferedContext()){
+		switch (context){
 		case "menu":
 			break;
 		case "paint":
