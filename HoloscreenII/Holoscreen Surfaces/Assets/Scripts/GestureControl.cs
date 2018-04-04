@@ -15,8 +15,8 @@ public class GestureControl : MonoBehaviour {
 	//poseDetectorMLtrainning
 	LogisticRegression logis_reg_model;
 	SVM svm_model;
-	int gesture_num = 4;
-	int mat_n = 15;
+	int gesture_num = 5;
+	int mat_n = 30;
 
 	//poseDetector buffer
 	int[] gesture_buff;
@@ -42,7 +42,7 @@ public class GestureControl : MonoBehaviour {
 		gesture_dict.Add(1, "pinch");
 		gesture_dict.Add(2, "paint");
 		gesture_dict.Add(3, "fist");
-		//gesture_dict.Add(4, "undefined")
+		gesture_dict.Add(4, "undefined");
 
 		// Read svm
 		using(WWW svm_reader = new WWW (System.IO.Path.Combine(Application.streamingAssetsPath, "svm.xml"))) {
@@ -206,7 +206,8 @@ public class GestureControl : MonoBehaviour {
 	private int gestureDetectorMLpredict(){
 		//initialize/declare necessary normals and vector array
 		Vector3[] vec_bone2 = new Vector3[5];
-		float[] cur_data_array = new float[15];
+		Vector3[] vec_bone1 = new Vector3[5];
+		float[] cur_data_array = new float[30];
 		Mat cur_data_mat = Mat.zeros(1,mat_n,CvType.CV_32F);
 
 		Vector3 palm_plane_norm = palm.transform.forward;
@@ -216,21 +217,33 @@ public class GestureControl : MonoBehaviour {
 		//collect current hand data
 		for (int i = 0; i < 5; i++) {
 			Vector3 vec_palm_bone2 = this.transform.GetChild (i).GetChild (2).position - palm.transform.position;
+			Vector3 vec_palm_bone1 = this.transform.GetChild (i).GetChild (1).position - palm.transform.position;
 			vec_bone2 [i].x = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_right).magnitude;
 			vec_bone2 [i].y = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_norm).magnitude;
 			vec_bone2 [i].z = Vector3.ProjectOnPlane (vec_palm_bone2, palm_plane_up).magnitude;
-			cur_data_array [i * 3] = vec_bone2 [i].x;
-			cur_data_array [i * 3 + 1] = vec_bone2 [i].y;
-			cur_data_array [i * 3 + 2] = vec_bone2 [i].z;
+			vec_bone1 [i].x = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_right).magnitude;
+			vec_bone1 [i].y = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_norm).magnitude;
+			vec_bone1 [i].z = Vector3.ProjectOnPlane (vec_palm_bone1, palm_plane_up).magnitude;
+			cur_data_array [i * 6] = vec_bone2 [i].x;
+			cur_data_array [i * 6 + 1] = vec_bone2 [i].y;
+			cur_data_array [i * 6 + 2] = vec_bone2 [i].z;
+			cur_data_array [i * 6 + 3] = vec_bone1 [i].x;
+			cur_data_array [i * 6 + 4] = vec_bone1 [i].y;
+			cur_data_array [i * 6 + 5] = vec_bone1 [i].z;
 		}
 		cur_data_mat.put (0, 0, cur_data_array);
 
 		//predict
 		Mat result = Mat.ones(1,1,CvType.CV_32S);
+
+		float start_time= Time.realtimeSinceStartup;
 		svm_model.predict (cur_data_mat, result, 0);
+		float time_elapsed = Time.realtimeSinceStartup - start_time;
+		Debug.Log ("Prediction time is " + time_elapsed.ToString("F6") + "s");
 
 		//Debug usage
 		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
+		Debug.Log ("Prediction gesture is " + cur_gesture);
 		//Debug.Log ("Predicted label is: " + cur_gesture);
 		//Debug.Log (result.get (0, 0) [0]);
 

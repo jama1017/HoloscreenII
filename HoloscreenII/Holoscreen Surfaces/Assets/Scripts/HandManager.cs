@@ -97,7 +97,7 @@ public class HandManager : MonoBehaviour {
 			if (interact_obj != null) {
 				cleanGuidance ();
 				//Grab a object if hand gesture is grabbing
-				if (gestureManager.bufferedGesture () == "pinch") {
+				if (gestureManager.bufferedGesture () == "pinch" || gestureManager.bufferedGesture () == "fist") {
 					if (!is_grabbing)
 						grabObject (interact_obj);
 					//Debug.Log ("obj isTrigger is " + interact_obj.GetComponent<Collider>().isTrigger + "palm isTrigger is " + palm.GetComponent<Collider>().isTrigger + "palm angular v is " + palm.GetComponent<Rigidbody>().angularVelocity);

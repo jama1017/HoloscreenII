@@ -83,7 +83,7 @@ public class InteractionScriptObject : MonoBehaviour {
 						}
 					}
 				}
-			} else if (hand_nearby.TryGetValue ("Hand_r", out hand_r_fingers) && hand_r_fingers > 0 && (!dataManager.checkRightHandBusy ())) {
+			} else if (hand_nearby.TryGetValue ("Hand_r", out hand_r_fingers) && hand_r_fingers > 0) {
 				//TODO: finish it if we need right hand
 			}
 		}

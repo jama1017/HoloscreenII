@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
-    y: 43
+    x: 8
+    y: 51
     width: 1536
     height: 781
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -42,10 +42,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 683, y: 492}
+  m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 110
+  controlID: 9
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -89,7 +89,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 374
-    height: 306
+    height: 339
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 306
+    y: 339
     width: 1095
-    height: 425
+    height: 392
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 14}
@@ -207,10 +207,10 @@ MonoBehaviour:
     y: 0
     width: 1095
     height: 731
-  m_MinSize: {x: 404, y: 492}
+  m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 111
+  controlID: 10
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -230,11 +230,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1095
-    height: 306
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+    height: 339
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 112
+  controlID: 11
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,7 +252,7 @@ MonoBehaviour:
     x: 374
     y: 0
     width: 721
-    height: 306
+    height: 339
   m_MinSize: {x: 204, y: 221}
   m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 17}
@@ -341,12 +341,12 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 398
+    x: 8
+    y: 439
     width: 1093
-    height: 404
+    height: 371
   m_SearchFilter:
-    m_NameFilter: colors
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -356,20 +356,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\tutu5110\Documents\Research\Holoscreen\Portalble_prealpha\HoloscreenII\HoloscreenII\Holoscreen
+  m_LastProjectPath: C:\Users\harry\Documents\github\HoloscreenII_demo_v2\HoloscreenII\HoloscreenII\Holoscreen
     Surfaces
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 189}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 00000000064600005c460000a8460000aa4600002a4700004e4700005a4700000048000030480000ae480000d44c0000664d0000b64e0000a44f000008500000a6500000245100005452000056520000025300004a530000ea5300009855000024560000ee5e0000f05e0000f25e0000f45e0000f65e0000f85e0000fa5e0000fc5e0000fe5e000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 270}
+    m_SelectedIDs: 8a360000
+    m_LastClickedID: 13962
+    m_ExpandedIDs: 00000000ba290000162a00006c2a00006e2a0000f02a0000182b0000202b0000cc2b0000fc2b00007a2c0000b830000052310000bc320000b63300001e340000b43400003c350000883600008a3600003a3700008c37000034380000ea390000803a0000ec420000ee420000f0420000f2420000f4420000f6420000f8420000fa420000fc42000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -397,7 +397,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000064600005c460000a8460000aa4600002a4700004e4700005a4700000048000030480000ae480000d44c0000664d0000b64e0000a44f000008500000a6500000245100005452000056520000025300004a530000ea5300009855000024560000ee5e0000f05e0000f25e0000f45e0000f65e0000f85e0000fa5e0000fc5e0000fe5e0000
+    m_ExpandedIDs: 00000000ba290000162a00006c2a00006e2a0000f02a0000182b0000202b0000cc2b0000fc2b00007a2c0000b830000052310000bc320000b63300001e340000b43400003c350000883600008a3600003a3700008c37000034380000ea390000803a0000ec420000ee420000f0420000f2420000f4420000f6420000f8420000fa420000fc420000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1097
-    y: 92
+    x: 1105
+    y: 100
     width: 439
     height: 710
   m_ScrollPosition: {x: 0, y: 0}
@@ -507,15 +507,15 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 92
+    x: 8
+    y: 100
     width: 372
-    height: 285
+    height: 318
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: c8dbfdff5cdcfdfff8ddfdff9807feff5408fefff009feffd246feff8047feff1849feff4466fefff866feff9e68feff0c00ffffce00ffff6602fffff83fffffba40ffff5242ffffbe46ffff8047ffff1849ffff2a73fffff873ffff9075fffff47cffff007effff987fffff9e86ffffaa87ffff4489ffffceeaffff00000000
+    m_SelectedIDs: f6480000
+    m_LastClickedID: 18678
+    m_ExpandedIDs: f0f3ffffb0f4ffffacf7ffffe6fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -560,10 +560,10 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 376
-    y: 92
+    x: 384
+    y: 100
     width: 717
-    height: 285
+    height: 318
   m_SceneLighting: 1
   lastFramingTime: 1447.9365866165622
   m_2DMode: 0
@@ -597,11 +597,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.11178883, y: -0.09137207, z: 0.010375969, w: -0.9895145}
     speed: 2
-    m_Value: {x: -0.111783676, y: -0.091367856, z: 0.01037549, w: -0.9894689}
+    m_Value: {x: -0.11178884, y: -0.09137208, z: 0.01037597, w: -0.9895146}
   m_Size:
-    m_Target: 0.4635359
+    m_Target: 1.0635359
     speed: 2
-    m_Value: 0.4635359
+    m_Value: 1.0635359
   m_Ortho:
     m_Target: 0
     speed: 2
