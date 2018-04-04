@@ -65,6 +65,8 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     /// </summary>
     public TangoPoseController m_poseController;
 
+	public bool m_hideGameControlPanel;
+
     /// <summary>
     /// Control panel game object.
     /// 
@@ -141,7 +143,10 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
         // Enable GUI controller to allow user tap and interactive with the environment.
         m_poseController.gameObject.SetActive(true);
         m_guiController.enabled = true;
-        m_gameControlPanel.SetActive(true);
+
+		if(!m_hideGameControlPanel) {
+        	m_gameControlPanel.SetActive(true);
+		}
 
 		// HOLOSCREEN
 		if (isNewAreaDescription) {

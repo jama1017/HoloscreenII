@@ -8,7 +8,7 @@ public class VMIClose : VirtualMenuItem {
 	{
 		m_menu.close();
 
-		hand_l.GetComponent<HandManager> ().contextSwitch ("null");
+		hand_l.GetComponent<HandManager> ().contextSwitch ("object");
 	}
 
 }

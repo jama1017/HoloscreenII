@@ -32,6 +32,7 @@ public class VirtualFurnitureMenu : VirtualMenu {
 			VMIFurniture v = item.AddComponent<VMIFurniture> ();
 			v.m_furniturePrefab = f;
 
+			item.SetActive (false);
 			addBodyItem (item);
 		}
 

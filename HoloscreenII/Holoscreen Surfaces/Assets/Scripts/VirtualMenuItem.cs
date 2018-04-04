@@ -11,6 +11,7 @@ public class VirtualMenuItem : MonoBehaviour {
 
 	private Shader[] m_primaryShader;
 	private Shader m_secondaryShader;
+	private Color m_color;
 	private string m_lastGesture = "";
 
 	// Use this for initialization
@@ -19,6 +20,7 @@ public class VirtualMenuItem : MonoBehaviour {
 		if (this.GetComponent<Renderer> () != null) {
 			m_primaryShader = new Shader[1];
 			m_primaryShader[0] = this.GetComponent<Renderer> ().material.shader;
+			m_color = this.GetComponent<Renderer> ().material.color;
 		} else {
 			m_primaryShader = new Shader[transform.childCount];
 
@@ -128,6 +130,7 @@ public class VirtualMenuItem : MonoBehaviour {
 	private void unhighlightMaterial(GameObject g, int i) {
 		if (g.GetComponent<Renderer> () != null) {
 			g.GetComponent<Renderer> ().material.shader = m_primaryShader[i];
+			g.GetComponent<Renderer> ().material.color = m_color;
 		}
 	}
 

@@ -20,6 +20,7 @@ public class VirtualPaintMenu : VirtualMenu {
 			item.AddComponent<VMIColor> ();
 			item.GetComponent<VMIColor> ().m_color = c;
 
+			item.SetActive (false);
 			addBodyItem (item);
 		}
 

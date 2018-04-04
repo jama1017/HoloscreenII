@@ -70,6 +70,8 @@ public class HandManager : MonoBehaviour {
 		// Get menus
 		m_furnitureMenu = GameObject.Find ("FurnitureMenu").GetComponent<VirtualFurnitureMenu>();
 		m_paintMenu = GameObject.Find ("PaintMenu").GetComponent<VirtualPaintMenu>();
+		m_furnitureMenu.close ();
+		m_paintMenu.close ();
 
 		/*initial all user-defined settings*/
 		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();

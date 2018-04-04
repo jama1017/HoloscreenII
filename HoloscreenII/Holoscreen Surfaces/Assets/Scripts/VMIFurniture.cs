@@ -64,5 +64,9 @@ public class VMIFurniture : VirtualMenuItem {
 	private void SetDepthMaterial(GameObject o) {
 		o.GetComponent<Renderer> ().material.shader = Shader.Find ("Custom/ZTestBlur");
 		o.GetComponent<Renderer> ().material.SetTexture ("_CameraDepthTexture", GameObject.Find ("DepthCamera").GetComponent<Camera> ().targetTexture);
+
+		if(m_furniturePrefab.GetComponent<Renderer>() != null) {
+			o.GetComponent<Renderer> ().material.color = m_furniturePrefab.GetComponent<Renderer> ().material.color;
+		}
 	}
 }

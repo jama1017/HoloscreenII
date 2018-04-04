@@ -134,9 +134,8 @@ public class InteractionScriptObject : MonoBehaviour {
 
 	private void highlightSelf(){
 		if (this.GetComponent<Renderer> () != null) {
-			Color c = this.GetComponent<Renderer> ().material.color;
 			secondaryMaterial.mainTexture = primaryMaterial [0].mainTexture;
-			secondaryMaterial.color = c;
+			secondaryMaterial.color = primaryMaterial[0].color;
 			this.GetComponent<Renderer> ().material = secondaryMaterial;
 		} else {
 			int i = 0;
