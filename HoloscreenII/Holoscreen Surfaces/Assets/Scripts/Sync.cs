@@ -90,8 +90,6 @@ public class Sync : MonoBehaviour {
 		/* return before any hand found */
 		if (!hand_info[0].Equals(""))
 			updateHandSkeletonFromLeap (hand_info);
-
-
 	}
 
 	/* updating hand skeleton from Leap */

@@ -236,14 +236,11 @@ public class GestureControl : MonoBehaviour {
 		//predict
 		Mat result = Mat.ones(1,1,CvType.CV_32S);
 
-		float start_time= Time.realtimeSinceStartup;
 		svm_model.predict (cur_data_mat, result, 0);
-		float time_elapsed = Time.realtimeSinceStartup - start_time;
-		Debug.Log ("Prediction time is " + time_elapsed.ToString("F6") + "s");
 
 		//Debug usage
 		string cur_gesture = gesture_dict[((int)result.get (0, 0) [0])];
-		Debug.Log ("Prediction gesture is " + cur_gesture);
+		//Debug.Log ("Prediction gesture is " + cur_gesture);
 		//Debug.Log ("Predicted label is: " + cur_gesture);
 		//Debug.Log (result.get (0, 0) [0]);
 
