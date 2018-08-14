@@ -28,6 +28,10 @@ public class VMIColor : VirtualMenuItem {
 
 		ink_l.GetComponent<Renderer> ().material.SetColor ("_Color", m_color);
 		ink_l.GetComponent<Renderer> ().material.SetColor ("_EmissionColor", m_color);
+
+		m_menu.close ();
+
+		Debug.Log("3D Color selected from VMIColor Script");
 	}
 
 }

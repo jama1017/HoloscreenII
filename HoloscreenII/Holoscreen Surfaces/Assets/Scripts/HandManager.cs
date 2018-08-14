@@ -44,6 +44,14 @@ public class HandManager : MonoBehaviour {
 
 	private int _handThrowingPowerMultiplier = 10;
 
+	//MA buffer
+	private int smoothingBuffer = 15;
+	private int smoothingBuffer_idx = 0;
+	private Vector3[] objBuffer;
+
+	//use for disable UI for photo
+	//private GameObject smallMenu;
+
 	// Use this for initialization
 	void Start () {
 
@@ -77,6 +85,10 @@ public class HandManager : MonoBehaviour {
 		DataManager data_mngr =  GameObject.Find ("gDataManager").GetComponent<DataManager> ();
 		palm_collider_delay = data_mngr.getPalmColliderDelay ();
 		palm.GetComponent<Rigidbody> ().maxAngularVelocity = 0;
+
+		//use for disable UI for photo
+		//smallMenu = GameObject.Find("GameControlPanel");
+		//smallMenu.SetActive (false);
 	}
 
 	// Update is called once per frame
@@ -96,20 +108,28 @@ public class HandManager : MonoBehaviour {
 			updateHandSpeed ();
 			if (interact_obj != null) {
 				cleanGuidance ();
-				//Grab a object if hand gesture is grabbing
+				//if hand gesture is grabbing
 				if (gestureManager.bufferedGesture () == "pinch" || gestureManager.bufferedGesture () == "fist") {
-					if (!is_grabbing)
+					//grab objbect if hand is not grabbing
+					if (!is_grabbing) {
 						grabObject (interact_obj);
+					} else {
+						this.updateObjTransform (interact_obj);
+					}
 					//Debug.Log ("obj isTrigger is " + interact_obj.GetComponent<Collider>().isTrigger + "palm isTrigger is " + palm.GetComponent<Collider>().isTrigger + "palm angular v is " + palm.GetComponent<Rigidbody>().angularVelocity);
-
+				
+				//if hand gesture is not grabbing
 				} else {
+					//but hand is grabbing
 					if (is_grabbing) {
+						//then tell the object to release itself
 						interact_obj.GetComponent<InteractionScriptObject> ().releaseSelf ();
 						//releaseObject (interact_obj);
 						CancelInvoke();
 					}
 				}
-				/* nothing in hand */
+
+				/* nothing in hand (interactable object is null)*/
 			} else {
 				if (gestureManager.bufferedGesture () == "palm")
 					hitObject ();
@@ -280,11 +300,26 @@ public class HandManager : MonoBehaviour {
 		obj.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		obj.GetComponent<Rigidbody> ().Sleep ();
-		obj.transform.SetParent(grabHolder.transform);
+
+		//this was used to make obj a child
+		//obj.transform.SetParent(grabHolder.transform);
+
+		//trying this right now:
+
+		//initialize MA array
+		objBuffer = new Vector3[smoothingBuffer];
+		for (int i = 0; i < smoothingBuffer; i++) {
+			objBuffer [i] = obj.transform.position;
+		}
+
+		this.updateObjTransform(obj);
+
 		/* pulasation */
 		/* before invoke, check 2 things. if it is enabled, if there are existing ones */
 		/* FIX!!!*/ 
-		InvokeRepeating ("VPulse", 1.0f, 1.0f);
+
+		//InvokeRepeating ("VPulse", 1.0f, 1.0f);
+
 		is_grabbing = true;
 	}
 
@@ -392,5 +427,23 @@ public class HandManager : MonoBehaviour {
 
 	public GameObject getHandObject(){
 		return hand_obj;
+	}
+
+	Vector3 smoothing(Vector3[] myArray, Vector3 pos){
+		Vector3 average = new Vector3(0,0,0);
+
+		myArray [smoothingBuffer_idx] = pos;
+		smoothingBuffer_idx = (smoothingBuffer_idx + 1) % smoothingBuffer;
+
+		for (int i = 0; i < smoothingBuffer; i++) {
+			average += myArray[i];
+		}
+
+		return average / smoothingBuffer;
+	}
+
+	void updateObjTransform(GameObject obj){
+		obj.transform.position = smoothing(objBuffer, grabHolder.transform.position);
+		obj.transform.rotation = grabHolder.transform.rotation;
 	}
 }
