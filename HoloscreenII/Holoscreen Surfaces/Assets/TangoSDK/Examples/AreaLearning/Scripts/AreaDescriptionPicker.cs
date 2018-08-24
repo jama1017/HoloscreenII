@@ -73,6 +73,10 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     /// The panel will be enabled when the game starts.
     /// </summary>
     public GameObject m_gameControlPanel;
+	//button to turn on game control panel;
+	public GameObject m_GCPAwake;
+	//paint buttons
+	public GameObject m_paintButtons;
 
 	public GameObject m_leftHand;
 
@@ -97,6 +101,9 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
     /// The UUID of the selected Area Description.
     /// </summary>
     private string m_curAreaDescriptionUUID;
+
+	//for GCP button
+	private bool show = true;
 
     /// <summary>
     /// Start the game.
@@ -145,7 +152,9 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
         m_guiController.enabled = true;
 
 		if(!m_hideGameControlPanel) {
-        	m_gameControlPanel.SetActive(true);
+			//turn of awake first (JM)
+        	//m_gameControlPanel.SetActive(true);
+			m_GCPAwake.SetActive(true);
 		}
 
 		// HOLOSCREEN
@@ -328,4 +337,31 @@ public class AreaDescriptionPicker : MonoBehaviour, ITangoLifecycle
             m_curAreaDescriptionUUID = item.m_uuid;
         }
     }
+
+	public void showGCP() {
+		
+		if (show) {
+			m_gameControlPanel.SetActive (true);
+			show = false;
+		} else {
+			m_gameControlPanel.SetActive (false);
+			show = true;
+		}
+
+		//m_GCPAwake.SetActive (false);
+		//Debug.Log ("GCP Showed");
+	}	
+
+	public void hideGCP() {
+		m_gameControlPanel.SetActive (false);
+		show = true;
+	}
+
+	public void turnOnPaintButtons() {
+		m_paintButtons.SetActive (true);
+	}
+
+	public void turnOffPaintButtons() {
+		m_paintButtons.SetActive (false);
+	}
 }

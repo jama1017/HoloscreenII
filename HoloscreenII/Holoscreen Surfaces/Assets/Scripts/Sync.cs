@@ -38,7 +38,14 @@ public class Sync : MonoBehaviour {
 	private GameObject finger;
 	private GameObject bone;
 
-	private IKalmanWrapper kalmanPalm,kalmanIndex,kalmanThumb;
+	private IKalmanWrapper kalmanPalm,kalmanIndex,kalmanThumb,kalmanHand;
+
+	//moving average filter
+	private Vector3[] queuePalm, queueIndex, queueThumb, queueHand;
+
+	private int smoothingBuffer = 13;
+	private int smoothingBuffer_idx;
+
 	// Use this for initialization
 	void Start () {
 		ws = GameObject.Find ("WebsocketManager").GetComponent<WSManager>();
@@ -72,6 +79,21 @@ public class Sync : MonoBehaviour {
 		kalmanPalm = new MatrixKalmanWrapper ();
 		kalmanIndex = new MatrixKalmanWrapper ();
 		kalmanThumb = new MatrixKalmanWrapper ();
+		kalmanHand = new MatrixKalmanWrapper ();
+
+		//moving average queues
+		queuePalm = new Vector3[smoothingBuffer];
+		queueIndex = new Vector3[smoothingBuffer];
+		queueThumb = new Vector3[smoothingBuffer];
+		queueHand = new Vector3[smoothingBuffer];
+
+		//initialization
+		for (int i = 0; i < smoothingBuffer; i++) {
+			queuePalm[i] = Vector3.zero;
+			queueIndex[i] = Vector3.zero;
+			queueThumb[i] = Vector3.zero;
+			queueHand[i] = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(-0.02f, -0.08f, -0.01f);
+		}
 	}
 
 	// Update is called once per frame
@@ -106,9 +128,18 @@ public class Sync : MonoBehaviour {
 					Vector3 palm_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 					palm_pos = palm_pos * 0.001f;
 					//palm_pos [1] += 0.2f;
+
+					//moving average
+					//palm_pos = smoothing(queuePalm, palm_pos);
+
 					palm_pos = kalmanPalm.Update (palm_pos);
+
+
+					//local position
 					l_palm.transform.localPosition = palm_pos;
 					dataManager.setLeftHandPosition (palm_pos);
+
+
 				} else if (type.Contains ("vel")) {
 					i += 3;
 					/*
@@ -143,10 +174,21 @@ public class Sync : MonoBehaviour {
 						if (vec3_type.Contains ("pos")) {
 							Vector3 bone_pos = new Vector3 (float.Parse (hand_info [i++]), float.Parse (hand_info [i++]), -float.Parse (hand_info [i++]));
 							bone_pos = bone_pos * 0.001f;
-							if (bone_i == 2 && finger_i == 0)
+							if (bone_i == 2 && finger_i == 0) {
+
+								//moving average
+								//bone_pos = smoothing(queueThumb, bone_pos);
+
 								bone_pos = kalmanThumb.Update (bone_pos);
-							else if (bone_i == 2 && finger_i == 1)
+
+							} else if (bone_i == 2 && finger_i == 1) {
+								
+								//moving average
+								//bone_pos = smoothing(queueIndex, bone_pos);
+
 								bone_pos = kalmanIndex.Update (bone_pos);
+
+							}
 							
 							bone.transform.localPosition = bone_pos;
 						} else {
@@ -161,7 +203,11 @@ public class Sync : MonoBehaviour {
 				i++;
 			}
 		}
-		transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(-0.02f, -0.08f, -0.01f);
+		/* setting global position
+		 *  with vector as offset for Leap point of view
+		 *  Apply Kalman filter to this
+		*/
+		transform.position = smoothing(queueHand, Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(-0.02f, -0.08f, -0.01f));
 		transform.rotation = Camera.main.transform.rotation;
 	}
 	/* Bone Mapping functions, do not modify 
@@ -276,5 +322,18 @@ public class Sync : MonoBehaviour {
 			break;
 		}
 		return f;
+	}
+
+	Vector3 smoothing(Vector3[] myArray, Vector3 pos){
+		Vector3 average = new Vector3(0,0,0);
+
+		myArray [smoothingBuffer_idx] = pos;
+		smoothingBuffer_idx = (smoothingBuffer_idx + 1) % smoothingBuffer;
+
+		for (int i = 0; i < smoothingBuffer; i++) {
+			average += myArray[i];
+		}
+
+		return average / smoothingBuffer;
 	}
 }

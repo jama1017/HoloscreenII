@@ -78,6 +78,7 @@ public class InteractionScriptObject : MonoBehaviour {
 						highlightSelf ();
 						/* vibration */
 						if (!shortVibrTriggered) {
+							
 							Vibration.Vibrate (30);
 							shortVibrTriggered = true;
 						}

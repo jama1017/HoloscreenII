@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/paint.unity
+- path: Assets/AreaLearning.unity
   isLoaded: 1
   isActive: 1

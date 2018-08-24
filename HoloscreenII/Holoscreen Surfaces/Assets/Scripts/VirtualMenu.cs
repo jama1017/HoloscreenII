@@ -50,7 +50,7 @@ public class VirtualMenu : MonoBehaviour {
 		*/
 	}
 
-	public void setToCameraPosition() {
+	public virtual void setToCameraPosition() {
 		Camera cam = Camera.main;
 
 		transform.position = cam.transform.position + cam.transform.rotation * new Vector3 (-m_width / 2, m_height / 2, -m_depth);
@@ -135,7 +135,7 @@ public class VirtualMenu : MonoBehaviour {
 		setPage(m_page - 1);
 	}
 
-	public void open() {
+	public virtual void open() {
 		m_opened = true;
 		Debug.Log ("Opened");
 
@@ -144,7 +144,7 @@ public class VirtualMenu : MonoBehaviour {
 		updateFooter();
 	}
 
-	public void close() {
+	public virtual void close() {
 		m_opened = false;
 		Debug.Log ("Closed");
 
@@ -214,5 +214,18 @@ public class VirtualMenu : MonoBehaviour {
 			m_footer [i].transform.SetParent (this.transform);
 			m_footer [i].transform.localPosition = new Vector3(xPos, -m_height, 0);
 		}
+	}
+
+	public void setOpenTrue(){
+		m_opened = true;
+	}
+
+	public void setOpenFalse(){
+		m_opened = false;
+	}
+
+	//for 3D color picker. similar to addBodyItem but not added to m_body
+	public void addToParent(GameObject item){
+		item.transform.SetParent (this.transform);
 	}
 }
