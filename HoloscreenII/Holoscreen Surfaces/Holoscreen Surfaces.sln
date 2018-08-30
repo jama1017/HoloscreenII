@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holoscreen Surfaces", "Assembly-CSharp-firstpass.csproj", "{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holoscreen Surfaces", "Assembly-CSharp.csproj", "{2FEEE076-7583-C531-9852-3541D1950C24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holoscreen Surfaces", "Assembly-CSharp-firstpass.csproj", "{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holoscreen Surfaces", "Assembly-CSharp-Editor.csproj", "{64B98EA1-0D75-B133-C086-FC8476691253}"
 EndProject
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FEEE076-7583-C531-9852-3541D1950C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FEEE076-7583-C531-9852-3541D1950C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FEEE076-7583-C531-9852-3541D1950C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FEEE076-7583-C531-9852-3541D1950C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D442E324-88F6-20FC-8D24-F28BBEC6FBEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64B98EA1-0D75-B133-C086-FC8476691253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64B98EA1-0D75-B133-C086-FC8476691253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B98EA1-0D75-B133-C086-FC8476691253}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -28,8 +28,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

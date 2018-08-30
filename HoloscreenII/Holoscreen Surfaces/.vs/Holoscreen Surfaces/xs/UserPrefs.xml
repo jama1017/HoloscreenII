@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{2FEEE076-7583-C531-9852-3541D1950C24}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AreaLearningInGameController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/AreaLearningInGameController.cs" Line="766" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\tutu5110\Documents\Research\Holoscreen\Portalble_prealpha\HoloscreenII\HoloscreenII\Holoscreen Surfaces\Assets\Scripts\GestureControl.cs" line="84" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
