@@ -89,12 +89,20 @@ public class HandManager : MonoBehaviour {
 		//use for disable UI for photo
 		//smallMenu = GameObject.Find("GameControlPanel");
 		//smallMenu.SetActive (false);
+
+		// register new motion
+		if(HandActionRecog.getInstance().BeginMotion("OpenMenu")) {
+			HandActionRecog.getInstance ().DefineTransform ("palm|pinch|undefined", "palm|pinch|undefined", Vector3.up, -Vector3.up, 1.0f);
+			HandActionRecog.getInstance ().DefineTransform ("palm|pinch|undefined", "palm|pinch|undefined", -Vector3.up, Vector3.up, 1.0f);
+			HandActionRecog.getInstance ().EndMotion ();
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
+
 		//Debug.Log (palm.GetComponent<Rigidbody> ().angularVelocity);
-		if (gestureManager.bufferedGesture () == "palm" && palm.transform.forward.y > 0.9f) {
+		if (HandActionRecog.getInstance().IsMotion("OpenMenu")) {
 			contextSwitch ("menu");
 		}
 	
@@ -105,7 +113,6 @@ public class HandManager : MonoBehaviour {
 			break;
 		default:
 			GameObject interact_obj = getHandObject ();
-			updateHandSpeed ();
 			if (interact_obj != null) {
 				cleanGuidance ();
 				//if hand gesture is grabbing
@@ -122,8 +129,16 @@ public class HandManager : MonoBehaviour {
 				} else {
 					//but hand is grabbing
 					if (is_grabbing) {
-						//then tell the object to release itself
-						interact_obj.GetComponent<InteractionScriptObject> ().releaseSelf ();
+						//then tell the object to release itself, Here support two version of interaction objects.
+						InteractionScriptObject iso = interact_obj.GetComponent<InteractionScriptObject> ();
+						if (iso != null) {
+							iso.releaseSelf ();
+						}
+						else {
+							GrabCollider gc = interact_obj.GetComponentInChildren<GrabCollider> ();
+							if (gc != null)
+								gc.OnGrabFinished ();
+						}
 						//releaseObject (interact_obj);
 						CancelInvoke();
 					}
@@ -139,6 +154,9 @@ public class HandManager : MonoBehaviour {
 			}
 			break;
 		}
+
+		updateHandSpeed ();
+
 	}
 
 	/* pulsation */
@@ -445,5 +463,11 @@ public class HandManager : MonoBehaviour {
 	void updateObjTransform(GameObject obj){
 		obj.transform.position = smoothing(objBuffer, grabHolder.transform.position);
 		obj.transform.rotation = grabHolder.transform.rotation;
+	}
+
+	public bool IsGrabbing {
+		get {
+			return is_grabbing;
+		}
 	}
 }

@@ -392,6 +392,13 @@
      <Compile Include="Assets\Scripts\FaceTrackingController.cs" />
      <Compile Include="Assets\Scripts\GestureControl.cs" />
      <Compile Include="Assets\Scripts\HandManager.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandActionItem.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandActionRecog.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandMatchGesture.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandMatchItem.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandMatchTransform.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandMotion.cs" />
+     <Compile Include="Assets\Scripts\HandMotionRecog\HandMotionExample.cs" />
      <Compile Include="Assets\Scripts\InteractionScript.cs" />
      <Compile Include="Assets\Scripts\InteractionScriptObject.cs" />
      <Compile Include="Assets\Scripts\InteractionScript_Demo.cs" />
@@ -405,6 +412,8 @@
      <Compile Include="Assets\Scripts\StrokePaint.cs" />
      <Compile Include="Assets\Scripts\Sync.cs" />
      <Compile Include="Assets\Scripts\TagResizeController.cs" />
+     <Compile Include="Assets\Scripts\TestScript\FingerColliderBase.cs" />
+     <Compile Include="Assets\Scripts\TestScript\GrabCollider.cs" />
      <Compile Include="Assets\Scripts\VMIClose.cs" />
      <Compile Include="Assets\Scripts\VMIColor.cs" />
      <Compile Include="Assets\Scripts\VMIFurniture.cs" />
@@ -594,7 +603,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="websocket.csharp">
- <HintPath>C:/Users/majia/projects/HoloscreenII/HoloscreenII/Holoscreen Surfaces/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
+ <HintPath>C:/Users/abc/Documents/HoloscreenII-Portalble-prealpha/HoloscreenII/Holoscreen Surfaces/Assets/WebSocketUnity/Plugins/x86_64/websocket.csharp.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

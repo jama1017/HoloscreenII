@@ -1,16 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PaintManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TestScript\GrabCollider.cs">
     <Files>
-      <File FileName="Assets\Scripts\VirtualFurnitureMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GestureControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Sync.cs" Line="212" Column="3" />
-      <File FileName="Assets\Scripts\HandManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\InteractionScriptObject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PaintManager.cs" Line="131" Column="4" />
-      <File FileName="Assets\Scripts\StrokePaint.cs" Line="5" Column="55" />
-      <File FileName="Assets\Scripts\PaintCommand.cs" Line="5" Column="30" />
-      <File FileName="Assets\Scripts\StrokeErase.cs" Line="25" Column="3" />
+      <File FileName="Assets\Scripts\HandMotionRecog\HandMotion.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HandMotionRecog\HandActionRecog.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HandMotionRecog\HandMatchGesture.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HandMotionRecog\HandMatchTransform.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HandMotionRecog\HandActionItem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\InteractionScriptObject.cs" Line="105" Column="25" />
+      <File FileName="Assets\Scripts\HandManager.cs" Line="140" Column="30" />
+      <File FileName="Assets\Scripts\TestScript\GrabCollider.cs" Line="109" Column="68" />
+      <File FileName="Assets\Scripts\TestScript\FingerColliderBase.cs" Line="6" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
