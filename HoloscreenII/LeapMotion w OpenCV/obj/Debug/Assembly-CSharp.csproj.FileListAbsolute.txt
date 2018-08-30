@@ -1,2 +1,0 @@
-C:\Users\tutu5110\Documents\Research\Holoscreen\HoloscreenII\HoloscreenII\LeapMotion w OpenCV\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-C:\Users\tutu5110\Documents\Research\Holoscreen\Portalble_prealpha\HoloscreenII\HoloscreenII\LeapMotion w OpenCV\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
