@@ -12,7 +12,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 
 	// Web Socket for Unity
 	private WebSocketUnity webSocket;
-	public string websocketServer = "138.16.115.85";
+	public string websocketServer = "192.168.43.95";
 	public string websocketPort = "9999";
 	private string handinfo_l = "";
 	private string handinfo_r = "";
@@ -27,10 +27,12 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	private InputField websocketInputField;
 	// Use this for initialization
 	void Start () {
+		/*
 		InputHolder = GameObject.Find ("NodeServer");
 		websocketInputField = InputHolder.GetComponentInChildren<UnityEngine.UI.InputField> ();
 		websocketInputField.text = websocketServer;
 		websocketInputField.onEndEdit.AddListener(delegate { updateWebSocketServerInfo();});
+		*/
 	}
 	
 	// Update is called once per frame
@@ -46,6 +48,7 @@ public class WSManager : MonoBehaviour, WebSocketUnityDelegate {
 	public void OnEnable()
 	{
 		// Create web socket
+		Debug.Log ("Connecting");
 		string url = "ws://"+websocketServer + ":" + websocketPort;
 		webSocket = new WebSocketUnity(url, this);
 

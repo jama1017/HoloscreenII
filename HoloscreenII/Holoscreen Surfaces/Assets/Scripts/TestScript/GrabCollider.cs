@@ -12,6 +12,9 @@ public class GrabCollider : MonoBehaviour {
 	[Range(1.0f, 3.0f)]
 	private float ExpandScale = 1.2f;			// The scale that the collider will expand if it's entered.
 
+	private Material originMat;
+	public Material newMaterial;
+
 	private int LeftHandFingerIn = 0;		// How many left hand's fingers are in the collider right now.
 
 	private const int CHandFingerThreshold = 3;		// How many fingers in it can trigger a state switch.
@@ -42,6 +45,16 @@ public class GrabCollider : MonoBehaviour {
 			BindObject = transform.parent;
 		}
 
+		// set materials issues.
+		Renderer rdr = BindObject.GetComponent<Renderer> ();
+		if (rdr != null) {
+			originMat = rdr.material;
+		}
+		if (newMaterial != null) {
+			newMaterial.mainTexture = originMat.mainTexture;
+			newMaterial.color = originMat.color;
+		}
+
 		State = GRABCOLLIDER_STATE.TO_ENTER;
 		LeftHandFingerIn = 0;
 	}
@@ -67,7 +80,7 @@ public class GrabCollider : MonoBehaviour {
 				HandManager hm = other.transform.parent.parent.GetComponent<HandManager>();
 				if (hm != null && !hm.checkHandBusy()) {
 					// High light it
-					BindObject.GetComponent<Renderer>().material.color = Color.blue;
+					BindObject.GetComponent<Renderer>().material = newMaterial;
 					hm.setHandObject (BindObject.gameObject);
 				}
 			}
@@ -87,7 +100,7 @@ public class GrabCollider : MonoBehaviour {
 		if (State == GRABCOLLIDER_STATE.TO_EXIT && LeftHandFingerIn < CHandFingerThreshold) {
 			HandManager hm = GameObject.Find ("Hand_l").GetComponent<HandManager> ();
 			if (hm != null && !hm.IsGrabbing) {
-				BindObject.GetComponent<Renderer> ().material.color = Color.red;
+				BindObject.GetComponent<Renderer> ().material = originMat;
 				ReleaseSelf ();
 				SwitchToReadyEnter ();
 			}

@@ -43,7 +43,7 @@ public class Sync : MonoBehaviour {
 	//moving average filter
 	private Vector3[] queuePalm, queueIndex, queueThumb, queueHand;
 
-	private int smoothingBuffer = 13;
+	private int smoothingBuffer = 1;
 	private int smoothingBuffer_idx;
 
 	// Use this for initialization

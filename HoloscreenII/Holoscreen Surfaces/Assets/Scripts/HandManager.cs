@@ -45,7 +45,7 @@ public class HandManager : MonoBehaviour {
 	private int _handThrowingPowerMultiplier = 10;
 
 	//MA buffer
-	private int smoothingBuffer = 15;
+	private int smoothingBuffer = 1;
 	private int smoothingBuffer_idx = 0;
 	private Vector3[] objBuffer;
 
@@ -131,7 +131,7 @@ public class HandManager : MonoBehaviour {
 					if (is_grabbing) {
 						//then tell the object to release itself, Here support two version of interaction objects.
 						InteractionScriptObject iso = interact_obj.GetComponent<InteractionScriptObject> ();
-						if (iso != null) {
+						if (iso != null && iso.isActiveAndEnabled) {
 							iso.releaseSelf ();
 						}
 						else {
